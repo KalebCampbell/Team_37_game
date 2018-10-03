@@ -13,7 +13,6 @@ public abstract class Character {
 	
 	private int dirFacing;
 	
-
 	/** Method to get which direction a character is currently facing.
 	 * 
 	 * @return Direction character is facing.
