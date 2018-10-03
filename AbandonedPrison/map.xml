@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<map>
+	<wall id='1'>
+		<wallType>RightCorner</wallType>
+		<positionX>3</positionX>
+		<positionY>1</positionY>
+	</wall>
+	<wall id='2'>
+		<wallType>Straight</wallType>
+		<positionX>5</positionX>
+		<positionY>2</positionY>
+	</wall>
+</map>
