@@ -1,16 +1,16 @@
 package GameWorld;
 
-/** Abstractitem abstract class
+/** AbstractItem abstract class
  *  
  * 
  * @author Michael Vincent
  *
  */
 
-public abstract class AbstractItem implements Item{
-	private String itemName;
-	private String itemDescription;
-	private String itemImage;
+public abstract class AbstractItem{
+	protected String itemName;
+	protected String itemDescription;
+	protected String itemImage;
 	
 	/**
 	 * Constructor for creating an item.
@@ -24,29 +24,45 @@ public abstract class AbstractItem implements Item{
 		this.setItemDescription(itemImage);
 		this.setItemImage(itemDescription);	
 	}
-
-	public String getItemName() {
-		return itemName;
+	
+	
+	
+	// Common item functionality //
+	
+	public void pickUp() {
+	// Implementation for picking up an item
+		System.out.println("pickup");
 	}
-
+	public void placeItem() {
+	// Implementation for placing item on ground
+	}
+	
+	
+	
+	// Setters //
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
-	}
-
-	public String getItemDescription() {
-		return itemDescription;
 	}
 
 	public void setItemDescription(String itemDescription) {
 		this.itemDescription = itemDescription;
 	}
 
-	public String getItemImage() {
-		return itemImage;
-	}
-
 	public void setItemImage(String itemImage) {
 		this.itemImage = itemImage;
+	}
+	
+	// Getters //
+	public String getItemName() {
+		return this.itemName;
+	}
+	public String getItemDescription() {
+		return this.itemDescription;
+		
+	}
+	public String getItemImage() {
+		return this.itemImage;
+	
 	}
 
 }

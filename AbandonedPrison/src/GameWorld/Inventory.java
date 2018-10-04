@@ -14,11 +14,14 @@ public class Inventory {
 	public final int MAX_SIZE = 10;
 	
 	private Player player;
-	private List<Item> inventory = new ArrayList<Item>(MAX_SIZE);
+	private List<AbstractItem> inventory = new ArrayList<AbstractItem>(MAX_SIZE);
 	
+	/**
+	 * Constructor for Inventory
+	 * @param player
+	 */
 	public Inventory(Player player) {
-		this.setPlayer(player);
-		
+		this.setPlayer(player);	
 	}
 	
 	/**
@@ -31,6 +34,7 @@ public class Inventory {
 
 	/**
 	 * Part of constructor for setting the player in which the inventory belongs to
+	 * Allows for updates too.
 	 * @param player
 	 */
 	public void setPlayer(Player player) {
@@ -41,7 +45,7 @@ public class Inventory {
 	 * Getter for getting inventory.
 	 * @return List of items in inventory
 	 */
-	public List<Item> getInventory() {
+	public List<AbstractItem> getInventory() {
 		return inventory;
 	}
 
@@ -49,9 +53,9 @@ public class Inventory {
 	 * Adds item to inventory.
 	 * @param item
 	 */
-	public void addItemToInventory(Item item) {
+	public void addItemToInventory(AbstractItem item) {
 		if(item != null) {
-			inventory.add(item);
+			inventory.add( item);
 		}else {
 			//error
 		}	
@@ -61,7 +65,7 @@ public class Inventory {
 	 * Removes items from inventory if it exists.
 	 * @param item
 	 */
-	public void removeItemFromInventory(Item item) {
+	public void removeItemFromInventory(AbstractItem item) {
 		if(inventory.contains(item)) {
 			inventory.remove(item);
 		}else {

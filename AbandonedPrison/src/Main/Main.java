@@ -1,13 +1,13 @@
 package Main;
 
 import Application.GUI;
-import GameWorld.Game;
 
 public class Main {
 	
 	public static void main(String[] args) {
 	// ===========================================
 	// ===== Parse in command-line arguments =====
+	// ===== Optionally start from .exe or cmd====
 	// ===========================================
 	String fileName = null;
 	int timeLimit = 0;
@@ -32,7 +32,7 @@ public class Main {
 	
 	public static void startGame(){
 		GUI gui = new GUI();
-		//game.begin();
+		
 		
 		// Main game loop here?
 		

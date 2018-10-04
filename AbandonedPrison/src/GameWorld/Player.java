@@ -7,4 +7,7 @@ import java.util.List;
 public class Player extends Character{
 
 	private List<Collectable> inventory = new ArrayList<Collectable>();
+	
+	
+	
 }

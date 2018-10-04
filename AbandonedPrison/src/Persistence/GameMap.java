@@ -1,5 +1,9 @@
 package Persistence;
 
+import java.util.List;
+
+import GameWorld.MapComponent;
+
 // Michael Vincent
 
 // Parse everything from the XML file into easy to manage MapComponent objects
@@ -34,5 +38,9 @@ package Persistence;
 	// Basic checks that ensure that the game file is valid to be processed by GameWorld
 
 public class GameMap {
+
+	public List<MapComponent> getComponents() {
+		return null;
+	}
 
 }
