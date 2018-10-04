@@ -15,6 +15,7 @@ public class RoomComponent {
 	private int locX;
 	private int locY;
 	List<Integer> walls = new ArrayList<>();
+	List<ItemComponent> items = new ArrayList<>();
 	
 	public int getId() {
 		return id;
@@ -51,5 +52,13 @@ public class RoomComponent {
 	public void setWalls(List<Integer> walls) {
 		this.walls = walls;
 	}
+	public List<ItemComponent> getItems() {
+		return items;
+	}
+	@XmlElement
+	public void setItems(List<ItemComponent> items) {
+		this.items = items;
+	}
+	
 	
 }

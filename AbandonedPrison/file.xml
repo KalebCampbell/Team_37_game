@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<roomComponent id="0">
-    <hasPlayer>false</hasPlayer>
+<roomComponent id="1">
+    <hasPlayer>true</hasPlayer>
+    <items>
+        <item>Key</item>
+        <posX>0</posX>
+        <posY>0</posY>
+    </items>
     <locX>0</locX>
     <locY>0</locY>
     <walls>1</walls>
