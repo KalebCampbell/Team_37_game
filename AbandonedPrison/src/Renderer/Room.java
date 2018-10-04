@@ -1,3 +1,5 @@
+package Renderer;
+
 import java.util.ArrayList;
 
 public class Room {

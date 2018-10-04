@@ -1,3 +1,5 @@
+package Renderer;
+
 
 public abstract class Piece {
 
