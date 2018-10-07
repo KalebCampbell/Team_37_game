@@ -1,5 +1,3 @@
-package Renderer;
-
 import java.awt.Color;
 
 /**

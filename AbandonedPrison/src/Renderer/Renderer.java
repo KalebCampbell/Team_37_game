@@ -1,5 +1,3 @@
-package Renderer;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -83,9 +81,8 @@ public class Renderer {
 	public void createRoom() {
 		Floor floor = new Floor(meshes.get("floor").getCopy(), new Point3D(0, 0, 0));
 		Wall northWall = new Wall(meshes.get("frontwall").getCopy(), new Point3D(0, 0, 8));
-		Mesh mesh = meshes.get("sidewall").getCopy();
 		Wall eastWall = new Wall(meshes.get("sidewall").getCopy(), new Point3D(8, 0, 0));
-		Wall westWall = new Wall(mesh.getCopy(), new Point3D(-8, 0, 0));
+		Wall westWall = new Wall(meshes.get("sidewall").getCopy(), new Point3D(-8, 0, 0));
 		ArrayList<Wall> walls = new ArrayList<Wall>();
 		walls.add(northWall);
 		walls.add(eastWall);
@@ -139,12 +136,6 @@ public class Renderer {
 				polygons[i] = poly;
 			}
 			br.close();
-
-			for (int i = 0; i < polygons.length; i++) {
-				for (int j = 0; j < polygons.length; j++) {
-
-				}
-			}
 			return new Mesh(polygons);
 		} catch (IOException e) {
 			throw new RuntimeException("file reading failed.");
@@ -222,14 +213,6 @@ public class Renderer {
 						null));
 				g.fillPolygon(poly.xPoints3D(), poly.yPoints3D(), poly.npoints);
 			}
-			Item[][] items = room.getItems();
-			for (Polygon3D poly : items[0][0].getMesh().getPolygons()) {
-				if (!Pipeline.isHidden(poly)) {
-					g.setColor(Pipeline.getShading(poly, new float[] { light.getX(), light.getY(), light.getZ() }, null,
-							null));
-					g.fillPolygon(poly.xPoints3D(), poly.yPoints3D(), poly.npoints);
-				}
-			}
 		}
 	}
 
@@ -276,6 +259,10 @@ public class Renderer {
 
 		frame.pack();
 		frame.setVisible(true);
+	}
+	
+	public JFrame getDrawing() {
+		return frame;
 	}
 
 	public static void main(String[] args) {

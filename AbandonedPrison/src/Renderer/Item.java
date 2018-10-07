@@ -1,5 +1,3 @@
-package Renderer;
-
 
 public class Item extends Piece {
 	public Item(Mesh mesh, Point3D position) {

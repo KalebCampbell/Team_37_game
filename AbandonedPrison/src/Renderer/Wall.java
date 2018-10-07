@@ -1,5 +1,3 @@
-package Renderer;
-
 
 public class Wall extends Piece {
 	

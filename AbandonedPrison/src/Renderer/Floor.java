@@ -1,5 +1,3 @@
-package Renderer;
-
 
 public class Floor extends Piece {
 	public Floor(Mesh mesh, Point3D position) {
