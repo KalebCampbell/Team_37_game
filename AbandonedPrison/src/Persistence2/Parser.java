@@ -14,6 +14,7 @@ import Persistence.RoomComponent;
 public class Parser {
 	
 	List<RoomComponent> gm = new ArrayList<RoomComponent>();
+	List<PlayerComponent> playerInfo = new ArrayList<PlayerComponent>();
 
 
 	public static void main(String[] args) {
@@ -28,6 +29,9 @@ public class Parser {
 	
 	
 	public GameMap setup(File filename) {
+		
+		
+
 		
 		//makes a list which contains all the rooms
 		List<RoomComponent> rooms = new ArrayList<>();
@@ -88,7 +92,16 @@ public class Parser {
 		//by doing this multiple times seems to create multiple xml files? 
 		gm.add(xmlRooms(room2));
 		
-		return new GameMap(gm);
+		// NEEDS WORK
+		// parse x,y,name,inventory from XML file
+		// Create PlayerComponent object
+		//
+		
+		List<String> playerInv = new ArrayList<String>();
+		playerInv.add("itemTest");
+		PlayerComponent playerComp = new PlayerComponent(1, 2, "player1",playerInv);
+		
+		return new GameMap(gm,playerComp);
 	}
 	
 	

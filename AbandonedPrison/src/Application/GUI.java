@@ -22,8 +22,10 @@ public class GUI {
 		// Game game = new GameWorld.Game(Arguments) - Michael
 		// Connect to Gameworld.Game.begin - Michael
 		
-		// New game button?
+		// New game button
 		// Basic connection between Application -> Persistence
+		// Need to integrate this into A button in the GUI
+		// This is a temporary location
 		Parser parse = new Parser();
 		GameMap setup = parse.setup(new File("file.xml"));
 		Game game = new Game(setup);

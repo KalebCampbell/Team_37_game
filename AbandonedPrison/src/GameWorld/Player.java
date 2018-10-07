@@ -10,25 +10,25 @@ import java.util.List;
  */
 public class Player extends Character{
 
-	private List<AbstractItem> inventory = new ArrayList<AbstractItem>();
+	private Inventory inventory;
+	private String playerName;
+	private Location playerLocation;
 	
-	public Player(String playerName, Location playerLocation, Inventory inventory) {
-		setPlayerName(playerName);
-		setPlayerLocation(playerLocation);
-		setInventory(inventory);
-			
-	}
+	public Player(String name, Inventory inventory, Location playerLocation) {
+		this.playerName = name;
+		this.playerLocation = playerLocation;
+		this.inventory = inventory;
 
-	private void setInventory(Inventory inventory) {
-
-	}
-
-	private void setPlayerLocation(Location playerLocation) {
 		
 	}
 
-	private void setPlayerName(String playerName) {
-		
+	/**
+	 * Player logic for picking up an item
+	 * @param player
+	 * @param Item
+	 */
+	public boolean pickUpItem(Player player, AbstractItem item) {
+		return false;		
 	}
 	
 	

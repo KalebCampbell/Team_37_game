@@ -26,6 +26,7 @@ public class Inventory {
 	
 	/**
 	 * Get player that inventory belongs to
+	 * Used in testing cases mainly
 	 * @return player
 	 */
 	public Player getPlayer() {
@@ -51,13 +52,14 @@ public class Inventory {
 
 	/**
 	 * Adds item to inventory.
+	 * If Fails, give message.
 	 * @param item
 	 */
 	public void addItemToInventory(AbstractItem item) {
 		if(item != null) {
 			inventory.add( item);
 		}else {
-			//error
+			System.out.println("Unable to add "+item.getItemName()+" to inventory");
 		}	
 	}
 	
@@ -69,9 +71,19 @@ public class Inventory {
 		if(inventory.contains(item)) {
 			inventory.remove(item);
 		}else {
-			//error
-		}
-		
+			System.out.println("Unable to remove "+item.getItemName()+" to inventory");
+		}		
+	}
+	
+	/**
+	 * The parameters can change here.
+	 * The assumption is the user will select item in game world and it'll be "Found"
+	 * within the working game object.
+	 * @param itemName
+	 * @return boolean if item exists
+	 */
+	public boolean itemExistsInInventory(AbstractItem item) {
+		return inventory.contains(item);	
 	}
 	
 }

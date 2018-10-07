@@ -6,6 +6,7 @@ import java.util.List;
 import Persistence.ItemComponent;
 import Persistence.RoomComponent;
 import Persistence2.GameMap;
+import Persistence2.PlayerComponent;
 
 /**
  * Game class controls the creation of the game.
@@ -18,7 +19,6 @@ public class Game {
 	// Fields for storing the game components
 	List<RoomComponent> roomComponents = new ArrayList<RoomComponent>();
 	List<Room> roomList = new ArrayList<Room>();
-	List<AbstractItem> Item = new ArrayList<AbstractItem>();
 	Player player;
 	
 	/**
@@ -28,36 +28,13 @@ public class Game {
 	public Game(GameMap setup) {
 		// Null check
 		if(setup != null) {
-			// Intialise map
 			initialiseRoom(setup);
-			// Intialise player
-			//initialisePlayer(player);
-			// initialise Game State
-			//initialiseGameState();
+			this.player = initialisePlayer(setup);
+			
 		}else {
 			//error
 		}
 	}
-	
-	
-	/**
-	 * Game logic
-	 */
-	public boolean pickUpItem(AbstractItem item) {
-		item.pickUp();
-		
-		return false;
-		
-		
-		
-		
-	}
-	
-	
-	
-	
-	
-	
 	
 	
 	/**
@@ -72,11 +49,26 @@ public class Game {
 		
 	}
 	
-	private void initialisePlayer() {
+	private Player initialisePlayer(GameMap setup) {
 		// Responsible for setting up Player location (Default starting area vs loaded starting area)
 		// Player inventory intialised for use (What have they picked up so far from load state) (Nothing if default start)
+		PlayerComponent pc = setup.getPlayerInfo();
 		
-		// Player player = new Player(Location, Room, Inventory)
+		// interate over GetInventory and create inventory object
+		Inventory inventory = initialiseInventory(pc.getInventory());
+
+		return new Player(pc.getName(), inventory, (new Location(pc.getPosX(),pc.getPosY())));
+				 
+	}
+	
+	private Inventory initialiseInventory(List<String> inventory) {
+		for(String s : inventory) {
+			// Pull each item in inventory String arraylist out
+			// Create a new item
+			// Build inventory 
+		}
+		return null; // null atm
+		
 	}
 	
 	private void initialiseGameState() {
@@ -94,8 +86,6 @@ public class Game {
 		
 		for(RoomComponent rc : setup.getRooms()) {
 			
-			//if(rc.getHasPlayer()) { Player player = new Player // get player if found in room
-
 				// This need to not be Integers (N,W,S,E) 1,2,3,4 makes very little sense.
 				List<Integer> walls = new ArrayList<Integer>();
 				walls = rc.getWalls();

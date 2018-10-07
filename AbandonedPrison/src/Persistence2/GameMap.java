@@ -43,13 +43,18 @@ import Persistence.RoomComponent;
 
 public class GameMap {
 	List<RoomComponent> rooms = new ArrayList<RoomComponent>();
+	PlayerComponent player;
 
-	public GameMap(List<RoomComponent> gm) {
+	public GameMap(List<RoomComponent> gm, PlayerComponent playerComp) {
 		this.rooms = gm;
+		this.player = playerComp;
 	}
 	
 	public List<RoomComponent> getRooms() {
 		return rooms;
+	}
+	public PlayerComponent getPlayerInfo(){
+		return player;
 	}
 
 }

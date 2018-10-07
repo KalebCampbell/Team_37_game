@@ -39,6 +39,7 @@ public abstract class AbstractItem{
 	}
 	public void placeItem() {
 	// Implementation for placing item on ground
+		System.out.println("placeItem");
 	}
 	
 	public void useItem() {
