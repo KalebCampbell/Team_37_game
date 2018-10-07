@@ -39,8 +39,6 @@ public class Main {
 	}
 	
 	
-	
-	
 	// Map argument
 	
 	

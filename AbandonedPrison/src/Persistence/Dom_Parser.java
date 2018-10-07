@@ -9,16 +9,22 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 public class Dom_Parser {
-
+	
+	List<RoomComponent> gm = new ArrayList<RoomComponent>();
 
 
 	public static void main(String[] args) {
 		
-		
-		setup();
+		Dom_Parser dom = new Dom_Parser();
+		dom.setup(new File("file.xml"));
+	}
+	
+	public Dom_Parser() {
 		
 	}
-	public static void setup() {
+	
+	
+	public GameMap setup(File filename) {
 		
 		//makes a list which contains all the rooms
 		List<RoomComponent> rooms = new ArrayList<>();
@@ -47,10 +53,20 @@ public class Dom_Parser {
 		room.setItems(items);
 		
 		rooms.add(room);
-		xmlRooms(room);
+		gm.add(xmlRooms(room));
 		
 		//second room example // whats a better way of doing this? 
 		//making a make a room method with the values needed ?
+		
+		// =======
+		// Michael Vincent
+		// You could just make a constructor in RoomComponent i.e: 	
+		// public RoomComponent(int ID, int locX, int locY, boolean hasPlayer){ }
+		
+		// Then create the rooms as the parser finds the <Specific Tag> in the XML
+		// loop over XML -> if (<RoomTag>){ -> read the lines one by one and build a new RoomComponent object
+		// =======
+		
 		RoomComponent room2  = new RoomComponent();
 		room2.setId(1);
 		room2.setLocX(0);
@@ -67,13 +83,15 @@ public class Dom_Parser {
 		
 		rooms.add(room2);
 		//by doing this multiple times seems to create multiple xml files? 
-		xmlRooms(room2);
+		gm.add(xmlRooms(room2));
+		
+		return new GameMap(gm);
 	}
 	
 	
 	
 	
-	public static void xmlRooms(RoomComponent room) {
+	public RoomComponent xmlRooms(RoomComponent room) {
 		try {
 			File file = new File("file.xml");
 			//need to change this to take in an arraylist of objects so it adds them into one file.
@@ -91,12 +109,15 @@ public class Dom_Parser {
 			System.out.println("id: " + loadRoom.getId() + " location:(" + loadRoom.getLocX() + "," + loadRoom.getLocY()
 			+ ") Player: " + loadRoom.getHasPlayer());
 			//example of code to start the connection between persistance and gameworld
+			// Communication is between Persistence and Application. - Michael
 			if(loadRoom.getHasPlayer() == true) {
-				
+				return loadRoom;
 			}
+
 			
 		 } catch (JAXBException e) {
 				e.printStackTrace();
 		 	}
+		return null;	
 	}
 }

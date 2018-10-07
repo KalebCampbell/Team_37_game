@@ -1,8 +1,7 @@
 package Persistence;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import GameWorld.MapComponent;
 
 // Michael Vincent
 
@@ -37,10 +36,18 @@ import GameWorld.MapComponent;
 	// Checks things like, room doesn't have 5 walls or 5 doors
 	// Basic checks that ensure that the game file is valid to be processed by GameWorld
 
-public class GameMap {
 
-	public List<MapComponent> getComponents() {
-		return null;
+
+
+public class GameMap {
+	List<RoomComponent> rooms = new ArrayList<RoomComponent>();
+
+	public GameMap(List<RoomComponent> gm) {
+		this.rooms = gm;
+	}
+	
+	public List<RoomComponent> getRooms() {
+		return rooms;
 	}
 
 }

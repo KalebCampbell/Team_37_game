@@ -100,6 +100,7 @@ public class Renderer {
 		meshes.put("sidewall", loadMesh(new File("sidewall.txt")));
 		meshes.put("floor", loadMesh(new File("floor.txt")));
 		meshes.put("key", loadMesh(new File("key.txt")));
+		// new File("src/Renderer/floor.txt");
 	}
 
 	/**

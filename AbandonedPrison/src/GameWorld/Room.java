@@ -6,7 +6,7 @@ import java.util.List;
 public class Room {
 	
 	private int roomID;
-	private List<Wall> walls = new ArrayList <Wall>();	// Maybe change to map Map<Cardinal, Boolean> walls; (walls.add(new Cardinal("NORTH"),True)
+	private List<Integer> walls = new ArrayList <Integer>();	// Maybe change to map Map<Cardinal, Boolean> walls; (walls.add(new Cardinal("NORTH"),True)
 	private List<AbstractItem> items = new ArrayList <AbstractItem>();
 	private Location location;
 	
@@ -17,14 +17,15 @@ public class Room {
 	 * @param walls List of all walls in the room
 	 * 
 	 */
-	public Room (int roomID, List<Wall> walls, Location loc, AbstractItem roomObjects){
+	public Room (int roomID, List<Integer> walls, Location loc, List<AbstractItem> aitems){
 		this.setRoomID(roomID);
 		this.setWalls(walls);
 		this.setLocation(loc);
-		this.setRoomObject(roomObjects);		
+		this.setRoomObject(aitems);		
 	}
 	
-	private void setWalls(List<Wall> walls) {	
+	private void setWalls(List<Integer> walls) {
+		this.walls = walls;
 	}
 
 	// Rooms //
@@ -36,7 +37,8 @@ public class Room {
 		this.roomID = id;
 	}
 	
-	private void setRoomObject(AbstractItem roomObjects) {
+	private void setRoomObject(List<AbstractItem> aitems) {
+		this.items = aitems;
 	}
 	
 	// Items //

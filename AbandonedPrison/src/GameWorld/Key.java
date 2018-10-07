@@ -1,17 +1,24 @@
 package GameWorld;
 
+/**Implemtation of a Key class that extends the AbstractItem
+ * By extending the Abstract Item, we can use specialised method in the Key class
+ * and use generic/common methods of it's super class.
+ * 
+ * @author Michael Vincent
+ *
+ */
 public class Key extends AbstractItem{
 	
-	public Key(String keyName, String keyImage, String keyDescription) {
-		super(keyName,keyImage,keyDescription);	
+	public Key(String keyName, String keyImage, String keyDescription, Location keyLocation) {
+		super(keyName,keyImage,keyDescription, keyLocation);	
 	}
 	
 	/**
-	 * own implementation of the lock method
+	 * Iwn implementation of the lock method
 	 * @return boolean
 	 */
 	public boolean lock() {
-		System.out.println("Key unlock");
+		System.out.println("Key lock");
 		return false;
 	}
 

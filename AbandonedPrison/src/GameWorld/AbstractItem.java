@@ -11,6 +11,7 @@ public abstract class AbstractItem{
 	protected String itemName;
 	protected String itemDescription;
 	protected String itemImage;
+	protected Location itemLocation;
 	
 	/**
 	 * Constructor for creating an item.
@@ -19,14 +20,17 @@ public abstract class AbstractItem{
 	 * @param itemImage name of item image file name
 	 * @param itemDescription description of item
 	 */
-	public AbstractItem(String itemName,String itemImage, String itemDescription) {
+	public AbstractItem(String itemName,String itemImage, String itemDescription, Location itemLocation) {
 		this.setItemName(itemName);
 		this.setItemDescription(itemImage);
 		this.setItemImage(itemDescription);	
+		this.setItemLocation(itemLocation);
 	}
 	
-	
-	
+	private void setItemLocation(Location itemLocation) {
+		this.itemLocation = itemLocation;
+	}
+
 	// Common item functionality //
 	
 	public void pickUp() {
@@ -37,6 +41,15 @@ public abstract class AbstractItem{
 	// Implementation for placing item on ground
 	}
 	
+	public void useItem() {
+		// Implementation for using generic item (Key & Keycard have own implementation SHOULD be overridden)
+	}
+	public void placeIn() {
+		// Implementation for placing item into a container
+	}
+	public void takeOut() {
+		// Implementation for taking item out of a container
+	}
 	
 	
 	// Setters //
