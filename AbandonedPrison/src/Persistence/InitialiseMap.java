@@ -7,11 +7,13 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class InitialiseMap {
 		
+	
 	static RoomsComponent mapRooms = new RoomsComponent();
 	static {
 		mapRooms.setRooms(new ArrayList<RoomComponent>());
@@ -56,6 +58,10 @@ public class InitialiseMap {
 	}
 	public static void main(String[] args) throws JAXBException{
 		toXml();
+		
+		//tidy this up? 
+		LoadXml load = new LoadXml();
+		load.unMarshal();
 	}
 	private static void toXml()  throws JAXBException{
 		
@@ -65,6 +71,6 @@ public class InitialiseMap {
 	    jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 	    
 	    jaxbMarshaller.marshal(mapRooms, System.out);
-	    jaxbMarshaller.marshal(mapRooms, new File("employees.xml"));
+	    jaxbMarshaller.marshal(mapRooms, new File("StartingMap.xml"));
 	}
 }
