@@ -15,6 +15,7 @@ import Persistence.RoomComponent;
  */
 public class Game {
 	
+	// Fields for storing the game components
 	List<RoomComponent> roomComponents = new ArrayList<RoomComponent>();
 	List<Room> roomList = new ArrayList<Room>();
 	List<AbstractItem> Item = new ArrayList<AbstractItem>();
@@ -32,7 +33,7 @@ public class Game {
 			// Intialise player
 			//initialisePlayer(player);
 			// initialise Game State
-			initialiseGameState();
+			//initialiseGameState();
 		}else {
 			//error
 		}
@@ -66,23 +67,23 @@ public class Game {
 	}
 	public void initialiseRoom(GameMap setup){
 		
-		// Iterate over components of the Map
-		// Add rooms to roomList
-		// Find map components and make game objects out of them.
-		
+		// Iterate over components of the GameMap
+		// Find map components and adds them to 	
 		
 		for(RoomComponent rc : setup.getRooms()) {
 			
 			//if(rc.getHasPlayer()) { Player player = new Player // get player if found in room
 
-				// Loop through all walls and create wall objects (Maybe unneeded)
+				// This need to not be Integers (N,W,S,E) 1,2,3,4 makes very little sense.
 				List<Integer> walls = new ArrayList<Integer>();
 				walls = rc.getWalls();
 				
-				// Loop through all items and create abstract items
+				// Loop through all items and create items based on what they are.
 				List<AbstractItem> aitems = new ArrayList<AbstractItem>();
 				for(ItemComponent ic : rc.getItems()) {	// mc.GetRoomObjects() should return an arraylist
 					if(ic.getItem().equals("Key")) { // If it's a key
+					// Need to have information about the key in the XML File.
+					// KeyID, KeyName, KeyDescription, Image to use			
 					aitems.add(new Key("Key1", "keyImage", "Description of key1" , new Location(ic.getPosX(),ic.getPosY())));		
 				}
 				
@@ -96,10 +97,8 @@ public class Game {
 				
 				Room r = new Room(roomId, walls, location, aitems);
 				roomList.add(r);
-				//Other MapComponents
-				// DOOR
-				// WINDOW
-				// 
+
+				
 			}
 		}
 
