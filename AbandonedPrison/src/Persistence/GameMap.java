@@ -2,8 +2,6 @@ package Persistence;
 
 import java.util.List;
 
-import GameWorld.MapComponent;
-
 // Michael Vincent
 
 // Parse everything from the XML file into easy to manage MapComponent objects
@@ -39,8 +37,8 @@ import GameWorld.MapComponent;
 
 public class GameMap {
 
-	public List<MapComponent> getComponents() {
-		return null;
-	}
+	//public List<MapComponent> getComponents() {
+	//	return null;
+	//}
 
 }
