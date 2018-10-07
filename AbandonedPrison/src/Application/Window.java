@@ -1,6 +1,7 @@
 package Application;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class Window extends JFrame {
 	 */
 	public static final int CANVAS_HEIGHT = 600;
 	
-	private Color background = new Color(46, 47, 48);
+	private Color background = new Color(58, 58, 58);
 	
 	//reference to a renderer object
 	
@@ -69,8 +70,8 @@ public class Window extends JFrame {
 		this.setLayout(null);
 		
 		//use this to change the background later on
-//		Container c = this.getContentPane();
-//		c.setBackground(Color.red);
+		Container c = this.getContentPane();
+		c.setBackground(background);
 		
 	//-------COMPONENTS--------
 		
@@ -89,10 +90,12 @@ public class Window extends JFrame {
 		this.add(canvas);
 		
 		//menu
-		JMenuBar menubar = new JMenuBar();
+		ColoredMenu menubar = new ColoredMenu();
 		//tabs
-		JMenu mainMenu = new JMenu("Menu");
+		JMenu mainMenu = new JMenu("File");
 		JMenu help = new JMenu("Help");
+		help.setOpaque(true);
+		help.setForeground(Color.BLACK);
 		//menu items
 		JMenuItem exit, save, load, newGame;
 		save = mainMenu.add("Save");
@@ -108,11 +111,12 @@ public class Window extends JFrame {
 		//inventory panel
 		GridLayout grid = new GridLayout(6,1);
 		grid.setHgap(10);
-		JPanel inven = new JPanel();
+		TexturedPanel inven = new TexturedPanel();
 		inven.setBounds(610, 10, 80, 590);
 		inven.setBackground(Color.LIGHT_GRAY);
-		Border blackline = BorderFactory.createLineBorder(Color.GRAY);
+		Border blackline = BorderFactory.createLineBorder(Color.WHITE);
 		TitledBorder border = BorderFactory.createTitledBorder(blackline, "Inventory");
+		border.setTitleColor(Color.BLACK);
 		border.setTitleJustification(TitledBorder.CENTER);
 		inven.setBorder(border);
 		//inventory slots
@@ -131,6 +135,7 @@ public class Window extends JFrame {
 		
 		//movement buttons
 		JPanel move = new JPanel();
+		move.setBackground(background);
 		move.setLayout(new GridLayout(2,3));
 		move.setBounds(10, 610, width/3, 100);	
 		//invisible buttons to arrange the grid 
@@ -146,12 +151,12 @@ public class Window extends JFrame {
 		this.add(move);
 		
 		//text output area
-		
-		
 		JTextArea output = new JTextArea(30,20);
-		output.setBackground(this.getBackground());
+		output.setBackground(background);
+		output.setForeground(Color.white);
 		Border etched = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 		TitledBorder outputBorder = BorderFactory.createTitledBorder(etched, "Game output");
+		outputBorder.setTitleColor(Color.white);
 		outputBorder.setTitleJustification(TitledBorder.CENTER);
 		output.setBorder(outputBorder);
 		output.setBounds(20+width/3, 608, 440, 102);
