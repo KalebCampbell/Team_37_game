@@ -33,12 +33,24 @@ public class GUI {
 	private JButton east;
 	private JButton north;
 	private JButton south;
-	private JButton room;
-	private JButton door;
+	private JButton rightroom;
+	private JButton leftroom;
+	private JButton toproom;
+	private JButton downroom;
+	private JButton leftdoor;
+	private JButton rightdoor;
+	private JButton topdoor;
+	private JButton downdoor;
 	private JButton key;
 	private JButton wall;
+	private JButton rightwall;
+	private JButton topwall;
+	private JButton downwall;
 	boolean roomExist=false;
 	private ArrayList<Room> rooms=new ArrayList<Room>();
+	private ArrayList<Door> doors=new ArrayList<Door>();
+	private ArrayList<Wall> walls=new ArrayList<Wall>();
+
 	/**
 	 * Width of the canvas.
 	 */
@@ -52,8 +64,8 @@ public class GUI {
 	
 	private static final Dimension DRAWING_SIZE = new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT);
 	private static final Dimension CONTROLS_SIZE = new Dimension(150, 600);
-	int x1=10;
-	int y1=10;
+	int x1=265;
+	int y1=290;
 	
 	/**
 	 * GUI constructor.
@@ -71,19 +83,12 @@ public class GUI {
 		for(Room room : rooms) {
 			room.draw(g);
 		}
-	}
-	
-	private void roomRender(Graphics g) {
-		
-	}
-	private void doorRender() {
-		
-	}
-	private void wallRender() {
-		
-	}
-	private void keyRender() {
-		
+		for(Door door : doors) {
+			door.draw(g);
+		}
+		for(Wall wall : walls) {
+			wall.draw(g);
+		}
 	}
 	
 	/**
@@ -119,57 +124,185 @@ public class GUI {
 		drawing.setMaximumSize(DRAWING_SIZE);
 		drawing.setVisible(true);
 		
-		room=new JButton("Room");
-		room.addActionListener(new ActionListener() {
+		rightroom=new JButton("rightRoom");
+		rightroom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
-				Room room1=new Room(x1,y1,10,10);
 				x1=x1+25;
 				if(x1>CANVAS_WIDTH-25) {
 					y1=y1+25;
 					x1=0;
 				}
-				rooms.add(room1);
+				else {
+					Room room1=new Room(x1,y1,10,10);
+					rooms.add(room1);
+				}
+				
 				
 			}
 		});
-		door=new JButton("Door");
-		door.addActionListener(new ActionListener() {
+		leftroom=new JButton("leftRoom");
+		leftroom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
-				// add key to the current room
-				doorRender();
+				x1=x1-25;
+				if(x1<0) {
+					System.out.print("no empty space");
+				}
+				else {
+					Room room1=new Room(x1,y1,10,10);
+					rooms.add(room1);
+				}
 			}
 		});
-		wall=new JButton("wall");
+		toproom=new JButton("topRoom");
+		toproom.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				y1=y1-25;
+				if(y1<0) {
+					System.out.print("no empty space");
+				}
+				else {
+					Room room1=new Room(x1,y1,10,10);
+					rooms.add(room1);
+				}
+			}
+		});
+		downroom=new JButton("downRoom");
+		downroom.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				y1=y1+25;
+				if(y1<0) {
+					System.out.print("no empty space");
+				}
+				else {
+					Room room1=new Room(x1,y1,10,10);
+					rooms.add(room1);
+				}
+			}
+		});
+		leftdoor=new JButton("leftDoor");
+		leftdoor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				// add key to the current room
+				Door door1=new Door(x1,y1,2,20);
+				doors.add(door1);
+			}
+		});
+		rightdoor=new JButton("rightDoor");
+		rightdoor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				// add key to the current room
+				Door door1=new Door(x1+20,y1,2,20);
+				doors.add(door1);
+			}
+		});
+		topdoor=new JButton("topDoor");
+		topdoor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				// add key to the current room
+				Door door1=new Door(x1,y1,20,2);
+				doors.add(door1);
+			}
+		});
+		downdoor=new JButton("downDoor");
+		downdoor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				// add key to the current room
+				Door door1=new Door(x1,y1+20,20,2);
+				doors.add(door1);
+			}
+		});
+		wall=new JButton("leftwall");
 		wall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				// add key to the current room
-				wallRender();
+				Wall wall1=new Wall(x1,y1,2,20);
+				walls.add(wall1);
+			}
+		});
+		rightwall=new JButton("rightwall");
+		rightwall.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				// add key to the current room
+				Wall wall1=new Wall(x1+20,y1,2,20);
+				walls.add(wall1);
+			}
+		});
+		topwall=new JButton("topwall");
+		topwall.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				// add key to the current room
+				Wall wall1=new Wall(x1,y1,20,2);
+				walls.add(wall1);
+			}
+		});
+		downwall=new JButton("downwall");
+		downwall.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				// add key to the current room
+				Wall wall1=new Wall(x1,y1+20,20,2);
+				walls.add(wall1);
 			}
 		});
 		key=new JButton("key");
 		key.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				// add key to the current room
-				keyRender();
+				
 			}
 		});
 		
 		JPanel roompanel = new JPanel(new BorderLayout());
 		roompanel.setMaximumSize(new Dimension(1000, 25));
 		roompanel.setPreferredSize(new Dimension(1000, 25));
+		JPanel lroompanel = new JPanel(new BorderLayout());
+		lroompanel.setMaximumSize(new Dimension(1000, 25));
+		lroompanel.setPreferredSize(new Dimension(1000, 25));
+		JPanel troompanel = new JPanel(new BorderLayout());
+		troompanel.setMaximumSize(new Dimension(1000, 25));
+		troompanel.setPreferredSize(new Dimension(1000, 25));
+		JPanel droompanel = new JPanel(new BorderLayout());
+		droompanel.setMaximumSize(new Dimension(1000, 25));
+		droompanel.setPreferredSize(new Dimension(1000, 25));
 		JPanel doorpanel = new JPanel(new BorderLayout());
 		doorpanel.setMaximumSize(new Dimension(1000, 25));
 		doorpanel.setPreferredSize(new Dimension(1000, 25));
+		JPanel rdoorpanel = new JPanel(new BorderLayout());
+		rdoorpanel.setMaximumSize(new Dimension(1000, 25));
+		rdoorpanel.setPreferredSize(new Dimension(1000, 25));
+		JPanel tdoorpanel = new JPanel(new BorderLayout());
+		tdoorpanel.setMaximumSize(new Dimension(1000, 25));
+		tdoorpanel.setPreferredSize(new Dimension(1000, 25));
+		JPanel ddoorpanel = new JPanel(new BorderLayout());
+		ddoorpanel.setMaximumSize(new Dimension(1000, 25));
+		ddoorpanel.setPreferredSize(new Dimension(1000, 25));
 		JPanel wallpanel = new JPanel(new BorderLayout());
 		wallpanel.setMaximumSize(new Dimension(1000, 25));
 		wallpanel.setPreferredSize(new Dimension(1000, 25));
+		JPanel rwallpanel = new JPanel(new BorderLayout());
+		rwallpanel.setMaximumSize(new Dimension(1000, 25));
+		rwallpanel.setPreferredSize(new Dimension(1000, 25));
+		JPanel twallpanel = new JPanel(new BorderLayout());
+		twallpanel.setMaximumSize(new Dimension(1000, 25));
+		twallpanel.setPreferredSize(new Dimension(1000, 25));
+		JPanel dwallpanel = new JPanel(new BorderLayout());
+		dwallpanel.setMaximumSize(new Dimension(1000, 25));
+		dwallpanel.setPreferredSize(new Dimension(1000, 25));
 		JPanel keypanel = new JPanel(new BorderLayout());
 		keypanel.setMaximumSize(new Dimension(1000, 25));
 		keypanel.setPreferredSize(new Dimension(1000, 25));
-		roompanel.add(room, BorderLayout.CENTER);
+		roompanel.add(rightroom, BorderLayout.CENTER);
+		lroompanel.add(leftroom, BorderLayout.CENTER);
+		troompanel.add(toproom, BorderLayout.CENTER);
+		droompanel.add(downroom, BorderLayout.CENTER);
 		wallpanel.add(wall, BorderLayout.CENTER);
+		rwallpanel.add(rightwall, BorderLayout.CENTER);
+		twallpanel.add(topwall, BorderLayout.CENTER);
+		dwallpanel.add(downwall, BorderLayout.CENTER);
 		keypanel.add(key, BorderLayout.CENTER);
-		doorpanel.add(door, BorderLayout.CENTER);
+		doorpanel.add(leftdoor, BorderLayout.CENTER);
+		rdoorpanel.add(rightdoor, BorderLayout.CENTER);
+		tdoorpanel.add(topdoor, BorderLayout.CENTER);
+		ddoorpanel.add(downdoor, BorderLayout.CENTER);
 
 		// make the panel on the right, fix its size, give it a border!
 		JPanel controls = new JPanel();
@@ -180,8 +313,17 @@ public class GUI {
 		Border edge = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 		controls.setBorder(edge);
 		controls.add(roompanel);
+		controls.add(lroompanel);
+		controls.add(troompanel);
+		controls.add(droompanel);
 		controls.add(doorpanel);
+		controls.add(rdoorpanel);
+		controls.add(tdoorpanel);
+		controls.add(ddoorpanel);
 		controls.add(wallpanel);
+		controls.add(rwallpanel);
+		controls.add(twallpanel);
+		controls.add(dwallpanel);
 		controls.add(keypanel);
 		controls.add(Box.createRigidArea(new Dimension(0, 15)));
 		// if i were going to add more GUI components, i'd do it here.
