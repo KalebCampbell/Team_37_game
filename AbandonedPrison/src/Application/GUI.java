@@ -1,10 +1,15 @@
 package Application;
 
 import java.io.File;
+import java.io.IOException;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 import GameWorld.Game;
 import Persistence2.GameMap;
-import Persistence2.Parser;
+import Persistence2.Parser2;
 
 public class GUI {
 	
@@ -19,16 +24,21 @@ public class GUI {
 	}
 
 	public void init() {
-		// Game game = new GameWorld.Game(Arguments) - Michael
-		// Connect to Gameworld.Game.begin - Michael
 		
-		// New game button
-		// Basic connection between Application -> Persistence
-		// Need to integrate this into A button in the GUI
-		// This is a temporary location
-		Parser parse = new Parser();
-		GameMap setup = parse.setup(new File("file.xml"));
-		Game game = new Game(setup);
+		Parser2 parse = new Parser2();
+		GameMap setup = null;
+		try {
+			setup = parse.setup("map.xml");
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("MAP PARSING DONE");
+		System.out.println("CREATING GAME WORLD");
+		//Game game = new Game(setup);
 		
 	}
 	

@@ -1,5 +1,10 @@
 package GameWorld;
 
+/** Combines x,y into a single object.
+ * 
+ * @author Michael Vincent
+ *
+ */
 public class Location {
 	
 	private int x;

@@ -49,9 +49,13 @@ public class Game {
 		
 	}
 	
+	/** Responsible for setting up Player location (Default starting area vs loaded starting area)
+	 *  Player inventory intialised for use (What have they picked up so far from load state) (Nothing if default start)
+	 * 
+	 * @param setup
+	 * @return
+	 */
 	private Player initialisePlayer(GameMap setup) {
-		// Responsible for setting up Player location (Default starting area vs loaded starting area)
-		// Player inventory intialised for use (What have they picked up so far from load state) (Nothing if default start)
 		PlayerComponent pc = setup.getPlayerInfo();
 		
 		// interate over GetInventory and create inventory object
