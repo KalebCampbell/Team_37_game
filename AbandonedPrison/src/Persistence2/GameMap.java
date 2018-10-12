@@ -9,11 +9,11 @@ import Persistence.RoomComponent;
 
 public class GameMap {
 	List<Persistence2.RoomComponent> rooms = new ArrayList<Persistence2.RoomComponent>();
-	List<InventoryComponent> inventory = new ArrayList<InventoryComponent>();
+	List<String> inventory = new ArrayList<String>();
 	PlayerComponent player;
 
 	
-	public GameMap(List<Persistence2.RoomComponent> rooms2, List<InventoryComponent> inventory, PlayerComponent player) {
+	public GameMap(List<Persistence2.RoomComponent> rooms2, List<String> inventory, PlayerComponent player) {
 		this.rooms = rooms2;
 		this.inventory = inventory;
 		this.player = player;
@@ -23,7 +23,7 @@ public class GameMap {
 		return rooms;
 	}
 	
-	public List<InventoryComponent> getInventory() {
+	public List<String> getInventory() {
 		return inventory;
 	}
 	

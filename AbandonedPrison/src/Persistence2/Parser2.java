@@ -17,7 +17,7 @@ import org.xml.sax.SAXException;
 public class Parser2{
 	
 	List<RoomComponent> rooms = new ArrayList<RoomComponent>();
-	List<InventoryComponent> inventory = new ArrayList<InventoryComponent>();
+	List<String> inventory = new ArrayList<String>();
 	private PlayerComponent player;
 	
 	public Parser2(){
@@ -81,10 +81,25 @@ public class Parser2{
 		                	String slot1 = el.getElementsByTagName("slot1").item(0).getTextContent();
 		                	String slot2 = el.getElementsByTagName("slot2").item(0).getTextContent();
 		                	String slot3 = el.getElementsByTagName("slot3").item(0).getTextContent();
+		                	String slot4 = el.getElementsByTagName("slot4").item(0).getTextContent();
+		                	String slot5 = el.getElementsByTagName("slot5").item(0).getTextContent();
+		                	String slot6 = el.getElementsByTagName("slot6").item(0).getTextContent();
+		                	String slot7 = el.getElementsByTagName("slot7").item(0).getTextContent();
+		                	String slot8 = el.getElementsByTagName("slot8").item(0).getTextContent();
+		                	
+		                	
 	                    // CREATE INVENTORY
-	                    InventoryComponent ic = new InventoryComponent(slot1,slot2,slot3);
-	                    // ADD INVENTORY
-	                    inventory.add(ic);
+		                	ArrayList<String> inventorySlots = new ArrayList<String>();
+		                	  // ADD TO INVENTORY
+		                	inventorySlots.add(slot1);
+		                	inventorySlots.add(slot2);
+		                	inventorySlots.add(slot3);
+		                	inventorySlots.add(slot4);
+		                	inventorySlots.add(slot5);
+		                	inventorySlots.add(slot6);
+		                	inventorySlots.add(slot7);
+		                	inventorySlots.add(slot8);
+		                	this.inventory = inventorySlots;
 		                }
 		            }
 		        }

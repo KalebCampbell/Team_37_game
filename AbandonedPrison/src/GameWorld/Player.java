@@ -1,34 +1,50 @@
 package GameWorld;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 /**
  * Basic creation of player, nothing added yet.
  * @author Michael Vincent
  *
  */
-public class Player extends Character{
+public class Player {
 
+	private int id;
+	private String name;
+	private Location location; // Location inside room
+	private int roomId;
 	private Inventory inventory;
-	private String playerName;
-	private Location playerLocation;
 	
-	public Player(String name, Inventory inventory, Location playerLocation) {
-		this.playerName = name;
-		this.playerLocation = playerLocation;
-		this.inventory = inventory;
-
-		
+	public Player(int id, String name, int roomId, Location location) {
+		this.id = id;
+		this.name = name;
+		this.roomId = roomId;
+		this.location = location;
 	}
 
-	/**
-	 * Player logic for picking up an item
-	 * @param player
-	 * @param Item
-	 */
-	public boolean pickUpItem(Player player, AbstractItem item) {
-		return false;		
+	
+	
+	// SETTERS //
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
+	}
+
+	// GETTERS //
+	public int getPlayerId() {
+		return id;
+	}
+	
+	public String getPlayerName() {
+		return name;	
+	}
+	public Location getPlayerLocation() {
+		return location;
+	}
+	
+	public int getRoomId() {
+		return roomId;
+	}
+	
+	public Inventory getInventory() {
+		return inventory;
 	}
 	
 	

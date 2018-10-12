@@ -1,5 +1,7 @@
 package Persistence2;
 
+import GameWorld.Location;
+
 public class PlayerComponent {
 
 	private String id;
@@ -12,6 +14,26 @@ public class PlayerComponent {
 		this.roomid = roomid;
 		this.name = name;
 		this.location = location;
+	}
+
+	public String getId() {
+		return id;		
+	}
+
+	public String getName() {
+		return name;
+	}
+	
+	public String getRoomId() {
+		return roomid;
+	}
+
+	public Location getLocation() {
+		
+		String[] arr = this.location.split(",");	
+		int x =Integer.parseInt(arr[0]);
+		int y = Integer.parseInt(arr[1]);
+		return new Location(x,y);
 	}
 
 }

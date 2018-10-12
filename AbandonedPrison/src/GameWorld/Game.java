@@ -6,6 +6,7 @@ import java.util.List;
 import Persistence.ItemComponent;
 import Persistence.RoomComponent;
 import Persistence2.GameMap;
+import Persistence2.InventoryComponent;
 import Persistence2.PlayerComponent;
 
 /**
@@ -28,52 +29,65 @@ public class Game {
 	public Game(GameMap setup) {
 		// Null check
 		if(setup != null) {
-			initialiseRoom(setup);
+			// Player setup
 			this.player = initialisePlayer(setup);
+			// Inventory setup
+			this.player.setInventory(initialiseInventory(setup));
+			// Creates rooms & map setup
+			initialiseMap(setup);
 			
 		}else {
-			//error
+			System.out.println("GameMap is empty");
 		}
 	}
-	
 	
 	/**
 	 * Initialises the Map, building all the rooms.
 	 * Created rooms, from a parsed XML file
 	 * @param roomComponents
 	 */
-	public void initialiseMap(List<RoomComponent> roomComponents) {
-		// gameMap should give me access to ArrayList<MapComponent> components
-		// Placeholder names until I find out how XML file is parsed.	
-		//roomComponents = roomComponents.getComponents();	// Get all components	
+	public void initialiseMap(GameMap setup) {
+		for(Persistence2.RoomComponent rc : setup.getRooms()) {
+			
+			Location loc = rc.getLocation();
+		}
 		
 	}
 	
-	/** Responsible for setting up Player location (Default starting area vs loaded starting area)
-	 *  Player inventory intialised for use (What have they picked up so far from load state) (Nothing if default start)
+	/** Responsible for initialising a player
+	 *  Gathers information about the player from the parsing setup file.
 	 * 
 	 * @param setup
-	 * @return
+	 * @return Player
 	 */
 	private Player initialisePlayer(GameMap setup) {
-		PlayerComponent pc = setup.getPlayerInfo();
 		
-		// interate over GetInventory and create inventory object
-		Inventory inventory = initialiseInventory(pc.getInventory());
-
-		return new Player(pc.getName(), inventory, (new Location(pc.getPosX(),pc.getPosY())));
-				 
+		// Parse setup
+		int id = Integer.parseInt(setup.getPlayer().getId());
+		String name = setup.getPlayer().getName();
+		int roomId = Integer.parseInt(setup.getPlayer().getRoomId());
+		Location location = setup.getPlayer().getLocation();
+		
+		// Create player
+		return new Player(id,name,roomId,location);
 	}
 	
-	private Inventory initialiseInventory(List<String> inventory) {
-		for(String s : inventory) {
-			// Pull each item in inventory String arraylist out
-			// Create a new item
-			// Build inventory 
-		}
-		return null; // null atm
+	/** Responsible for initialising the inventory
+	 *  Gathers informaiton about the inventory from the parsing setup file.
+	 * 
+	 * @param setup
+	 * @return Inventory
+	 */
+	private Inventory initialiseInventory(GameMap setup) {
+		Inventory inv = new Inventory();
 		
-	}
+		// For each slot in inventory gamefile
+		for(String slot : setup.getInventory()) {
+			inv.addItemToInventory(slot);			
+			}
+			return inv;
+		}
+
 	
 	private void initialiseGameState() {
 		// Responsible for Game Time Limit

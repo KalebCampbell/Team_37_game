@@ -11,42 +11,20 @@ import java.util.List;
  *
  */
 public class Inventory {
-	public final int MAX_SIZE = 10;
-	
-	private Player player;
-	private List<AbstractItem> inventory = new ArrayList<AbstractItem>(MAX_SIZE);
+	public final int MAX_SIZE = 8;
+	private List<String> inventory = new ArrayList<String>(MAX_SIZE);
 	
 	/**
 	 * Constructor for Inventory
 	 * @param player
 	 */
-	public Inventory(Player player) {
-		this.setPlayer(player);	
-	}
-	
-	/**
-	 * Get player that inventory belongs to
-	 * Used in testing cases mainly
-	 * @return player
-	 */
-	public Player getPlayer() {
-		return player;
-	}
-
-	/**
-	 * Part of constructor for setting the player in which the inventory belongs to
-	 * Allows for updates too.
-	 * @param player
-	 */
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
+	public Inventory() {}
 
 	/**
 	 * Getter for getting inventory.
 	 * @return List of items in inventory
 	 */
-	public List<AbstractItem> getInventory() {
+	public List<String> getInventory() {
 		return inventory;
 	}
 
@@ -55,11 +33,11 @@ public class Inventory {
 	 * If Fails, give message.
 	 * @param item
 	 */
-	public void addItemToInventory(AbstractItem item) {
+	public void addItemToInventory(String item) {
 		if(item != null) {
-			inventory.add( item);
+			inventory.add(item);
 		}else {
-			System.out.println("Unable to add "+item.getItemName()+" to inventory");
+			System.out.println("Unable to add "+item+" to inventory");
 		}	
 	}
 	
@@ -67,11 +45,11 @@ public class Inventory {
 	 * Removes items from inventory if it exists.
 	 * @param item
 	 */
-	public void removeItemFromInventory(AbstractItem item) {
+	public void removeItemFromInventory(String item) {
 		if(inventory.contains(item)) {
 			inventory.remove(item);
 		}else {
-			System.out.println("Unable to remove "+item.getItemName()+" to inventory");
+			System.out.println("Unable to remove "+item+" to inventory");
 		}		
 	}
 	
@@ -82,7 +60,7 @@ public class Inventory {
 	 * @param itemName
 	 * @return boolean if item exists
 	 */
-	public boolean itemExistsInInventory(AbstractItem item) {
+	public boolean itemExistsInInventory(String item) {
 		return inventory.contains(item);	
 	}
 	
