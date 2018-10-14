@@ -5,13 +5,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 @XmlRootElement(name = "item")
+/**
+ * @author kalebcampbell
+ * 
+ * An ItemComponent holds the x and y position in which it is in its rooms
+ *  and the item name of which it is.
+ *
+ */
 public class ItemComponent {
 
 	int posX;
 	int posY;
 	String item;
+	//To be marshalled the objects all need an empty constructor. 
 	public ItemComponent() {
-		
 	}
 	public ItemComponent(int posX, int posY, String item) {
 		this.posX = posX;
@@ -22,6 +29,7 @@ public class ItemComponent {
 	public int getPosX() {
 		return posX;
 	}
+	//@XmlElement is needed for all setter methods to be able to be marshalled. 
 	@XmlElement
 	public void setPosX(int posX) {
 		this.posX = posX;
@@ -30,6 +38,7 @@ public class ItemComponent {
 	public int getPosY() {
 		return posY;
 	}
+	//@XmlElement is needed for all setter methods to be able to be marshalled. 
 	@XmlElement
 	public void setPosY(int posY) {
 		this.posY = posY;
@@ -38,6 +47,7 @@ public class ItemComponent {
 	public String getItem() {
 		return item;
 	}
+	//@XmlElement is needed for all setter methods to be able to be marshalled. 
 	@XmlElement
 	public void setItem(String item) {
 		this.item = item;

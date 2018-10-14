@@ -3,7 +3,7 @@ package Persistence2;
 import java.util.ArrayList;
 import java.util.List;
 
-import Persistence.RoomComponent;
+import Persistence2.RoomComponent;
 
 // Michael Vincent
 

@@ -1,43 +1,33 @@
 package Persistence;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import GameWorld.Room;
-
 public class LoadXml {
 
-	public static void unMarshal() throws JAXBException {
+	public static GameMapComponent unMarshal() throws JAXBException {
 		
-	    JAXBContext jaxbContext = JAXBContext.newInstance(RoomsComponent.class);
+	    JAXBContext jaxbContext = JAXBContext.newInstance(GameMapComponent.class);
 	    Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 	     
-	    RoomsComponent rooms = (RoomsComponent) jaxbUnmarshaller.unmarshal( new File("StartingMap.xml") );
+	    GameMapComponent gameMap = (GameMapComponent) jaxbUnmarshaller.unmarshal( new File("StartingMap.xml") );
 	    
-	    		List<Room> listRooms = new ArrayList<>();
-	    for(RoomComponent room : rooms.getRooms()) {
-	    		
-	    		System.out.println("=========");
+	    
+	    //An Example of access all room items.
+	    for(RoomComponent room : gameMap.getRooms().Rooms()) {
 	    		System.out.println(room.getId());
-	    		System.out.println("=========");
-	    		
-	    		//call the methods to make the objects.?
-	    		//make a list of rooms and pass them to be drawn. 
-	    		//listRooms.add(new Room(room.getId(), room.getLocX(), room.getLocY(), room.getWalls()))
-	    		
-	    		//how to get individual item
-	    		System.out.println(room.getItems().get(0).item);
-	    		System.out.println(room.getItems().get(0).posX);
-	    		System.out.println(room.getItems().get(0).posY);
-	    		
-	    		//prints [1, 2, 3]
-	    		System.out.println(room.getWalls());
+	    		for(ItemComponent item : room.getItems()) {
+	    			
+	    			System.out.println(item.getItem());
+	    			
+	    		}
+	    		System.out.println("=======");
 	    }
+	
 	    
+	    return gameMap;
 	}
 }
