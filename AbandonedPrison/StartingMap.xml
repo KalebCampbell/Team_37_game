@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <map>
     <inventory>Key</inventory>
+    <inventory>Crowbar</inventory>
     <player>
         <id>0</id>
         <location>30</location>

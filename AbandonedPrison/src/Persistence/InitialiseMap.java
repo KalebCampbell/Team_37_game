@@ -88,7 +88,7 @@ public class InitialiseMap {
 		//which will most likely be nothing at the start and adds it to the gameMap.
 		ArrayList<String> inventory = new ArrayList<String>();
 		inventory.add("Key");
-		inventory.add(null);
+		inventory.add("Crowbar");
 		inventory.add(null);
 		inventory.add(null);
 		inventory.add(null);
