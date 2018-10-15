@@ -93,6 +93,9 @@ public class GUI {
 		initialise();
 	}
 	
+	public ArrayList<Room> getRooms(){
+		return rooms;
+	}
 	/**
 	 * Is called every time the drawing canvas is drawn. 
 	 */
@@ -547,7 +550,7 @@ public class GUI {
 		loadpanel.setMaximumSize(new Dimension(1000, 25));
 		loadpanel.setPreferredSize(new Dimension(1000, 25));
 		loadpanel.add(load, BorderLayout.CENTER);
-
+		
 
 		// make the panel on the right, fix its size, give it a border!
 		JPanel controls = new JPanel();
