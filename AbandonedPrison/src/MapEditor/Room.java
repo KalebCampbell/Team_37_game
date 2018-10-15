@@ -33,8 +33,14 @@ public class Room {
 	 * Getter method for getting room name
 	 * @return room name
 	 */
-	public String getName() {
-		return null;
+	public int getName() {
+		return 0;
+	}
+	public int getX() {
+		return this.x;
+	}
+	public int getY() {
+		return this.y;
 	}
 	
 	/**
