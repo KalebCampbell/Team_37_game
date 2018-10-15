@@ -10,6 +10,7 @@ public class Treasure {
 		this.x=x;
 		this.y=y;
 	}
+	//draw the Treasures
 	public void draw(Graphics g) {
 		g.setColor(Color.gray);
 		g.fillOval(x+12, y, 5, 5);
