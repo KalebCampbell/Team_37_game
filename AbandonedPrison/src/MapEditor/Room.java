@@ -2,6 +2,8 @@ package MapEditor;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Room {
 	int x;
@@ -143,5 +145,56 @@ public class Room {
 	public boolean contains(Point p) {
 		return p.x>=x&&p.y>=y&&p.x<=x+width+width&&p.y<=y+height+height;
 	}
+	public List<String> getwalls() {
+		List<String> wall=new ArrayList<String>();
+		if(topWall) {
+			wall.add("N");
+		}
+		if(rightWall) {
+			wall.add("E");
+		}
+		if(downWall) {
+			wall.add("S");
+		}
+		if(leftWall) {
+			wall.add("W");
+		}
+		return wall;
+	}
+	
+	public List<String> getdoors() {
+		List<String> door=new ArrayList<String>();
+		if(topDoor) {
+			door.add("N");
+		}
+		if(rightDoor) {
+			door.add("E");
+		}
+		if(downDoor) {
+			door.add("S");
+		}
+		if(leftDoor) {
+			door.add("W");
+		}
+		return door;
+	}
+	public List<String> getitems() {
+		List<String> item=new ArrayList<String>();
+		if(key) {
+			item.add("Key");
+		}
+		if(treasure1) {
+			item.add("Treasure");
+		}
+		if(magic1) {
+			item.add("Magic");
+		}
+		if(light) {
+			item.add("Light");
+		}
+		return item;
+	}
+	
+	
 	
 }
