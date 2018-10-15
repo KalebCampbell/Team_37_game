@@ -47,6 +47,8 @@ public class GUI {
 		// Pressing Up/Down arrow
 		
 		game.playerMove();
+		game.playerTurn("EAST");
+		game.playerMove();
 				
 		
 		

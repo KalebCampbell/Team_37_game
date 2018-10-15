@@ -42,10 +42,24 @@ public class Game {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * Sets the players direction
+	 * @param direction
+	 */
 	public void playerTurn(String direction) {
 		player.setDirection(direction);
 	}
-	
 	
 	/**
 	 *  Call for player to move.
@@ -67,8 +81,7 @@ public class Game {
 			for(Room r : roomList) {
 				// find room player is in
 				if(r.getRoomID() == player.getRoomId()){
-					
-					
+							
 					// If the walls array contains the direction the player is facing
 					// Can't use ".contains()" as it's different objects, whoops.
 					for(String s : r.getWalls()) {
@@ -85,24 +98,29 @@ public class Game {
 							// ASSUME DOOR IS UNLOCKED & OPEN
 							// Update player location
 							System.out.println("Current location: "+ player.getPlayerLocation().getX() +"," + player.getPlayerLocation().getY());
-							player.move(dir);	
+							// Moves the player
+							player.move(dir);
 							System.out.println("After move: "+ player.getPlayerLocation().getX() +"," + player.getPlayerLocation().getY());
-							return true;
+							// Sets the players new roomId
+							
+							for(Room room : roomList) {
+								
+								if(player.getPlayerLocation().getX() == room.getLocation().getX() &&
+								   player.getPlayerLocation().getY() == room.getLocation().getY()) {
+									
+									// Set room id of player
+									player.setRoomID(room.getRoomID());
+
+								}
+							}		
 						}
 					}
-							
-					}else {
-						// Doesn't account for open world.
-						return false;
-					}
 				}
-			return false;
+			}
+		return false;
 	}
 	
-	
-	
-	
-	
+
 	/**
 	 * Initialises the Map, building all the rooms.
 	 * Created rooms, from a parsed XML file

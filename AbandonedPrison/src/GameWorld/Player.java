@@ -28,6 +28,10 @@ public class Player {
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
 	}
+	
+	public void setRoomID(int roomId) {
+		this.roomId = roomId;
+	}
 
 	// GETTERS //
 	public int getPlayerId() {
@@ -99,6 +103,10 @@ public class Player {
 		}
 		
 	}
+
+
+
+
 	
 	
 	
