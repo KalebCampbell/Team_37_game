@@ -14,5 +14,10 @@ public class InventoryComponent {
 	public ArrayList<String> getInventory() {
 		return inventorySlots;
 	}
+	
+	
+
+	
+	
 
 }

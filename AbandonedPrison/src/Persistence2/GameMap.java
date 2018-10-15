@@ -7,7 +7,7 @@ import java.util.List;
 
 public class GameMap {
 	List<Persistence2.RoomComponent> rooms = new ArrayList<Persistence2.RoomComponent>();
-	List<String> inventory = new ArrayList<String>();
+	InventoryComponent inventory;
 	PlayerComponent player;
 
 	/**
@@ -16,12 +16,12 @@ public class GameMap {
 	 * @param inventory Takes inventory paramater
 	 * @param player Takes player paramater
 	 */
-	public GameMap(List<Persistence2.RoomComponent> rooms, List<String> inventory, PlayerComponent player) {
+	public GameMap(List<Persistence2.RoomComponent> rooms, InventoryComponent inventory, PlayerComponent player) {
 		this.rooms = rooms;
 		this.inventory = inventory;
 		this.player = player;
 	}
-	
+
 	/** 
 	 * Gets the rooms associated with the GameMap as a list
 	 * @return List<Persistence2.RoomComponent>
@@ -34,7 +34,7 @@ public class GameMap {
 	 * Gets the inventory associated with the GameMap as a list
 	 * @return List<String>
 	 */
-	public List<String> getInventory() {
+	public InventoryComponent getInventory() {
 		return inventory;
 	}
 	

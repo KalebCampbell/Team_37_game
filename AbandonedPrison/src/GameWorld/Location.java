@@ -2,7 +2,7 @@ package GameWorld;
 
 /** Combines x,y into a single object.
  * 
- * @author Michael Vincent
+ * @author Michael Vincent 300140128
  *
  */
 public class Location {

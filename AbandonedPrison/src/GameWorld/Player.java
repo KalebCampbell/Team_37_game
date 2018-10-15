@@ -2,7 +2,7 @@ package GameWorld;
 
 /**
  * Basic creation of player, nothing added yet.
- * @author Michael Vincent
+ * @author Michael Vincent 300140128
  *
  */
 public class Player {
@@ -24,7 +24,7 @@ public class Player {
 
 	
 	
-	// SETTERS //
+	// Public SETTERS as they're used out side of construction //
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
 	}
@@ -33,7 +33,7 @@ public class Player {
 		this.roomId = roomId;
 	}
 
-	// GETTERS //
+	// Public GETTERS to be accessed outside of class //
 	public int getPlayerId() {
 		return id;
 	}
@@ -85,9 +85,7 @@ public class Player {
 	 * @param dir
 	 */
 	public void move(String dir) {
-			//NORTH (0,1)	
-		
-		
+			//NORTH (0,1)		
 		if(dir.equals("NORTH")) {	
 			setPlayerLocation(new Location(getPlayerLocation().getX(), getPlayerLocation().getY()+1));	
 			//SOUTH (0,-1)	

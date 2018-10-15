@@ -44,10 +44,14 @@ public class GUI {
 		// WITH THIS game OBJECT you can
 		
 		
-		// Pressing Up/Down arrow
-		
+		// up arrow
+		// Facing South by default
 		game.playerMove();
+		
+		// left arrow (South -> EAST)
 		game.playerTurn("EAST");
+		
+		// up arrow
 		game.playerMove();
 				
 		

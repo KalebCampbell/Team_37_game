@@ -2,7 +2,11 @@ package GameWorld;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * 
+ * @author Michael Vincent 300140128
+ *
+ */
 public class Room {
 	
 	private int roomID;

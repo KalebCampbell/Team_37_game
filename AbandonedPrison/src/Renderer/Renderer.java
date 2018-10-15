@@ -58,7 +58,7 @@ public class Renderer {
 	private JFrame frame;
 	private static final Dimension DRAWING_SIZE = new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT);
 	private Map<String, Mesh> meshes = new HashMap<String, Mesh>();
-	private ArrayList<Room> rooms = new ArrayList<Room>();
+	public ArrayList<Room> rooms = new ArrayList<Room>();
 
 	/**
 	 * Renderer constructor.
@@ -238,7 +238,7 @@ public class Renderer {
 	 * Is called every time the drawing canvas is drawn. This will print the
 	 * polygons on the screen.
 	 */
-	private void render(Graphics g) {
+	public void render(Graphics g) {
 		PriorityQueue<Room> orderedRooms = orderRooms();
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, Renderer.CANVAS_WIDTH, Renderer.CANVAS_HEIGHT);
