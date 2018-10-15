@@ -3,11 +3,9 @@ package GameWorld;
 import java.util.ArrayList;
 import java.util.List;
 
-import Persistence.ItemComponent;
 import Persistence.RoomComponent;
 import Persistence2.GameMap;
-import Persistence2.InventoryComponent;
-import Persistence2.PlayerComponent;
+
 
 /**
  * Game class controls the creation of the game.
@@ -37,12 +35,73 @@ public class Game {
 			// Inventory setup
 			this.player.setInventory(initialiseInventory(setup));
 			// Creates rooms & map setup
-			initialiseMap(setup);
-			
+			initialiseMap(setup);	
 		}else {
 			System.out.println("GameMap is empty");
 		}
 	}
+	
+	
+	public void playerTurn(String direction) {
+		player.setDirection(direction);
+	}
+	
+	
+	/**
+	 *  Call for player to move.
+	 *  Checks player direction against player movement
+	 *  
+	 *  
+	 * @param move
+	 * @return true/false
+	 */
+	public boolean playerMove() {
+		
+		// Step forward or backward
+		
+		// Get the direction the player is facing
+		String dir = player.getDirection();
+			// Check if wall is in the way
+		
+			// Iterate through all rooms
+			for(Room r : roomList) {
+				// find room player is in
+				if(r.getRoomID() == player.getRoomId()){
+					
+					
+					// If the walls array contains the direction the player is facing
+					// Can't use ".contains()" as it's different objects, whoops.
+					for(String s : r.getWalls()) {
+						if(s.equals(dir)) {
+							// Illegal move E.G PLAYER FACING WEST, WALLS WEST
+							return false;
+						}
+					}
+					
+					// Can't use ".contains()" as it's different objects, whoops.
+					for(String s : r.getDoors()) {
+						if(s.equals(dir)) {
+							// MISSING: CHECK IF DOOR IS LOCKED
+							// ASSUME DOOR IS UNLOCKED & OPEN
+							// Update player location
+							System.out.println("Current location: "+ player.getPlayerLocation().getX() +"," + player.getPlayerLocation().getY());
+							player.move(dir);	
+							System.out.println("After move: "+ player.getPlayerLocation().getX() +"," + player.getPlayerLocation().getY());
+							return true;
+						}
+					}
+							
+					}else {
+						// Doesn't account for open world.
+						return false;
+					}
+				}
+			return false;
+	}
+	
+	
+	
+	
 	
 	/**
 	 * Initialises the Map, building all the rooms.
@@ -53,7 +112,7 @@ public class Game {
 		
 		for(Persistence2.RoomComponent rc : setup.getRooms()) {			
 			
-			List<AbstractItem> itemList = createItems(rc.getItem());		
+			List<AbstractItem> itemList = initialiseItems(rc.getItem());		
 			// Build room
 			Room room = new Room(Integer.parseInt(rc.getRoomid()), rc.getWall(), rc.getLocation(),rc.getDoor(), itemList);
 			// Add room to roomList
@@ -67,11 +126,12 @@ public class Game {
 	 * @param items arraylist of string items
 	 * @return List of abstractItems
 	 */
-	private List<AbstractItem> createItems(ArrayList<String> items) {
+	private List<AbstractItem> initialiseItems(ArrayList<String> items) {
 		AbstractItem item = null;
 		
 		if(items != null) {
-		
+			
+			// Makes items based on their input names
 			if(items.get(0).equals("KEY")){
 				 item = new Key(items.get(0), "DefaultImage", "A key for opening doors",
 					    new Location(Integer.parseInt(items.get(2)),Integer.parseInt(items.get(3))));
@@ -125,11 +185,9 @@ public class Game {
 		}
 	
 	private void initialiseGameState() {
-		// Responsible for Game Time Limit
-		
+		// Responsible for Game Time Limit		
 		// Setting up conditions i.e door open,locked,unlocked.
 		// Has puzzle been completed.
-		// Win conditions, has exit been found.
-		
+		// Win conditions, has exit been found.	
 	}
 }

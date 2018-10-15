@@ -41,6 +41,15 @@ public class GUI {
 		System.out.println("CREATING GAME WORLD");
 		Game game = new Game(setup);
 		
+		// WITH THIS game OBJECT you can
+		
+		
+		// Pressing Up/Down arrow
+		
+		game.playerMove();
+				
+		
+		
 	}
 	
 	//Handle events in GUI receiving the events from the window 

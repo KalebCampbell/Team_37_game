@@ -3,23 +3,23 @@
 	<room>
 		<roomid>1</roomid>
 		<location>0,0</location>
-		<wall>NORTH,SOUTH,EAST,WEST</wall>
+		<wall>NORTH,EAST,WEST</wall>
 		<item>KEY,1,1,0,</item>
 		<door>SOUTH</door>
 	</room>
 
 	<room>
 		<roomid>2</roomid>
-		<location>0,1</location>
-		<wall>NORTH,SOUTH,EAST,WEST</wall>
+		<location>0,-1</location>
+		<wall>SOUTH,WEST</wall>
 		<item>NONE</item>
 		<door>NORTH,EAST</door>
 	</room>
 
 	<room>
 		<roomid>3</roomid>
-		<location>1,1</location>
-		<wall>NORTH,SOUTH,EAST,WEST</wall>
+		<location>1,-1</location>
+		<wall>NORTH,SOUTH,EAST</wall>
 		<item>NONE</item>
 		<door>WEST</door>
 	</room>
@@ -27,7 +27,7 @@
 	<player>
 		<id>1</id>
 		<name>Michael</name>
-		<roomid>3</roomid>
+		<roomid>1</roomid>
 		<location>0,0</location>
 	</player>
 
