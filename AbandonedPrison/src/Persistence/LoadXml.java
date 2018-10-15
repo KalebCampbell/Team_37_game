@@ -15,7 +15,7 @@ public class LoadXml {
 	     
 	    GameMapComponent gameMap = (GameMapComponent) jaxbUnmarshaller.unmarshal( new File("StartingMap.xml") );
 	    
-	    
+	 
 	    
 	    System.out.println("=======");
 	    //How to access all inventory items

@@ -29,7 +29,7 @@ public class InitialiseMap {
 		
 		//layout for how to initilaise the starting map layout for the rooms. 
 		//list of walls
-				List<String> walls1 = new ArrayList<>();
+		List<String> walls1 = new ArrayList<>();
 				walls1.add("E");
 				walls1.add("S");
 				walls1.add("W");

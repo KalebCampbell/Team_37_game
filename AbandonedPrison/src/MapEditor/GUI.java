@@ -30,6 +30,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import javax.xml.bind.JAXBException;
+
+import Persistence.LoadXml;
 
 public class GUI {
 	private JButton west;
@@ -534,15 +537,10 @@ public class GUI {
 		load.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				// set up the file chooser
-				fileChooser.setCurrentDirectory(new File("."));
-				fileChooser.setDialogTitle("Select input file");
-				fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
-				// run the file chooser and check the user didn't hit cancel
-				if (fileChooser.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
-					File file = fileChooser.getSelectedFile();
-					onLoad(file);
-					redraw();
+				try {
+					LoadXml.unMarshal();
+				} catch(JAXBException e) {
+					
 				}
 			}
 		});

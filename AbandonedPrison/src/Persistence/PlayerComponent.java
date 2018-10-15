@@ -11,6 +11,7 @@ public class PlayerComponent {
 	private String id;
 	private String roomid;
 	private String name;
+	//x and y location. 
 	private String location;
 	
 	public String getId() {
