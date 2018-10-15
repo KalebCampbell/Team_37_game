@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import Persistence.LoadXml;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -31,9 +32,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.xml.bind.JAXBException;
-
-import Persistence.LoadXml;
-import Persistence.SaveXml;
 
 public class GUI {
 	private JButton west;
@@ -62,12 +60,12 @@ public class GUI {
 	boolean leftRoomCanBuild=true;
 	boolean topRoomCanBuild=true;
 	boolean downRoomCanBuild=true;
-	private ArrayList<Room> rooms=new ArrayList<Room>();
-	private ArrayList<Door> doors=new ArrayList<Door>();
-	private ArrayList<Wall> walls=new ArrayList<Wall>();
-	private ArrayList<key> keys=new ArrayList<key>();
-	private ArrayList<magic> magics=new ArrayList<magic>();
-	private ArrayList<Treasure> treasures=new ArrayList<Treasure>();
+	private ArrayList<Room> rooms=new ArrayList<Room>();//rooms list
+	private ArrayList<Door> doors=new ArrayList<Door>();//doors list
+	private ArrayList<Wall> walls=new ArrayList<Wall>();//walls list
+	private ArrayList<key> keys=new ArrayList<key>();//keys list
+	private ArrayList<magic> magics=new ArrayList<magic>();//magic list
+	private ArrayList<Treasure> treasures=new ArrayList<Treasure>();//treasure list
 	private double mouseX=0;
 	private double mouseY=0;
 
@@ -97,9 +95,14 @@ public class GUI {
 		initialise();
 	}
 	
+	/**
+	 * Get rooms for persistence
+	 * @return ArrayList<Room>
+	 */
 	public ArrayList<Room> getRooms(){
 		return rooms;
 	}
+	
 	/**
 	 * Is called every time the drawing canvas is drawn. 
 	 */
@@ -156,6 +159,7 @@ public class GUI {
 		drawing.setMaximumSize(DRAWING_SIZE);
 		drawing.setVisible(true);
 		
+		//add room on right side;
 		rightroom=new JButton("rightRoom");
 		rightroom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
@@ -186,6 +190,8 @@ public class GUI {
 				
 			}
 		});
+		
+		//add room on left side;
 		leftroom=new JButton("leftRoom");
 		leftroom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
@@ -214,6 +220,8 @@ public class GUI {
 				}
 			}
 		});
+		
+		//add room on top side;
 		toproom=new JButton("topRoom");
 		toproom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
@@ -243,6 +251,8 @@ public class GUI {
 				
 			}
 		});
+		
+		//add room on south side;
 		downroom=new JButton("downRoom");
 		downroom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
@@ -271,6 +281,8 @@ public class GUI {
 				}
 			}
 		});
+		
+		//add door on left;
 		leftdoor=new JButton("leftDoor");
 		leftdoor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
@@ -286,6 +298,8 @@ public class GUI {
 				}
 			}
 		});
+		
+		//add door on right side;
 		rightdoor=new JButton("rightDoor");
 		rightdoor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
@@ -301,6 +315,8 @@ public class GUI {
 				}
 			}
 		});
+		
+		//add door on top side;
 		topdoor=new JButton("topDoor");
 		topdoor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
@@ -316,6 +332,8 @@ public class GUI {
 				}
 			}
 		});
+		
+		//add door on south side;
 		downdoor=new JButton("downDoor");
 		downdoor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
@@ -331,6 +349,8 @@ public class GUI {
 				}
 			}
 		});
+		
+		//add wall on different sides;
 		wall=new JButton("leftwall");
 		wall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
@@ -392,6 +412,8 @@ public class GUI {
 				}
 			}
 		});
+		
+		//add key on current room;
 		key=new JButton("key");
 		key.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
@@ -406,6 +428,8 @@ public class GUI {
 				
 			}
 		});
+		
+		//add magic on current room;
 		magic=new JButton("magic");
 		magic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
@@ -420,6 +444,8 @@ public class GUI {
 				
 			}
 		});
+		
+		//add treasure on current room;
 		treasure=new JButton("treasure");
 		treasure.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
@@ -434,6 +460,8 @@ public class GUI {
 				
 			}
 		});
+		
+		//open the light;
 		light=new JButton("light");
 		light.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
@@ -446,6 +474,8 @@ public class GUI {
 				
 			}
 		});
+		
+		//clear all the items and restart the game;
 		clear=new JButton("clear");
 		clear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
@@ -532,7 +562,8 @@ public class GUI {
 		magicpanel.add(magic, BorderLayout.CENTER);
 		Tpanel.add(treasure, BorderLayout.CENTER);
 		lightpanel.add(light, BorderLayout.CENTER);
-		//load
+		
+		//load files;
 		final JFileChooser fileChooser = new JFileChooser();
 		JButton load = new JButton("Load");
 		load.addActionListener(new ActionListener() {
@@ -540,9 +571,11 @@ public class GUI {
 				// set up the file chooser
 				try {
 					LoadXml.unMarshal();
-				} catch(JAXBException e) {
-					
+				} catch (JAXBException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
+
 			}
 		});
 		JPanel loadpanel = new JPanel(new BorderLayout());
@@ -550,10 +583,11 @@ public class GUI {
 		loadpanel.setPreferredSize(new Dimension(1000, 25));
 		loadpanel.add(load, BorderLayout.CENTER);
 		
-		//save
+		//save button for saving;
 		JButton save = new JButton("Save");
-		save.addActionListener(new ActionListener() {
+		load.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
+				// set up the file chooser
 				new SaveXml(rooms);
 			}
 		});
@@ -561,6 +595,7 @@ public class GUI {
 		savepanel.setMaximumSize(new Dimension(1000, 25));
 		savepanel.setPreferredSize(new Dimension(1000, 25));
 		savepanel.add(save, BorderLayout.CENTER);
+		
 
 		// make the panel on the right, fix its size, give it a border!
 		JPanel controls = new JPanel();
@@ -578,7 +613,6 @@ public class GUI {
 		controls.add(rdoorpanel);
 		controls.add(tdoorpanel);
 		controls.add(loadpanel);
-		controls.add(savepanel);
 		controls.add(ddoorpanel);
 		controls.add(clearpanel);
 		controls.add(wallpanel);

@@ -33,14 +33,8 @@ public class Room {
 	 * Getter method for getting room name
 	 * @return room name
 	 */
-	public int getName() {
-		return 0;
-	}
-	public int getX() {
-		return this.x;
-	}
-	public int getY() {
-		return this.y;
+	public String getName() {
+		return null;
 	}
 	
 	/**
@@ -50,6 +44,7 @@ public class Room {
 	public String getDescription() {
 		return null;
 	}
+	//when call the methods, that means there is this item.
 	public void leftwall() {
 		leftWall=true;
 	}
@@ -148,9 +143,18 @@ public class Room {
 		}
 		
 	}
+	/**
+	 * contain this room
+	 * @return true if there is a room, false if there is no room
+	 */
 	public boolean contains(Point p) {
 		return p.x>=x&&p.y>=y&&p.x<=x+width+width&&p.y<=y+height+height;
 	}
+	
+	/**
+	 * Get walls string for persistence
+	 * @return List<String>
+	 */
 	public List<String> getwalls() {
 		List<String> wall=new ArrayList<String>();
 		if(topWall) {
@@ -167,7 +171,10 @@ public class Room {
 		}
 		return wall;
 	}
-	
+	/**
+	 * Get doors string for persistence
+	 * @return List<String>
+	 */
 	public List<String> getdoors() {
 		List<String> door=new ArrayList<String>();
 		if(topDoor) {
@@ -184,6 +191,11 @@ public class Room {
 		}
 		return door;
 	}
+	
+	/**
+	 * Get items string for persistence
+	 * @return List<String>
+	 */
 	public List<String> getitems() {
 		List<String> item=new ArrayList<String>();
 		if(key) {
