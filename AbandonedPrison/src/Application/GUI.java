@@ -23,6 +23,7 @@ public class GUI {
 		init();
 	}
 
+	// TEMPORARY SETUP FOR YOU TO FIX
 	public void init() {
 		
 		Parser2 parse = new Parser2();
@@ -38,7 +39,7 @@ public class GUI {
 		}
 		System.out.println("MAP PARSING DONE");
 		System.out.println("CREATING GAME WORLD");
-		//Game game = new Game(setup);
+		Game game = new Game(setup);
 		
 	}
 	

@@ -6,9 +6,10 @@ import java.util.List;
 public class Room {
 	
 	private int roomID;
-	private List<String> walls = new ArrayList <String>();	// Maybe change to map Map<Cardinal, Boolean> walls; (walls.add(new Cardinal("NORTH"),True)
+	private List<String> walls;
 	private List<AbstractItem> items = new ArrayList <AbstractItem>();
 	private Location location;
+	private List<String> doors;
 	
 
 	/**
@@ -17,17 +18,14 @@ public class Room {
 	 * @param walls List of all walls in the room
 	 * 
 	 */
-	public Room (int roomID, List<String> walls, Location loc, List<AbstractItem> aitems){
+	public Room (int roomID, List<String> walls, Location loc,List<String>doors, List<AbstractItem> aitems){
 		this.setRoomID(roomID);
 		this.setWalls(walls);
 		this.setLocation(loc);
+		this.setDoors(doors);
 		this.setRoomObject(aitems);		
 	}
 	
-	private void setWalls(List<String> walls) {
-		this.walls = walls;
-	}
-
 	// Rooms //
 	public int getRoomID() {
 		return roomID;
@@ -57,6 +55,24 @@ public class Room {
 
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+	
+	// Walls //
+	private void setWalls(List<String> walls) {
+		this.walls = walls;
+	}
+	
+	public List<String> getWalls() {
+		return walls;
+	}
+	
+	// Doors //
+	private void setDoors(List<String> doors) {
+		this.doors = doors;
+	}
+	
+	public List<String> getDoors() {
+		return doors;
 	}
 
 	

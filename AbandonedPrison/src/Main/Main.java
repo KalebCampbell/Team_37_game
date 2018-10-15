@@ -31,7 +31,7 @@ public class Main {
 	}
 	
 	public static void startGame(){
-		GUI gui = new GUI();
+		Application.GUI gui = new GUI();
 		
 		
 		// Main game loop here?

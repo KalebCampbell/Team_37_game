@@ -24,7 +24,10 @@ public class Game {
 	
 	/**
 	 * 	Constructor for Game class.
-	 * @param GameMap gameMap
+	 * 	When called performs an initialisation of all components from the map
+	 *  Player setup,Inventory setup,Map setup.
+	 * 
+	 * @param GameMap gameMap object from persistence package
 	 */
 	public Game(GameMap setup) {
 		// Null check
@@ -47,13 +50,46 @@ public class Game {
 	 * @param roomComponents
 	 */
 	public void initialiseMap(GameMap setup) {
-		for(Persistence2.RoomComponent rc : setup.getRooms()) {
-			
-			Location loc = rc.getLocation();
-		}
 		
+		for(Persistence2.RoomComponent rc : setup.getRooms()) {			
+			
+			List<AbstractItem> itemList = createItems(rc.getItem());		
+			// Build room
+			Room room = new Room(Integer.parseInt(rc.getRoomid()), rc.getWall(), rc.getLocation(),rc.getDoor(), itemList);
+			// Add room to roomList
+			roomList.add(room);
+		}	
 	}
 	
+	/**
+	 * Private method only called within game object
+	 * Creates items based on input string
+	 * @param items arraylist of string items
+	 * @return List of abstractItems
+	 */
+	private List<AbstractItem> createItems(ArrayList<String> items) {
+		AbstractItem item = null;
+		
+		if(items != null) {
+		
+			if(items.get(0).equals("KEY")){
+				 item = new Key(items.get(0), "DefaultImage", "A key for opening doors",
+					    new Location(Integer.parseInt(items.get(2)),Integer.parseInt(items.get(3))));
+			}else if(items.get(0).equals("KEYCARD")) {
+				 item = new KeyCard(items.get(0), "DefaultImage", "A keycard for swiping at doors",
+					    new Location(Integer.parseInt(items.get(2)),Integer.parseInt(items.get(3))));
+			}else if(items.get(0).equals("CROWBAR")) {
+				
+			}else {
+				//error check
+			}
+		}
+		
+		List<AbstractItem> returnItems = new ArrayList<AbstractItem>();
+		returnItems.add(item);
+		return returnItems;
+	}
+
 	/** Responsible for initialising a player
 	 *  Gathers information about the player from the parsing setup file.
 	 * 
@@ -87,7 +123,6 @@ public class Game {
 			}
 			return inv;
 		}
-
 	
 	private void initialiseGameState() {
 		// Responsible for Game Time Limit
@@ -96,41 +131,5 @@ public class Game {
 		// Has puzzle been completed.
 		// Win conditions, has exit been found.
 		
-	}
-	public void initialiseRoom(GameMap setup){
-		
-		// Iterate over components of the GameMap
-		// Find map components and adds them to 	
-		
-		for(RoomComponent rc : setup.getRooms()) {
-			
-				// This need to not be Integers (N,W,S,E) 1,2,3,4 makes very little sense.
-				List<Integer> walls = new ArrayList<Integer>();
-				walls = rc.getWalls();
-				
-				// Loop through all items and create items based on what they are.
-				List<AbstractItem> aitems = new ArrayList<AbstractItem>();
-				for(ItemComponent ic : rc.getItems()) {	// mc.GetRoomObjects() should return an arraylist
-					if(ic.getItem().equals("Key")) { // If it's a key
-					// Need to have information about the key in the XML File.
-					// KeyID, KeyName, KeyDescription, Image to use			
-					aitems.add(new Key("Key1", "keyImage", "Description of key1" , new Location(ic.getPosX(),ic.getPosY())));		
-				}
-				
-				int roomId = rc.getId();					// Get room ID
-				Location location = new Location(rc.getLocX(),rc.getLocY());
-
-				// Create new Room with: ID
-				//						 Walls
-				//						 Location
-				//						 Items
-				
-				Room r = new Room(roomId, walls, location, aitems);
-				roomList.add(r);
-
-				
-			}
-		}
-
 	}
 }

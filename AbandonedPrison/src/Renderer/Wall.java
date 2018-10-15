@@ -1,4 +1,4 @@
-
+package Renderer;
 public class Wall extends Piece {
 	
 	public Wall(Mesh mesh, Point3D position) {
