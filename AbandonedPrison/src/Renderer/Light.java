@@ -1,3 +1,4 @@
+package Renderer;
 
 public class Light {
 	

@@ -1,3 +1,4 @@
+package Renderer;
 import java.util.ArrayList;
 
 public class Room implements Comparable<Room> {
@@ -12,7 +13,7 @@ public class Room implements Comparable<Room> {
 		this.walls = walls;
 		this.items = items;
 		this.floor = floor;
-		translate((int) position.getX(), (int) position.getY(), position.getZ());
+		translate(position.getX(), position.getY(), position.getZ());
 	}
 
 	public void translate(int x, int y, int z) {
@@ -86,10 +87,11 @@ public class Room implements Comparable<Room> {
 	}
 
 	public int compareTo(Room other) {
-		if (this.getPosition().getZ() > other.getPosition().getZ())
+		if (this.getPosition().getRealZ() > other.getPosition().getRealZ())
 			return 1;
-		else if (this.getPosition().getZ() < other.getPosition().getZ())
+		else if (this.getPosition().getRealZ() < other.getPosition().getRealZ())
 			return -1;
+		// add ordering on x axis here
 		return 0;
 	}
 }

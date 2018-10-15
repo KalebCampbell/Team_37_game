@@ -1,52 +1,30 @@
+package Renderer;
 import java.awt.Point;
 
 /**
  * Represents a point in 3D space.
- * 
+ *
  * @author Joel Harris
  */
 @SuppressWarnings("serial")
-public class Point3D extends Point {
+public class Point3D {
 
-	/**
-	 * Z value of this point.
-	 */
-	public int z;
-
-	/**
-	 * Point3D constructor.
-	 */
-	public Point3D() {
-		this.z = 1;
-	}
+	private float x;
+	private float y;
+	private float z;
 
 	/**
 	 * Point3D constructor.
 	 */
-	public Point3D(Point point) {
-		super(point);
-		this.z = 1;
-	}
-
-	/**
-	 * Point3D constructor.
-	 */
-	public Point3D(int x, int y) {
-		super(x, y);
-		this.z = 1;
-	}
-
-	/**
-	 * Point3D constructor.
-	 */
-	public Point3D(int x, int y, int z) {
-		super(x, y);
+	public Point3D(float x, float y, float z) {
+		this.x = x;
+		this.y = y;
 		this.z = z;
 	}
 
 	/**
 	 * Translates the point by the given delta values.
-	 * 
+	 *
 	 * @param x
 	 *            delta x
 	 * @param y
@@ -60,22 +38,40 @@ public class Point3D extends Point {
 		this.z += z;
 
 	}
-	
+
 	public void rotateLeft() {
-		int oldx = (int)getX();
-		x = -getZ();
+		float oldx = x;
+		x = -z;
 		z = oldx;
 	}
-	
+
 	public void rotateRight() {
-		int oldx = (int)getX();
-		x = getZ();
+		float oldx = x;
+		x = z;
 		z = -oldx;
 	}
-	
+
+	public int getX() {
+		return Math.round(x);
+	}
+
+	public float getRealX() {
+		return x;
+	}
+
+	public int getY() {
+		return Math.round(y);
+	}
+
+	public float getRealY() {
+		return y;
+	}
+
 	public int getZ() {
+		return Math.round(z);
+	}
+
+	public float getRealZ() {
 		return z;
 	}
-	
-	
 }

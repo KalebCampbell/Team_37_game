@@ -1,9 +1,10 @@
+package Renderer;
 import java.awt.Color;
 
 /**
  * Contains useful static methods for colouring and printing polygons. Uses
  * method stubs provided in COMP 261.
- * 
+ *
  * @author Joel Harris
  */
 public class Pipeline {
@@ -11,14 +12,14 @@ public class Pipeline {
 	/**
 	 * Works out if a polygon is facing away from the viewer and whether it should
 	 * be drawn.
-	 * 
+	 *
 	 * @param poly
 	 * @return whether the polygon is hidden
 	 */
 	public static boolean isHidden(Polygon3D poly) {
 		int[] xPoints = poly.xPoints3D();
 		int[] yPoints = poly.yPoints3D();
-		int[] zPoints = poly.getzPoints();
+		float[] zPoints = poly.getzPoints();
 		float[] a = new float[] { xPoints[1] - xPoints[0], yPoints[1] - yPoints[0], zPoints[1] - zPoints[0] };
 		float[] b = new float[] { xPoints[2] - xPoints[1], yPoints[2] - yPoints[1], zPoints[2] - zPoints[1] };
 		float[] normal = new float[3];
@@ -31,7 +32,7 @@ public class Pipeline {
 	/**
 	 * Calculates the colour for a polygon to be drawn in based on the incident and
 	 * ambient lighting.
-	 * 
+	 *
 	 * @param poly
 	 * @param lightDirection
 	 * @param lightColor
@@ -49,12 +50,12 @@ public class Pipeline {
 		incidentColour[1] = 0.5f;
 		incidentColour[2] = 0.5f;
 		int[] polyColour = new int[3];
-		polyColour[0] = 10;
-		polyColour[1] = 120;
-		polyColour[2] = 200;
-		int[] xPoints = poly.getxPoints();
-		int[] yPoints = poly.getyPoints();
-		int[] zPoints = poly.getzPoints();
+		polyColour[0] = poly.getColor().getRed();
+		polyColour[1] = poly.getColor().getGreen();
+		polyColour[2] = poly.getColor().getBlue();
+		float[] xPoints = poly.getxPoints();
+		float[] yPoints = poly.getyPoints();
+		float[] zPoints = poly.getzPoints();
 		float[] a = new float[] { xPoints[1] - xPoints[0], yPoints[1] - yPoints[0], zPoints[1] - zPoints[0] };
 		float[] b = new float[] { xPoints[2] - xPoints[1], yPoints[2] - yPoints[1], zPoints[2] - zPoints[1] };
 		float[] normal = new float[3];

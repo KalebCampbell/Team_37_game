@@ -1,3 +1,6 @@
+package Renderer;
+import java.awt.Color;
+import java.util.PriorityQueue;
 
 /**
  * Respresents one object in a 3D environment. Holds all of the polygons for the
@@ -21,16 +24,16 @@ public class Mesh {
 	}
 
 	private void calculatePosition() {
-		int minX = Integer.MAX_VALUE;
-		int maxX = Integer.MIN_VALUE;
-		int minY = Integer.MAX_VALUE;
-		int maxY = Integer.MIN_VALUE;
-		int minZ = Integer.MAX_VALUE;
-		int maxZ = Integer.MIN_VALUE;
+		float minX = Float.MAX_VALUE;
+		float maxX = Float.MIN_VALUE;
+		float minY = Float.MAX_VALUE;
+		float maxY = Float.MIN_VALUE;
+		float minZ = Float.MAX_VALUE;
+		float maxZ = Float.MIN_VALUE;
 		for (Polygon3D poly : polygons) {
-			int[] xPoints = poly.getxPoints();
-			int[] yPoints = poly.getyPoints();
-			int[] zPoints = poly.getzPoints();
+			float[] xPoints = poly.getxPoints();
+			float[] yPoints = poly.getyPoints();
+			float[] zPoints = poly.getzPoints();
 			for (int i = 0; i < xPoints.length; i++) {
 				if (xPoints[i] > maxX)
 					maxX = xPoints[i];
@@ -81,6 +84,14 @@ public class Mesh {
 		}
 		position.rotateRight();
 		return this;
+	}
+	
+	public PriorityQueue<Polygon3D> orderPolygons(){
+		PriorityQueue<Polygon3D> orderedPolygons = new PriorityQueue<Polygon3D>();
+		for (Polygon3D poly : polygons) {
+			orderedPolygons.add(poly);
+		}
+		return orderedPolygons;
 	}
 
 	public Mesh getCopy() {

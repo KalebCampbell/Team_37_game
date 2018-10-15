@@ -1,3 +1,4 @@
+package Renderer;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -25,10 +26,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-
 /**
  * GUI for a 3D renderer.
- * 
+ *
  * @author Joel Harris
  */
 public class Renderer {
@@ -41,8 +41,18 @@ public class Renderer {
 	 * Height of the canvas.
 	 */
 	public static final int CANVAS_HEIGHT = 600;
-
+	/**
+	 * Length of a room.
+	 */
+	public static final int WHOLE_ROOM = 16;
+	/**
+	 * Half the length of a room.
+	 */
 	public static final int HALF_ROOM = 8;
+	/**
+	 * The number of items that can be places across a room.
+	 */
+	public static final int ITEMS_SIZE = 4;
 
 	private Light light;
 	private JFrame frame;
@@ -65,31 +75,29 @@ public class Renderer {
 		ArrayList<Wall> walls = new ArrayList<Wall>();
 		if (eastWall)
 			walls.add(new Wall(meshes.get("sidewall").getCopy(),
-					new Point3D((int) position.getX() + HALF_ROOM, (int) position.getY(), position.getZ())));
+					new Point3D(position.getX() + HALF_ROOM, position.getY(), position.getZ())));
 		if (westWall)
 			walls.add(new Wall(meshes.get("sidewall").getCopy(),
-					new Point3D((int) position.getX() - HALF_ROOM, (int) position.getY(), position.getZ())));
+					new Point3D(position.getX() - HALF_ROOM, position.getY(), position.getZ())));
 		if (northWall)
 			walls.add(new Wall(meshes.get("frontwall").getCopy(),
-					new Point3D((int) position.getX(), (int) position.getY(), position.getZ() + HALF_ROOM)));
+					new Point3D(position.getX(), position.getY(), position.getZ() + HALF_ROOM)));
 		if (southWall)
 			walls.add(new Wall(meshes.get("frontwall").getCopy(),
-					new Point3D((int) position.getX(), (int) position.getY(), position.getZ() - HALF_ROOM)));
+					new Point3D(position.getX(), position.getY(), position.getZ() - HALF_ROOM)));
+		for (int i = 0; i < ITEMS_SIZE; i++) {
+			for (int j = 0; j < ITEMS_SIZE; j++) {
+				if (items[i][j] != null)
+					items[i][j].translate(position.getX(), 4, position.getZ());
+			}
+		}
 		rooms.add(new Room(position, walls, items, new Floor(meshes.get("floor").getCopy(), position)));
 	}
 
 	public void createRoom() {
-		Floor floor = new Floor(meshes.get("floor").getCopy(), new Point3D(0, 0, 0));
-		Wall northWall = new Wall(meshes.get("frontwall").getCopy(), new Point3D(0, 0, 8));
-		Wall eastWall = new Wall(meshes.get("sidewall").getCopy(), new Point3D(8, 0, 0));
-		Wall westWall = new Wall(meshes.get("sidewall").getCopy(), new Point3D(-8, 0, 0));
-		ArrayList<Wall> walls = new ArrayList<Wall>();
-		walls.add(northWall);
-		walls.add(eastWall);
-		walls.add(westWall);
-		Item[][] items = new Item[4][4];
-		Room room = new Room(new Point3D(0, 0, 16), walls, items, floor);
-		rooms.add(room);
+		Item[][] items = new Item[ITEMS_SIZE][ITEMS_SIZE];
+		items[0][0] = new Key(meshes.get("key").getCopy(), new Point3D(6, -1f, 2));
+		createRoom(new Point3D(0, 0, 16), true, false, true, true, items);
 	}
 
 	private void init() {
@@ -118,9 +126,9 @@ public class Renderer {
 			for (int i = 0; i < verts; i++) {
 				line = br.readLine();
 				tokens = line.split("\\ ");
-				int x = (int) Float.parseFloat(tokens[0]);
-				int y = (int) Float.parseFloat(tokens[1]);
-				int z = (int) Float.parseFloat(tokens[2]);
+				float x = Float.parseFloat(tokens[0]);
+				float y = Float.parseFloat(tokens[1]);
+				float z = Float.parseFloat(tokens[2]);
 				vertices[i] = new Point3D(x, y, z);
 			}
 			for (int i = 0; i < polys; i++) {
@@ -129,9 +137,9 @@ public class Renderer {
 				Point3D a = vertices[Integer.parseInt(tokens[1])];
 				Point3D b = vertices[Integer.parseInt(tokens[2])];
 				Point3D c = vertices[Integer.parseInt(tokens[3])];
-				int[] xPoints = new int[] { a.x, b.x, c.x };
-				int[] yPoints = new int[] { a.y, b.y, c.y };
-				int[] zPoints = new int[] { a.z, b.z, c.z };
+				float[] xPoints = new float[] { a.getRealX(), b.getRealX(), c.getRealX() };
+				float[] yPoints = new float[] { a.getRealY(), b.getRealY(), c.getRealY() };
+				float[] zPoints = new float[] { a.getRealZ(), b.getRealZ(), c.getRealZ() };
 				Polygon3D poly = new Polygon3D(xPoints, yPoints, zPoints, 3);
 				polygons[i] = poly;
 			}
@@ -169,21 +177,58 @@ public class Renderer {
 		}
 		if (ev.getKeyChar() == 'w') {
 			for (Room room : rooms) {
-				room.translate(0, 0, -8);
+				room.translate(0, 0, -16);
 			}
 		}
 		if (ev.getKeyChar() == 's') {
 			for (Room room : rooms) {
-				room.translate(0, 0, 8);
+				room.translate(0, 0, 16);
 			}
+		}
+	}
+
+	public void moveForward() {
+		for (Room room : rooms) {
+			room.translate(0, 0, -16);
+		}
+	}
+
+	public void moveBackward() {
+		for (Room room : rooms) {
+			room.translate(0, 0, -16);
+		}
+	}
+
+	public void rotateLeft() {
+		light.rotateRight();
+		for (Room room : rooms) {
+			room.rotateRight();
+		}
+	}
+
+	public void rotateRight() {
+		light.rotateLeft();
+		for (Room room : rooms) {
+			room.rotateLeft();
 		}
 	}
 
 	private PriorityQueue<Room> orderRooms() {
 		PriorityQueue<Room> orderedRooms = new PriorityQueue<Room>();
 		for (Room room : rooms) {
-			if (room.getPosition().getZ() >= 0) {
-				orderedRooms.add(room);
+			orderedRooms.add(room);
+		}
+		return orderedRooms;
+	}
+
+	private PriorityQueue<Item> orderItems(Room room) {
+		PriorityQueue<Item> orderedRooms = new PriorityQueue<Item>();
+		Item[][] items = room.getItems();
+		for (int i = 0; i < room.getItems().length; i++) {
+			for (int j = 0; j < room.getItems().length; j++) {
+				if (items[i][j].getPosition().getZ() >= 0) {
+					orderedRooms.add(items[i][j]);
+				}
 			}
 		}
 		return orderedRooms;
@@ -199,19 +244,50 @@ public class Renderer {
 		g.fillRect(0, 0, Renderer.CANVAS_WIDTH, Renderer.CANVAS_HEIGHT);
 		while (!orderedRooms.isEmpty()) {
 			Room room = orderedRooms.poll();
-			for (Wall wall : room.getWalls()) {
-				for (Polygon3D poly : wall.getMesh().getPolygons()) {
-					if (!Pipeline.isHidden(poly) && wall.getMesh().getPosition().getZ() >= 0) {
-						g.setColor(Pipeline.getShading(poly, new float[] { light.getX(), light.getY(), light.getZ() },
-								null, null));
-						g.fillPolygon(poly.xPoints3D(), poly.yPoints3D(), poly.npoints);
-					}
-				}
-			}
-			for (Polygon3D poly : room.getFloor().getMesh().getPolygons()) {
+			renderWalls(g, room);
+			renderFloor(g, room);
+			renderItems(g, room);
+		}
+	}
+
+	private void renderFloor(Graphics g, Room room) {
+		PriorityQueue<Polygon3D> orderedPolygons = room.getFloor().getMesh().orderPolygons();
+		while (!orderedPolygons.isEmpty()) {
+			Polygon3D poly = orderedPolygons.poll();
+			if (!Pipeline.isHidden(poly) && poly.getPosition().getZ() > 0) {
 				g.setColor(Pipeline.getShading(poly, new float[] { light.getX(), light.getY(), light.getZ() }, null,
 						null));
-				g.fillPolygon(poly.xPoints3D(), poly.yPoints3D(), poly.npoints);
+				g.fillPolygon(poly.xPoints3D(), poly.yPoints3D(), poly.getnPoints());
+			}
+		}
+	}
+
+	private void renderWalls(Graphics g, Room room) {
+		for (Wall wall : room.getWalls()) {
+			for (Polygon3D poly : wall.getMesh().getPolygons()) {
+				if (!Pipeline.isHidden(poly) && poly.getPosition().getZ() > 0) {
+					g.setColor(Pipeline.getShading(poly, new float[] { light.getX(), light.getY(), light.getZ() },
+							null, null));
+					g.fillPolygon(poly.xPoints3D(), poly.yPoints3D(), poly.getnPoints());
+				}
+			}
+		}
+	}
+
+	private void renderItems(Graphics g, Room room) {
+		for (Item[] items : room.getItems()) {
+			for (Item item : items) {
+				if (item != null) {
+					PriorityQueue<Polygon3D> orderedPolygons = item.getMesh().orderPolygons();
+					while (!orderedPolygons.isEmpty()) {
+						Polygon3D poly = orderedPolygons.poll();
+						if (!Pipeline.isHidden(poly) && poly.getPosition().getZ() > 0) {
+							g.setColor(Pipeline.getShading(poly,
+									new float[] { light.getX(), light.getY(), light.getZ() }, null, null));
+							g.fillPolygon(poly.xPoints3D(), poly.yPoints3D(), poly.getnPoints());
+						}
+					}
+				}
 			}
 		}
 	}
@@ -260,7 +336,7 @@ public class Renderer {
 		frame.pack();
 		frame.setVisible(true);
 	}
-	
+
 	public JFrame getDrawing() {
 		return frame;
 	}
