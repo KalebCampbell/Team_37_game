@@ -2,39 +2,26 @@ package GameWorld;
 
 public class Key extends AbstractItem{
 	
-	private int keyID;
+	public Key(String keyName, String keyImage, String keyDescription, Location keyLocation) {
+		super(keyName,keyImage,keyDescription, keyLocation);	
+	}
 	
-	public Key(String keyName, String keyImage, String keyDescription) {
-		super(keyName,keyImage,keyDescription);
-		
-	}
-
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public String getImage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean inUse() {
-		// TODO Auto-generated method stub
+	/**
+	 * own implementation of the lock method
+	 * @return boolean
+	 */
+	public boolean lock() {
+		System.out.println("Key unlock");
 		return false;
 	}
 
-	@Override
-	public void remove() {
-		// TODO Auto-generated method stub
+	/** 
+	 * Own implementation of the unlock method.
+	 * @return boolean
+	 */
+	public boolean unlock() {
+		System.out.println("Key Unlock");
+		return false;
 		
 	}
 

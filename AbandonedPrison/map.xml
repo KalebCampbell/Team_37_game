@@ -1,13 +1,54 @@
-<?xml version='1.0'?>
-<map>
-	<wall id='1'>
-		<wallType>RightCorner</wallType>
-		<positionX>3</positionX>
-		<positionY>1</positionY>
-	</wall>
-	<wall id='2'>
-		<wallType>Straight</wallType>
-		<positionX>5</positionX>
-		<positionY>2</positionY>
-	</wall>
-</map>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<GameMap>
+	<room>
+		<roomid>1</roomid>
+		<location>0,0</location>
+		<wall>NORTH,EAST,WEST</wall>
+		<item>KEY,1,1,0,</item>
+		<door>SOUTH</door>
+	</room>
+
+	<room>
+		<roomid>2</roomid>
+		<location>0,-1</location>
+		<wall>SOUTH,WEST</wall>
+		<item>NONE</item>
+		<door>NORTH,EAST</door>
+	</room>
+
+	<room>
+		<roomid>3</roomid>
+		<location>1,-1</location>
+		<wall>NORTH,SOUTH,EAST</wall>
+		<item>NONE</item>
+		<door>WEST</door>
+	</room>
+
+	<player>
+		<id>1</id>
+		<name>Michael</name>
+		<roomid>1</roomid>
+		<location>0,0</location>
+	</player>
+
+	<inventory>
+		<slot1>key</slot1>
+		<slot2>keycard</slot2>
+		<slot3>crowbar</slot3>
+		<slot4>empty</slot4>
+		<slot5>empty</slot5>
+		<slot6>empty</slot6>
+		<slot7>empty</slot7>
+		<slot8>empty</slot8>
+
+
+	</inventory>
+
+</GameMap>
+
+
+
+
+
+
+

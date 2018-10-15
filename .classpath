@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="Renderer/" kind="src" path="AbandonedPrison/src"/>
+	<classpathentry kind="src" path="AbandonedPrison/src/Renderer"/>
+	<classpathentry kind="lib" path="Master.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

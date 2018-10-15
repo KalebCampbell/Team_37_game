@@ -3,22 +3,13 @@ package MapEditor;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Wall {
+public class key {
 	int x;
 	int y;
-	int width;
-	int height;
-	
-	public Wall(int x,int y,int width,int height) {
+	public key(int x, int y) {
 		this.x=x;
 		this.y=y;
-		this.width=width;
-		this.height=height;
 	}
-	/**
-	 * Getter method for getting room name
-	 * @return room name
-	 */
 	public String getName() {
 		return null;
 	}
@@ -40,8 +31,7 @@ public class Wall {
 	}
 	
 	public void draw(Graphics g) {
-		g.setColor(Color.yellow);
-		g.drawRect(x, y, width, height);
+		g.setColor(Color.GREEN);
+		g.drawLine(x+2, y+2, x+5, y+5);
 	}
-
 }

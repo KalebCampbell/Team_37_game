@@ -1,8 +1,12 @@
 package GameWorld;
 
-public class DoorStrategy extends Wall{
-	public interface Strategy {
+// Work in progress
 
+public class DoorStrategy extends Wall{
+	
+	public interface Strategy {
+		public boolean isLocked();
+		public boolean isJammed();
 	}
 
 	/**

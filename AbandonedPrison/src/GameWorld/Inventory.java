@@ -11,49 +11,33 @@ import java.util.List;
  *
  */
 public class Inventory {
-	public final int MAX_SIZE = 10;
-	
-	private Player player;
-	private List<Item> inventory = new ArrayList<Item>(MAX_SIZE);
-	
-	public Inventory(Player player) {
-		this.setPlayer(player);
-		
-	}
+	public final int MAX_SIZE = 8;
+	private List<String> inventory = new ArrayList<String>(MAX_SIZE);
 	
 	/**
-	 * Get player that inventory belongs to
-	 * @return player
-	 */
-	public Player getPlayer() {
-		return player;
-	}
-
-	/**
-	 * Part of constructor for setting the player in which the inventory belongs to
+	 * Constructor for Inventory
 	 * @param player
 	 */
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
+	public Inventory() {}
 
 	/**
 	 * Getter for getting inventory.
 	 * @return List of items in inventory
 	 */
-	public List<Item> getInventory() {
+	public List<String> getInventory() {
 		return inventory;
 	}
 
 	/**
 	 * Adds item to inventory.
+	 * If Fails, give message.
 	 * @param item
 	 */
-	public void addItemToInventory(Item item) {
+	public void addItemToInventory(String item) {
 		if(item != null) {
 			inventory.add(item);
 		}else {
-			//error
+			System.out.println("Unable to add "+item+" to inventory");
 		}	
 	}
 	
@@ -61,13 +45,23 @@ public class Inventory {
 	 * Removes items from inventory if it exists.
 	 * @param item
 	 */
-	public void removeItemFromInventory(Item item) {
+	public void removeItemFromInventory(String item) {
 		if(inventory.contains(item)) {
 			inventory.remove(item);
 		}else {
-			//error
-		}
-		
+			System.out.println("Unable to remove "+item+" to inventory");
+		}		
+	}
+	
+	/**
+	 * The parameters can change here.
+	 * The assumption is the user will select item in game world and it'll be "Found"
+	 * within the working game object.
+	 * @param itemName
+	 * @return boolean if item exists
+	 */
+	public boolean itemExistsInInventory(String item) {
+		return inventory.contains(item);	
 	}
 	
 }
