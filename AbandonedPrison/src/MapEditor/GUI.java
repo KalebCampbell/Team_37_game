@@ -33,6 +33,7 @@ import javax.swing.border.Border;
 import javax.xml.bind.JAXBException;
 
 import Persistence.LoadXml;
+import Persistence.SaveXml;
 
 public class GUI {
 	private JButton west;
@@ -549,6 +550,17 @@ public class GUI {
 		loadpanel.setPreferredSize(new Dimension(1000, 25));
 		loadpanel.add(load, BorderLayout.CENTER);
 		
+		//save
+		JButton save = new JButton("Save");
+		save.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				new SaveXml(rooms);
+			}
+		});
+		JPanel savepanel = new JPanel(new BorderLayout());
+		savepanel.setMaximumSize(new Dimension(1000, 25));
+		savepanel.setPreferredSize(new Dimension(1000, 25));
+		savepanel.add(save, BorderLayout.CENTER);
 
 		// make the panel on the right, fix its size, give it a border!
 		JPanel controls = new JPanel();
@@ -566,6 +578,7 @@ public class GUI {
 		controls.add(rdoorpanel);
 		controls.add(tdoorpanel);
 		controls.add(loadpanel);
+		controls.add(savepanel);
 		controls.add(ddoorpanel);
 		controls.add(clearpanel);
 		controls.add(wallpanel);

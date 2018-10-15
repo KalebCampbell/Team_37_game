@@ -17,8 +17,9 @@ public class SaveXml{
 			int i = 0; 
 			for(int k = 0; k < room.getitems().size(); k++) {
 				room.getitems().get(k);
+				
 			}
-			mapNew.Rooms().add(new RoomComponent(i, room.getX(), room.getY(), room.getwalls(), ));
+			mapNew.Rooms().add(new RoomComponent(i, room.getX(), room.getY(), room.getwalls(),//needs list of Items ));
 			i ++;
 		}
 		
