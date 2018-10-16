@@ -1,17 +1,13 @@
 package Application;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 
-import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 
-import Application.Window.Direction;
-import GameWorld.AbstractItem;
 import GameWorld.Game;
-import GameWorld.Player;
-import GameWorld.Room;
 
 /**
  * Controller to communicate with game world, and manipulate the Window 
@@ -27,11 +23,14 @@ public class Controller {
 	public String item;
 	
 	public Controller(Window window) {
+	
+
 		this.window = window;
-		this.game = new Game();
 		window.getFrame().addKeyListener(new Input());
 		window.getPickUp().addActionListener(new PickUpButton());
 		window.getUse().addActionListener(new UseButton());
+		window.getSave().addActionListener(new SaveAction());
+		window.getLoad().addActionListener(new LoadAction());
 	
 		
 	}
@@ -40,83 +39,94 @@ public class Controller {
 	public static void main(String[] args) {
 		new Controller(new Window(700,760,"Abandoned Prison"));
 	}
-	
-		//Action listeners for movement buttons
-		public class ButtonUp implements ActionListener {
-	
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//move foward
-			}
-			
-		}
 		
-		public class ButtonDown implements ActionListener {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//move back
-			}
-			
-		}
+	//method used to set the text output
+	public void setText(String text) {
+		window.getText().setText(text);
+	}
 		
-		public class ButtonLeft implements ActionListener {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//move left
-			}
-			
-		}
 		
-		public class ButtonRight implements ActionListener {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//move right
-			}
-			
-		}
-		
+		/**
+		 * ActionListener for the pickup button
+		 * picks up item and adds to inventory slot
+		 * @author liam
+		 *
+		 */
 		public class PickUpButton implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				 
-				int roomID = game.getPlayer().getRoomId();
-				Room currentRoom = null;
-				
-					for(Room r : game.roomList) {
-						if(r.getRoomID() == roomID) {
-							currentRoom = r;
-						} else {
-							System.out.println("You are not in a room with items in it");
-							currentRoom = null;
-						}
-					}
-					//add list of items in room to pop up menu
-					for(AbstractItem i : currentRoom.getItems()) {
-						window.getItemPopUp().addItem(i.getItemName());
-					}
-					
-					window.getItemPopUp().addActionListener(new ActionListener() {
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							item = (String) window.getItemPopUp().getSelectedItem();
-						}
-						
-					});
-				
-					System.out.println(item);
-					//add new JLabel with corrosponding image to item
+//				 
+//				int roomID = game.getPlayer().getRoomId();
+//				Room currentRoom = null;
+//				
+//					for(Room r : game.roomList) {
+//						if(r.getRoomID() == roomID) {
+//							currentRoom = r;
+//						} else {
+//							System.out.println("You are not in a room with items in it");
+//							currentRoom = null;
+//						}
+//					}
+//					//add list of items in room to pop up menu
+//					for(AbstractItem i : currentRoom.getItems()) {
+//						window.getItemPopUp().addItem(i.getItemName());
+//					}
+//					
+//					window.getItemPopUp().addActionListener(new ActionListener() {
+//						@Override
+//						public void actionPerformed(ActionEvent e) {
+//							item = (String) window.getItemPopUp().getSelectedItem();
+//						}
+//						
+//					});
+//				
+//					System.out.println(item);
+//					//add new JLabel with corrosponding image to item
 			}
-			
+//			
 		}
+		
 		
 		public class UseButton implements ActionListener {
 
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("you used and item");
+//				JFileChooser f = new JFileChooser();
+//				f.showSaveDialog(null);
+//				System.out.println("you used and item");
+			}
+			
+		}
+		
+		public class LoadAction implements ActionListener {
+
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser load = new JFileChooser();
+				load.setDialogTitle("Select file to Load");
+				int result = load.showOpenDialog(window.getFrame());
+				File LoadFile;
+					//check if a file has been selected
+					if(result == JFileChooser.APPROVE_OPTION) {
+						LoadFile = load.getSelectedFile();
+						System.out.println("file"+LoadFile
+								.getAbsolutePath());
+					}
+			}
+			
+		}
+		
+		public class SaveAction implements ActionListener {
+
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser save = new JFileChooser();
+				save.setDialogTitle("Save file");
+				int result = save.showSaveDialog(window.getFrame());
+				File SaveFile;
+					//check for a file
+					if(result == JFileChooser.APPROVE_OPTION) {
+						SaveFile = save.getSelectedFile();
+						System.out.println("Saved File: "+SaveFile.getAbsolutePath());
+					}
 			}
 			
 		}
@@ -174,6 +184,43 @@ public class Controller {
 
 		public void keyReleased(KeyEvent e) {
 			
+		}
+		
+	}
+	
+	//Action listeners for movement buttons
+	public class ButtonUp implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//move foward
+		}
+		
+	}
+	
+	public class ButtonDown implements ActionListener {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//move back
+		}
+		
+	}
+	
+	public class ButtonLeft implements ActionListener {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//move left
+		}
+		
+	}
+	
+	public class ButtonRight implements ActionListener {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//move right
 		}
 		
 	}

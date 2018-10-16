@@ -1,17 +1,9 @@
 package Application;
-import Renderer.Renderer;
-import Renderer.Room;
-
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -19,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -28,6 +21,9 @@ import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import Renderer.Renderer;
 
 /**
  * @author Liam Royal
@@ -88,6 +84,7 @@ public class Window {
 	}
 	
 	//Components to be accessed by controller.
+	private JFileChooser fileChooser;
 	private JFrame frame;
 	private Renderer renderer;
 	private JComponent canvas;
@@ -99,6 +96,10 @@ public class Window {
 	private JPanel itemPopUp;
 	private TexturedPanel inven;
 	private JComboBox<String> itemMenu;
+	private JMenuItem exit;
+	private JMenuItem save;
+	private JMenuItem load;
+	private JMenuItem newGame;
 	public boolean crouching = false;
 	public boolean standing = true;
 	protected Direction facing = Direction.NORTH;
@@ -133,6 +134,8 @@ public class Window {
 		
 		
 	//-------COMPONENTS--------
+			
+		//--File chooser testing.--
 		
 		//--Rendering canvas.--
 		this.renderer = new Renderer();
@@ -173,12 +176,11 @@ public class Window {
 			//Menu tabs.
 			JMenu mainMenu = new JMenu("File");
 			JMenu help = new JMenu("Help");
-			//Menu items.
-			JMenuItem exit, save, load, newGame;
-			save = mainMenu.add("Save");
-			load = mainMenu.add("Load");
-			newGame = mainMenu.add("New game");
-			exit = mainMenu.add("Exit");
+		//Menu items.
+		this.save = mainMenu.add("Save");
+		this.load = mainMenu.add("Load");
+		this.newGame = mainMenu.add("New game");
+		this.exit = mainMenu.add("Exit");
 		menubar.add(mainMenu);
 		menubar.add(help);
 		
@@ -285,5 +287,21 @@ public class Window {
 		
 		public JComboBox<String> getItemPopUp(){
 			return itemMenu;
+		}
+		
+		public JFileChooser getFileChooser() {
+			return fileChooser;
+		}
+		
+		public JMenuItem getSave() {
+			return save;
+		}
+		
+		public JMenuItem getLoad() {
+			return load;
+		}
+		
+		public JTextArea getText() {
+			return output;
 		}
 }
