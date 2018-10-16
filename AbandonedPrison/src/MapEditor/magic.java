@@ -15,7 +15,9 @@ public class magic {
 		this.x=x;
 		this.y=y;
 	}
-	// draw the magic
+	/**
+	 *draw the magic
+	 */
 	public void draw(Graphics g) {
 		g.setColor(Color.red);
 		g.fillOval(x+12, y+12, 5, 5);

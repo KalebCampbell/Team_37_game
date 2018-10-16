@@ -26,7 +26,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import Persistence.LoadXml;
-import Persistence.ConvertMapEditor;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -80,6 +79,9 @@ public class GUI {
 	 */
 	public static final int CANVAS_WIDTH = 600;
 	
+	/**
+	 *on load part for the file
+	 */
 	protected void onLoad(File file) {
 	}
 	/**
@@ -144,6 +146,10 @@ public class GUI {
 		
 	}
 
+	/**
+	 *  initialize the map 
+	 *
+	 */
 	public void initialise() {
 		frame = new JFrame();
 		frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.LINE_AXIS));
@@ -594,7 +600,7 @@ public class GUI {
 		load.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				// set up the file chooser
-				new ConvertMapEditor(rooms);
+				new SaveXml(rooms);
 			}
 		});
 		JPanel savepanel = new JPanel(new BorderLayout());
@@ -642,14 +648,24 @@ public class GUI {
 		frame.addMouseListener(new mouse());
 	}
 	
+	/**
+	 *redraw the map
+	 */
 	public void redraw() {
 		frame.repaint();
 	}
 	
+	/**
+	 *main class for doing everything
+	 */
 	public static void main(String[] args) {
 		new GUI();
 		
 	}
+	
+	/**
+	 *for the mouse clicked
+	 */
 	class mouse extends MouseAdapter{
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub

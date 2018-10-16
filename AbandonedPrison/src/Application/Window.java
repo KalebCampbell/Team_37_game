@@ -1,23 +1,17 @@
 package Application;
-import Renderer.Renderer;
-import Renderer.Room;
-
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -27,6 +21,9 @@ import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import Renderer.Renderer;
 
 /**
  * @author Liam Royal
@@ -87,12 +84,22 @@ public class Window {
 	}
 	
 	//Components to be accessed by controller.
+	private JFileChooser fileChooser;
 	private JFrame frame;
 	private Renderer renderer;
 	private JComponent canvas;
 	private JLabel status;
 	private JLabel compass;
 	private JTextArea output;
+	private JButton pickup;
+	private JButton use;
+	private JPanel itemPopUp;
+	private TexturedPanel inven;
+	private JComboBox<String> itemMenu;
+	private JMenuItem exit;
+	private JMenuItem save;
+	private JMenuItem load;
+	private JMenuItem newGame;
 	public boolean crouching = false;
 	public boolean standing = true;
 	protected Direction facing = Direction.NORTH;
@@ -127,6 +134,8 @@ public class Window {
 		
 		
 	//-------COMPONENTS--------
+			
+		//--File chooser testing.--
 		
 		//--Rendering canvas.--
 		this.renderer = new Renderer();
@@ -148,6 +157,15 @@ public class Window {
 			status.setVisible(true);
 			status.setBounds(10,530, 60, 60);
 			status.setIcon(stand);
+		this.itemPopUp = new JPanel();
+			itemPopUp.setBounds(300, 300, 100, 100);
+			itemPopUp.setBackground(Color.WHITE);
+			itemPopUp.setVisible(true);
+		this.itemMenu = new JComboBox<String>();
+			itemMenu.addItem("Key");
+			itemPopUp.add(itemMenu);
+		
+		canvas.add(itemPopUp);
 		canvas.add(compass);
 		canvas.add(status);
 		
@@ -158,12 +176,11 @@ public class Window {
 			//Menu tabs.
 			JMenu mainMenu = new JMenu("File");
 			JMenu help = new JMenu("Help");
-			//Menu items.
-			JMenuItem exit, save, load, newGame;
-			save = mainMenu.add("Save");
-			load = mainMenu.add("Load");
-			newGame = mainMenu.add("New game");
-			exit = mainMenu.add("Exit");
+		//Menu items.
+		this.save = mainMenu.add("Save");
+		this.load = mainMenu.add("Load");
+		this.newGame = mainMenu.add("New game");
+		this.exit = mainMenu.add("Exit");
 		menubar.add(mainMenu);
 		menubar.add(help);
 		
@@ -172,7 +189,7 @@ public class Window {
 		//--Inventory panel.--
 		GridLayout grid = new GridLayout(6,1);
 		grid.setHgap(10);
-		TexturedPanel inven = new TexturedPanel();
+		inven = new TexturedPanel();
 		inven.setBounds(610, 10, 80, 590);
 		inven.setBackground(Color.LIGHT_GRAY);
 		Border blackline = BorderFactory.createLineBorder(Color.WHITE);
@@ -199,9 +216,9 @@ public class Window {
 		move.setBackground(background);
 		move.setLayout(new GridLayout(2,3));
 		move.setBounds(10, 610, width/3, 100);	
-		JButton pickup = new JButton("Pick up"); 
+		pickup = new JButton("Pick up"); 
 		JButton up = new JButton(upA);
-		JButton use = new JButton("Use");
+		use = new JButton("Use");
 		JButton left = new JButton(leftA);
 		JButton down = new JButton(downA);
 		JButton right = new JButton(rightA);
@@ -256,11 +273,35 @@ public class Window {
 			return compass;
 		}
 		
-		public Direction getFacing() {
-			return facing;
+		public JButton getPickUp() {
+			return pickup;
 		}
 		
-		public void setFacing(Window.Direction dir) {
-			this.facing = dir;
+		public JButton getUse() {
+			return use;
+		}
+		
+		public TexturedPanel getInventory() {
+			return inven;
+		}
+		
+		public JComboBox<String> getItemPopUp(){
+			return itemMenu;
+		}
+		
+		public JFileChooser getFileChooser() {
+			return fileChooser;
+		}
+		
+		public JMenuItem getSave() {
+			return save;
+		}
+		
+		public JMenuItem getLoad() {
+			return load;
+		}
+		
+		public JTextArea getText() {
+			return output;
 		}
 }
