@@ -76,6 +76,16 @@ public class Window {
 	 */
 	private Color background = new Color(58, 58, 58);
 	
+	/**
+	 * Enum to represent direction facing.
+	 */
+	public enum Direction{ 
+		NORTH,
+		EAST, 
+		SOUTH,
+		WEST
+	}
+	
 	//Components to be accessed by controller.
 	private JFrame frame;
 	private Renderer renderer;
@@ -85,6 +95,8 @@ public class Window {
 	private JTextArea output;
 	public boolean crouching = false;
 	public boolean standing = true;
+	protected Direction facing = Direction.NORTH;
+	
 	
 	/**
 	 * Constructor for a new Window.
@@ -219,7 +231,7 @@ public class Window {
 		frame.pack();
 	}
 	
-	//Getters for controller to access and manipulate components.
+		//Getters for controller to access and manipulate components.
 		public JFrame getFrame() {
 			return frame;
 		}
@@ -234,5 +246,21 @@ public class Window {
 	
 		public JTextArea getOutput() {
 			return output;
+		}
+		
+		public JComponent getCanvas() {
+			return canvas;
+		}
+		
+		public JLabel getCompass() {
+			return compass;
+		}
+		
+		public Direction getFacing() {
+			return facing;
+		}
+		
+		public void setFacing(Window.Direction dir) {
+			this.facing = dir;
 		}
 }

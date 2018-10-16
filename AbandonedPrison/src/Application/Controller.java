@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.ImageIcon;
+
+import Application.Window.Direction;
 import Renderer.Room;
 /**
  * Controller to communicate with game world, and manipulate the Window 
@@ -95,7 +98,42 @@ public class Controller {
 		}
 
 		public void keyPressed(KeyEvent e) {
-			System.out.println("key was pressed");
+			
+			if(e.getKeyChar() == 'w' || e.getKeyChar() == 'W') {
+				window.getRenderer().moveForward();
+				window.getCompass().setIcon(window.north);
+				window.getCanvas().repaint();
+			}
+			
+			if(e.getKeyChar() == 's' || e.getKeyChar() == 'S') {
+				window.getRenderer().moveBackward();
+				window.getCompass().setIcon(window.south);
+				window.getCanvas().repaint();
+			}
+			
+			if(e.getKeyChar() == 'a' || e.getKeyChar() == 'A') {
+				window.getRenderer().rotateLeft();
+				window.getCompass().setIcon(window.west);
+				window.getCanvas().repaint();
+			}
+			
+			if(e.getKeyChar() == 'd' || e.getKeyChar() == 'D') {
+				window.getRenderer().rotateRight();
+				window.getCompass().setIcon(window.east);
+				window.getCanvas().repaint();
+			}
+			
+			if(e.getKeyChar() == 'c' || e.getKeyChar() == 'C') {
+				if(window.standing) {
+					window.standing = false;
+					window.crouching = true;
+					window.getStatus().setIcon(window.crouch);
+				} else {
+					window.standing = true;
+					window.crouching = false;
+					window.getStatus().setIcon(window.stand);
+				}
+			}
 		}
 
 		public void keyReleased(KeyEvent e) {
