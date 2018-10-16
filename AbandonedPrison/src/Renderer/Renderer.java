@@ -1,12 +1,10 @@
 package Renderer;
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,78 +15,97 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
+
 /**
- * GUI for a 3D renderer.
+ * Renderer for a simple 3D game.
  *
  * @author Joel Harris
  */
 public class Renderer {
 
 	/**
-	 * Width of the canvas.
+	 * Width of the Canvas.
 	 */
 	public static final int CANVAS_WIDTH = 600;
 	/**
-	 * Height of the canvas.
+	 * Height of the Canvas.
 	 */
 	public static final int CANVAS_HEIGHT = 600;
 	/**
-	 * Length of a room.
+	 * Length of a Room.
 	 */
 	public static final int WHOLE_ROOM = 16;
 	/**
-	 * Half the length of a room.
+	 * Half the length of a Room.
 	 */
 	public static final int HALF_ROOM = 8;
 	/**
-	 * The number of items that can be places across a room.
+	 * Quarter the length of a Room.
+	 */
+	public static final int QUARTER_ROOM = 4;
+	/**
+	 * The number of Items that can be places across a Room.
 	 */
 	public static final int ITEMS_SIZE = 4;
-
-	private Light light;
-	private JFrame frame;
+	/**
+	 * Dimension of the drawing canvas.
+	 */
 	private static final Dimension DRAWING_SIZE = new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT);
+
+	private Point3D light;
+	private JFrame frame;
 	private Map<String, Mesh> meshes = new HashMap<String, Mesh>();
-	public ArrayList<Room> rooms = new ArrayList<Room>();
+	private ArrayList<Room> rooms = new ArrayList<Room>();
 
 	/**
 	 * Renderer constructor.
 	 */
 	public Renderer() {
-		this.light = new Light(0.29056706f, -0.43019001f, -0.9113221f);
+		this.light = new Point3D(0.29056706f, -0.43019001f, -0.9113221f);
 		init();
 		createRoom();
 		initialiseGUI();
 	}
 
+	/**
+	 * Creates a Room at the given point with 0 - 4 walls and a 2d array of Items on
+	 * the floor.
+	 * 
+	 * @param position
+	 *            center of the room
+	 * @param northWall
+	 *            whether there is a north wall
+	 * @param southWall
+	 *            whether there is a south wall
+	 * @param eastWall
+	 *            whether there is a east wall
+	 * @param westWall
+	 *            whether there is a west wall
+	 * @param items
+	 *            the 2d array of Items to be put on the floor
+	 */
 	public void createRoom(Point3D position, boolean northWall, boolean southWall, boolean eastWall, boolean westWall,
 			Item[][] items) {
 		ArrayList<Wall> walls = new ArrayList<Wall>();
 		if (eastWall)
 			walls.add(new Wall(meshes.get("sidewall").getCopy(),
-					new Point3D(position.getX() + HALF_ROOM, position.getY(), position.getZ())));
+					new Point3D(position.getRealX() + HALF_ROOM, position.getRealY(), position.getRealZ())));
 		if (westWall)
 			walls.add(new Wall(meshes.get("sidewall").getCopy(),
-					new Point3D(position.getX() - HALF_ROOM, position.getY(), position.getZ())));
+					new Point3D(position.getRealX() - HALF_ROOM, position.getRealY(), position.getRealZ())));
 		if (northWall)
 			walls.add(new Wall(meshes.get("frontwall").getCopy(),
-					new Point3D(position.getX(), position.getY(), position.getZ() + HALF_ROOM)));
+					new Point3D(position.getRealX(), position.getRealY(), position.getRealZ() + HALF_ROOM)));
 		if (southWall)
 			walls.add(new Wall(meshes.get("frontwall").getCopy(),
-					new Point3D(position.getX(), position.getY(), position.getZ() - HALF_ROOM)));
+					new Point3D(position.getRealX(), position.getRealY(), position.getRealZ() - HALF_ROOM)));
 		for (int i = 0; i < ITEMS_SIZE; i++) {
 			for (int j = 0; j < ITEMS_SIZE; j++) {
 				if (items[i][j] != null)
-					items[i][j].translate(position.getX(), 4, position.getZ());
+					items[i][j].translate(position.getRealX(), 4, position.getRealZ());
 			}
 		}
 		rooms.add(new Room(position, walls, items, new Floor(meshes.get("floor").getCopy(), position)));
@@ -96,10 +113,14 @@ public class Renderer {
 
 	public void createRoom() {
 		Item[][] items = new Item[ITEMS_SIZE][ITEMS_SIZE];
-		items[0][0] = new Key(meshes.get("key").getCopy(), new Point3D(6, -1f, 2));
+		items[0][0] = new Key(meshes.get("key").getCopy(), new Point3D(6, -1, 2));
 		createRoom(new Point3D(0, 0, 16), true, false, true, true, items);
 	}
 
+	/**
+	 * Parses each File and puts them into a Map from String to Mesh. To be used for
+	 * creating Rooms.
+	 */
 	private void init() {
 		meshes.put("frontwall", loadMesh(new File("frontwall.txt")));
 		meshes.put("sidewall", loadMesh(new File("sidewall.txt")));
@@ -108,7 +129,11 @@ public class Renderer {
 	}
 
 	/**
-	 * Is called when the program starts and is used to preload meshes.
+	 * Parses and loads a Mesh from a .txt File.
+	 * 
+	 * @param file
+	 *            the File to be parsed
+	 * @return the Mesh
 	 */
 	private Mesh loadMesh(File file) {
 		Polygon3D[] polygons;
@@ -151,54 +176,33 @@ public class Renderer {
 	}
 
 	/**
-	 * Forces a redraw of the drawing canvas. This is called for you, so you don't
-	 * need to call this unless you modify this GUI.
+	 * Redraws the Canvas.
 	 */
 	public void redraw() {
 		frame.repaint();
 	}
 
 	/**
-	 * Is called every time the user presses a key. This can be used for moving the
-	 * player around.
+	 * Moves the Perspective forward by one Room.
 	 */
-	private void onKeyPress(KeyEvent ev) {
-		if (ev.getKeyChar() == 'a') {
-			light.rotateRight();
-			for (Room room : rooms) {
-				room.rotateRight();
-			}
-		}
-		if (ev.getKeyChar() == 'd') {
-			light.rotateLeft();
-			for (Room room : rooms) {
-				room.rotateLeft();
-			}
-		}
-		if (ev.getKeyChar() == 'w') {
-			for (Room room : rooms) {
-				room.translate(0, 0, -16);
-			}
-		}
-		if (ev.getKeyChar() == 's') {
-			for (Room room : rooms) {
-				room.translate(0, 0, 16);
-			}
-		}
-	}
-
 	public void moveForward() {
 		for (Room room : rooms) {
-			room.translate(0, 0, -16);
+			room.translate(0, 0, -WHOLE_ROOM);
 		}
 	}
 
+	/**
+	 * Moves the Perspective backward by one Room.
+	 */
 	public void moveBackward() {
 		for (Room room : rooms) {
-			room.translate(0, 0, -16);
+			room.translate(0, 0, WHOLE_ROOM);
 		}
 	}
 
+	/**
+	 * Rotates the Perspective by 90 degrees to the left.
+	 */
 	public void rotateLeft() {
 		light.rotateRight();
 		for (Room room : rooms) {
@@ -206,6 +210,9 @@ public class Renderer {
 		}
 	}
 
+	/**
+	 * Rotates the Perspective by 90 degrees to the right.
+	 */
 	public void rotateRight() {
 		light.rotateLeft();
 		for (Room room : rooms) {
@@ -213,23 +220,15 @@ public class Renderer {
 		}
 	}
 
+	/**
+	 * Uses the compareTo method in Room to order the Rooms using a PriorityQueue.
+	 * 
+	 * @return PriorityQueue of Rooms
+	 */
 	private PriorityQueue<Room> orderRooms() {
 		PriorityQueue<Room> orderedRooms = new PriorityQueue<Room>();
 		for (Room room : rooms) {
 			orderedRooms.add(room);
-		}
-		return orderedRooms;
-	}
-
-	private PriorityQueue<Item> orderItems(Room room) {
-		PriorityQueue<Item> orderedRooms = new PriorityQueue<Item>();
-		Item[][] items = room.getItems();
-		for (int i = 0; i < room.getItems().length; i++) {
-			for (int j = 0; j < room.getItems().length; j++) {
-				if (items[i][j].getPosition().getZ() >= 0) {
-					orderedRooms.add(items[i][j]);
-				}
-			}
 		}
 		return orderedRooms;
 	}
@@ -250,30 +249,57 @@ public class Renderer {
 		}
 	}
 
+	/**
+	 * Renders the Floor of a Room to a Graphics object. Utilizes methods in
+	 * Pipeline.
+	 * 
+	 * @param g
+	 *            canvas for drawing
+	 * @param room
+	 *            room whose floor is to be drawn
+	 */
 	private void renderFloor(Graphics g, Room room) {
 		PriorityQueue<Polygon3D> orderedPolygons = room.getFloor().getMesh().orderPolygons();
 		while (!orderedPolygons.isEmpty()) {
 			Polygon3D poly = orderedPolygons.poll();
-			if (!Pipeline.isHidden(poly) && poly.getPosition().getZ() > 0) {
-				g.setColor(Pipeline.getShading(poly, new float[] { light.getX(), light.getY(), light.getZ() }, null,
-						null));
+			if (!Pipeline.isHidden(poly) && poly.getPosition().getRealZ() > 0) {
+				g.setColor(Pipeline.getShading(poly,
+						new float[] { light.getRealX(), light.getRealY(), light.getRealZ() }));
 				g.fillPolygon(poly.xPoints3D(), poly.yPoints3D(), poly.getnPoints());
 			}
 		}
 	}
 
+	/**
+	 * Renders the Walls of a Room to a Graphics object. Utilizes methods in
+	 * Pipeline.
+	 * 
+	 * @param g
+	 *            canvas for drawing
+	 * @param room
+	 *            room whose walls are to be drawn
+	 */
 	private void renderWalls(Graphics g, Room room) {
 		for (Wall wall : room.getWalls()) {
 			for (Polygon3D poly : wall.getMesh().getPolygons()) {
-				if (!Pipeline.isHidden(poly) && poly.getPosition().getZ() > 0) {
-					g.setColor(Pipeline.getShading(poly, new float[] { light.getX(), light.getY(), light.getZ() },
-							null, null));
+				if (!Pipeline.isHidden(poly) && poly.getPosition().getRealZ() > 0) {
+					g.setColor(Pipeline.getShading(poly,
+							new float[] { light.getRealX(), light.getRealY(), light.getRealZ() }));
 					g.fillPolygon(poly.xPoints3D(), poly.yPoints3D(), poly.getnPoints());
 				}
 			}
 		}
 	}
 
+	/**
+	 * Renders the Items in a Room to a Graphics object. Utilizes methods in
+	 * Pipeline.
+	 * 
+	 * @param g
+	 *            canvas for drawing
+	 * @param room
+	 *            room whose items are to be drawn
+	 */
 	private void renderItems(Graphics g, Room room) {
 		for (Item[] items : room.getItems()) {
 			for (Item item : items) {
@@ -281,9 +307,9 @@ public class Renderer {
 					PriorityQueue<Polygon3D> orderedPolygons = item.getMesh().orderPolygons();
 					while (!orderedPolygons.isEmpty()) {
 						Polygon3D poly = orderedPolygons.poll();
-						if (!Pipeline.isHidden(poly) && poly.getPosition().getZ() > 0) {
+						if (!Pipeline.isHidden(poly) && poly.getPosition().getRealZ() > 0) {
 							g.setColor(Pipeline.getShading(poly,
-									new float[] { light.getX(), light.getY(), light.getZ() }, null, null));
+									new float[] { light.getRealX(), light.getRealY(), light.getRealZ() }));
 							g.fillPolygon(poly.xPoints3D(), poly.yPoints3D(), poly.getnPoints());
 						}
 					}
@@ -294,54 +320,61 @@ public class Renderer {
 
 	@SuppressWarnings("serial")
 	private void initialiseGUI() {
-		// make the frame
+		
 		frame = new JFrame();
 		frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.LINE_AXIS));
 		frame.setSize(new Dimension(DRAWING_SIZE.width, DRAWING_SIZE.height));
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// set up the drawing canvas, hook it into the render() method, and give
-		// it a nice default if render() returns null.
 		JComponent drawing = new JComponent() {
 			protected void paintComponent(Graphics g) {
 				render(g);
 			}
 		};
-		// fix its size
+
 		drawing.setPreferredSize(DRAWING_SIZE);
 		drawing.setMinimumSize(DRAWING_SIZE);
 		drawing.setMaximumSize(DRAWING_SIZE);
 		drawing.setVisible(true);
 
-		// this is not a best-practices way of doing key listening; instead you
-		// should use either a KeyListener or an InputMap/ActionMap combo. but
-		// this method neatly avoids any focus issues (KeyListener) and requires
-		// less effort on your part (ActionMap).
+		
 		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
 		manager.addKeyEventDispatcher(new KeyEventDispatcher() {
 			@Override
 			public boolean dispatchKeyEvent(KeyEvent ev) {
 				if (ev.getID() == KeyEvent.KEY_PRESSED) {
-					onKeyPress(ev);
 					redraw();
 				}
 				return true;
 			}
 		});
 
-		// put it all together.
 		frame.add(drawing);
 
 		frame.pack();
 		frame.setVisible(true);
 	}
 
+	/**
+	 * @return the drawing canvas
+	 */
 	public JFrame getDrawing() {
 		return frame;
 	}
 
-	public static void main(String[] args) {
-		new Renderer();
+	/**
+	 * @return the rooms
+	 */
+	public ArrayList<Room> getRooms() {
+		return rooms;
+	}
+
+	/**
+	 * @param rooms
+	 *            the rooms to set
+	 */
+	public void setRooms(ArrayList<Room> rooms) {
+		this.rooms = rooms;
 	}
 }
