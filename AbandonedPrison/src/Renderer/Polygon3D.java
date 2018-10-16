@@ -191,17 +191,17 @@ public class Polygon3D implements Comparable<Polygon3D> {
 
 	@Override
 	public int compareTo(Polygon3D other) {
-		if (this.position.getRealY() > other.getPosition().getRealY())
+		if (Math.abs(this.position.getRealY()) > Math.abs(other.getPosition().getRealY()))
 			return -1;
-		else if (this.position.getRealY() < other.getPosition().getRealY())
+		if (Math.abs(this.position.getRealY()) < Math.abs(other.getPosition().getRealY()))
 			return 1;
 		if (this.position.getRealZ() > other.getPosition().getRealZ())
-			return 1;
-		else if (this.position.getRealZ() < other.getPosition().getRealZ())
 			return -1;
+		if (this.position.getRealZ() < other.getPosition().getRealZ())
+			return 1;
 		return 0;
 	}
-	
+
 	/**
 	 * @return the xPoints
 	 */

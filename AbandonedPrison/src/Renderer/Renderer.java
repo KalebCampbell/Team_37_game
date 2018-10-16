@@ -66,8 +66,6 @@ public class Renderer {
 	public Renderer() {
 		this.light = new Point3D(0.29056706f, -0.43019001f, -0.9113221f);
 		init();
-		createRoom();
-		initialiseGUI();
 	}
 
 	/**
@@ -109,12 +107,6 @@ public class Renderer {
 			}
 		}
 		rooms.add(new Room(position, walls, items, new Floor(meshes.get("floor").getCopy(), position)));
-	}
-
-	public void createRoom() {
-		Item[][] items = new Item[ITEMS_SIZE][ITEMS_SIZE];
-		items[0][0] = new Key(meshes.get("key").getCopy(), new Point3D(6, -1, 2));
-		createRoom(new Point3D(0, 0, 16), true, false, true, true, items);
 	}
 
 	/**
@@ -225,7 +217,7 @@ public class Renderer {
 	 * 
 	 * @return PriorityQueue of Rooms
 	 */
-	private PriorityQueue<Room> orderRooms() {
+	public PriorityQueue<Room> orderRooms() {
 		PriorityQueue<Room> orderedRooms = new PriorityQueue<Room>();
 		for (Room room : rooms) {
 			orderedRooms.add(room);
@@ -362,6 +354,13 @@ public class Renderer {
 	public JFrame getDrawing() {
 		return frame;
 	}
+	
+	/**
+	 * @return the meshes
+	 */
+	public Map<String, Mesh> getMeshes(){
+		return this.meshes;
+	}
 
 	/**
 	 * @return the rooms
@@ -372,9 +371,9 @@ public class Renderer {
 
 	/**
 	 * @param rooms
-	 *            the rooms to set
+	 *            the room to add
 	 */
-	public void setRooms(ArrayList<Room> rooms) {
-		this.rooms = rooms;
+	public void addRoom(Room room) {
+		this.rooms.add(room);
 	}
 }

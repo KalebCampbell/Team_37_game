@@ -29,11 +29,11 @@ public class Room implements Comparable<Room> {
 	 *            floor
 	 */
 	public Room(Point3D position, ArrayList<Wall> walls, Item[][] items, Floor floor) {
-		this.position = position;
+		this.position = new Point3D(0, 0, 0);
 		this.walls = walls;
 		this.items = items;
 		this.floor = floor;
-		translate(position.getX(), position.getY(), position.getZ());
+		translate(position.getRealX(), position.getRealY(), position.getRealZ());
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class Room implements Comparable<Room> {
 	 * @param z
 	 *            delta z
 	 */
-	public void translate(int x, int y, int z) {
+	public void translate(float x, float y, float z) {
 		for (Wall wall : walls) {
 			wall.translate(x, y, z);
 		}
@@ -105,7 +105,7 @@ public class Room implements Comparable<Room> {
 		Item[][] items = this.items;
 		for (int i = 0; i < items.length; i++) {
 			for (int j = 0; j < items.length; j++) {
-				if (items[i][j].getPosition().getZ() >= 0) {
+				if (items[i][j].getPosition().getRealZ() >= 0) {
 					orderedItems.add(items[i][j]);
 				}
 			}
@@ -144,9 +144,9 @@ public class Room implements Comparable<Room> {
 	@Override
 	public int compareTo(Room other) {
 		if (this.position.getRealZ() > other.getPosition().getRealZ())
-			return 1;
-		else if (this.position.getRealZ() < other.getPosition().getRealZ())
 			return -1;
+		if (this.position.getRealZ() < other.getPosition().getRealZ())
+			return 1;
 		if (Math.abs(this.position.getRealX()) > Math.abs(other.getPosition().getRealX()))
 			return 1;
 		if (Math.abs(this.position.getRealX()) < Math.abs(other.getPosition().getRealX()))

@@ -18,7 +18,7 @@ public class Key extends Item {
 	 *            the center position of this object
 	 */
 	public Key(Mesh mesh, Point3D position) {
-		this.mesh = mesh.translate(position.getX(), position.getY(), position.getZ());
+		this.mesh = mesh.translate(position.getRealX(), position.getRealY(), position.getRealZ());
 		this.position = position;
 		this.color = new Color(255, 255, 0);
 		setPolygonColors(color);
