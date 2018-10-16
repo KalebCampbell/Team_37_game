@@ -37,7 +37,7 @@ public class Game {
 			// Inventory setup
 			this.player.setInventory(initialiseInventory(setup));
 			// Creates rooms & map setup
-			//initialiseMap(setup);	
+			initialiseMap(setup);	
 			
 		}else {
 			System.out.println("GameMap is empty");
@@ -169,13 +169,15 @@ public class Game {
 		
 		// iterate over all rooms
 		// create items
-		// 
-		for(RoomComponent rc : setup.getRooms().Rooms()) {	
+		
+		RoomsComponent rc = setup.getRooms();
+		
+		for(RoomComponent roomC : rc.Rooms()) {
+			List<ItemComponent> ic = roomC.getItems();
 			
-			
-			List<AbstractItem> itemList = initialiseItems(rc.getItems());		
+			List<AbstractItem> itemList = initialiseItems(roomC.getItems());		
 			// Build room
-			Room room = new Room(rc.getId(), rc.getWalls(), new Location(rc.getLocX(),rc.getLocY()),rc.getDoors(), itemList);
+			Room room = new Room(roomC.getId(), roomC.getWalls(), new Location(roomC.getLocX(),roomC.getLocY()),roomC.getDoors(), itemList);
 			// Add room to roomList
 			roomList.add(room);
 		}	
@@ -196,11 +198,12 @@ public class Game {
 			for(ItemComponent ic : list) {
 				
 				String itemName = ic.getItem();
-				
-				if(itemName.equals("Key")) {
-					 item = new Key(itemName, 99, "KeyImage", "KeyDescription", new Location(ic.getPosX(), ic.getPosY()));
-					 returnItems.add(item);
-				}		
+				if(itemName != null) {
+					if(itemName.equals("Key")) {
+						item = new Key(itemName, 99,"KeyDescription","KeyImage", new Location(ic.getPosX(), ic.getPosY()));
+						returnItems.add(item);
+					}
+				}
 			}
 		}
 		return returnItems;
@@ -242,9 +245,10 @@ public class Game {
 			
 			if(itemArr[0].equals("Key")) {
 				 item = new Key(itemArr[0], Integer.parseInt(itemArr[1]), "image","description", new Location(Integer.parseInt(itemArr[2]),Integer.parseInt(itemArr[3])));
+				 inv.addItemToInventory(item);
+			}else {
+				
 			}
-			
-			inv.addItemToInventory(item);
 		}
 		return inv;
 	}

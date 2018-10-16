@@ -36,6 +36,7 @@ public class Controller {
 		}
 		System.out.println("Parsing complete");
 		Game game = new Game(gameComp);
+		System.out.println("Load complete");
 		
 		
 		
