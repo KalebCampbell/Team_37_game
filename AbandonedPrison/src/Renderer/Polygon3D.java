@@ -1,4 +1,5 @@
 package Renderer;
+
 import java.awt.Color;
 import java.awt.Polygon;
 import java.util.PriorityQueue;
@@ -16,20 +17,24 @@ public class Polygon3D implements Comparable<Polygon3D> {
 	 */
 	public static final int CANVAS_MIDDLE = 300;
 
-	private Color color;
 	private float[] xPoints;
 	private float[] yPoints;
 	private float[] zPoints;
 	private int nPoints;
+	private Color color;
 	private Point3D position;
 
 	/**
 	 * Polygon3D constructor.
 	 * 
 	 * @param xPoints
+	 *            x points
 	 * @param yPoints
+	 *            y points
 	 * @param zPoints
+	 *            z points
 	 * @param nPoints
+	 *            number of points
 	 */
 	public Polygon3D(float[] xPoints, float[] yPoints, float[] zPoints, int nPoints) {
 		this.xPoints = xPoints;
@@ -39,6 +44,9 @@ public class Polygon3D implements Comparable<Polygon3D> {
 		calculatePosition();
 	}
 
+	/**
+	 * Calculates the center position of this Polygon.
+	 */
 	private void calculatePosition() {
 		float minX = Float.MAX_VALUE;
 		float maxX = Float.MIN_VALUE;
@@ -115,10 +123,13 @@ public class Polygon3D implements Comparable<Polygon3D> {
 	 * Translates each vertex by the delta values provided.
 	 * 
 	 * @param x
+	 *            delta x
 	 * @param y
+	 *            delta y
 	 * @param z
+	 *            delta z
 	 */
-	public void translate(int x, int y, int z) {
+	public void translate(float x, float y, float z) {
 		for (int i = 0; i < xPoints.length; i++) {
 			xPoints[i] += x;
 			yPoints[i] += y;
@@ -128,7 +139,7 @@ public class Polygon3D implements Comparable<Polygon3D> {
 	}
 
 	/**
-	 * Rotates each vertex to the left.
+	 * Rotates each vertex 90 degrees to the left.
 	 */
 	public void rotateLeft() {
 		for (int i = 0; i < xPoints.length; i++) {
@@ -140,7 +151,7 @@ public class Polygon3D implements Comparable<Polygon3D> {
 	}
 
 	/**
-	 * Rotates each vertex to the right.
+	 * Rotates each vertex 90 degrees to the right.
 	 */
 	public void rotateRight() {
 		for (int i = 0; i < xPoints.length; i++) {
@@ -152,7 +163,47 @@ public class Polygon3D implements Comparable<Polygon3D> {
 	}
 
 	/**
-	 * @return the zPoints
+	 * Creates a clone of this Polygon3D.
+	 * 
+	 * @return a clone of this Polygon3D
+	 */
+	public Polygon3D clone() {
+		float[] xPoints = new float[] { this.xPoints[0], this.xPoints[1], this.xPoints[2] };
+		float[] yPoints = new float[] { this.yPoints[0], this.yPoints[1], this.yPoints[2] };
+		float[] zPoints = new float[] { this.zPoints[0], this.zPoints[1], this.zPoints[2] };
+		return new Polygon3D(xPoints, yPoints, zPoints, nPoints);
+	}
+
+	/**
+	 * Returns a string representation of this object.
+	 * 
+	 * @return a string representation of this object.
+	 */
+	public String toString() {
+		int[] xPoints3D = xPoints3D();
+		int[] yPoints3D = yPoints3D();
+		String str = "2dpoints: \nx1: " + xPoints[0] + " y1: " + yPoints[0] + "\nx2: " + xPoints[1] + " y2: "
+				+ yPoints[1] + "\nx3: " + xPoints[2] + " y3: " + yPoints[2] + "\n";
+		return str.concat("3dpoints: \nx1: " + xPoints3D[0] + " y1: " + yPoints3D[0] + " z1: " + zPoints[0] + "\nx2: "
+				+ xPoints3D[1] + " y2: " + yPoints3D[1] + " z2: " + zPoints[1] + "\nx3: " + xPoints3D[2] + " y3: "
+				+ yPoints3D[2] + " z3: " + zPoints[2]);
+	}
+
+	@Override
+	public int compareTo(Polygon3D other) {
+		if (this.position.getRealY() > other.getPosition().getRealY())
+			return -1;
+		else if (this.position.getRealY() < other.getPosition().getRealY())
+			return 1;
+		if (this.position.getRealZ() > other.getPosition().getRealZ())
+			return 1;
+		else if (this.position.getRealZ() < other.getPosition().getRealZ())
+			return -1;
+		return 0;
+	}
+	
+	/**
+	 * @return the xPoints
 	 */
 	public float[] getxPoints() {
 		return xPoints;
@@ -167,7 +218,7 @@ public class Polygon3D implements Comparable<Polygon3D> {
 	}
 
 	/**
-	 * @return the zPoints
+	 * @return the yPoints
 	 */
 	public float[] getyPoints() {
 		return yPoints;
@@ -196,46 +247,26 @@ public class Polygon3D implements Comparable<Polygon3D> {
 		this.zPoints = zPoints;
 	}
 
+	/**
+	 * @return the number of points
+	 */
 	public int getnPoints() {
 		return nPoints;
 	}
 
+	/**
+	 * @param color
+	 *            the color to be set
+	 */
 	public void setColor(Color color) {
 		this.color = color;
 	}
 
+	/**
+	 * @return the color
+	 */
 	public Color getColor() {
 		return this.color;
-	}
-
-	public Polygon3D clone() {
-		float[] xPoints = new float[] { this.xPoints[0], this.xPoints[1], this.xPoints[2] };
-		float[] yPoints = new float[] { this.yPoints[0], this.yPoints[1], this.yPoints[2] };
-		float[] zPoints = new float[] { this.zPoints[0], this.zPoints[1], this.zPoints[2] };
-		return new Polygon3D(xPoints, yPoints, zPoints, nPoints);
-	}
-
-	public String toString() {
-		int[] xPoints3D = xPoints3D();
-		int[] yPoints3D = yPoints3D();
-		String str = "2dpoints: \nx1: " + xPoints[0] + " y1: " + yPoints[0] + "\nx2: " + xPoints[1] + " y2: "
-				+ yPoints[1] + "\nx3: " + xPoints[2] + " y3: " + yPoints[2] + "\n";
-		return str.concat("3dpoints: \nx1: " + xPoints3D[0] + " y1: " + yPoints3D[0] + " z1: " + zPoints[0] + "\nx2: "
-				+ xPoints3D[1] + " y2: " + yPoints3D[1] + " z2: " + zPoints[1] + "\nx3: " + xPoints3D[2] + " y3: "
-				+ yPoints3D[2] + " z3: " + zPoints[2]);
-	}
-
-	@Override
-	public int compareTo(Polygon3D other) {
-		if(this.position.getRealY() > other.getPosition().getRealY())
-			return -1;
-		else if(this.position.getRealY() < other.getPosition().getRealY())
-			return 1;
-		if(this.position.getRealZ() > other.getPosition().getRealZ())
-			return 1;
-		else if(this.position.getRealZ() < other.getPosition().getRealZ())
-			return -1;
-		return 0;
 	}
 
 	/**
@@ -246,7 +277,8 @@ public class Polygon3D implements Comparable<Polygon3D> {
 	}
 
 	/**
-	 * @param position the position to set
+	 * @param position
+	 *            the position to set
 	 */
 	public void setPosition(Point3D position) {
 		this.position = position;
