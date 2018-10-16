@@ -1,9 +1,10 @@
 package Renderer;
+
 import java.awt.Color;
 
 /**
- * Contains useful static methods for colouring and printing polygons. Uses
- * method stubs provided in COMP 261.
+ * Contains useful static methods for coloring and printing polygons. Uses
+ * method stubs provided in COMP 261. Methods were filled by me.
  *
  * @author Joel Harris
  */
@@ -14,6 +15,7 @@ public class Pipeline {
 	 * be drawn.
 	 *
 	 * @param poly
+	 *            the polygon to be checked
 	 * @return whether the polygon is hidden
 	 */
 	public static boolean isHidden(Polygon3D poly) {
@@ -30,16 +32,15 @@ public class Pipeline {
 	}
 
 	/**
-	 * Calculates the colour for a polygon to be drawn in based on the incident and
-	 * ambient lighting.
+	 * Calculates the color for a polygon to be drawn in based on the incident lighting.
 	 *
 	 * @param poly
+	 *            to be shaded
 	 * @param lightDirection
-	 * @param lightColor
-	 * @param ambientLight
+	 *            direction of incident light source
 	 * @return the color of this polygon
 	 */
-	public static Color getShading(Polygon3D poly, float[] lightDirection, Color lightColor, Color ambientLight) {
+	public static Color getShading(Polygon3D poly, float[] lightDirection) {
 		float[] incidentLight = lightDirection;
 		float[] ambientColour = new float[3];
 		ambientColour[0] = 0.5f;

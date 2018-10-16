@@ -17,7 +17,7 @@ import org.xml.sax.SAXException;
 public class Parser2{
 	
 	List<RoomComponent> rooms = new ArrayList<RoomComponent>();
-	List<String> inventory = new ArrayList<String>();
+	InventoryComponent inventory;
 	private PlayerComponent player;
 	
 	public Parser2(){
@@ -88,7 +88,7 @@ public class Parser2{
 		                	String slot8 = el.getElementsByTagName("slot8").item(0).getTextContent();
 		                	
 		                	
-	                    // CREATE INVENTORY
+		                	// CREATE INVENTORY 	
 		                	ArrayList<String> inventorySlots = new ArrayList<String>();
 		                	  // ADD TO INVENTORY
 		                	inventorySlots.add(slot1);
@@ -99,7 +99,9 @@ public class Parser2{
 		                	inventorySlots.add(slot6);
 		                	inventorySlots.add(slot7);
 		                	inventorySlots.add(slot8);
-		                	this.inventory = inventorySlots;
+		                	
+		                	InventoryComponent ic = new InventoryComponent(inventorySlots);
+		                	this.inventory = ic;
 		                }
 		            }
 		        }

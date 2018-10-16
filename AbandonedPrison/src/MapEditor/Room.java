@@ -1,3 +1,8 @@
+/**
+ * @author Pai Zhou
+ * id: 300335146
+ *
+ */
 package MapEditor;
 
 import java.awt.Color;
@@ -54,31 +59,47 @@ public class Room {
 	}
 	//when call the methods, that means there is this item.
 	public void leftwall() {
-		leftWall=true;
+		if(leftDoor==false) {
+			leftWall=true;
+		}
 	}
 	public void rightwall() {
-		rightWall=true;
+		if(rightDoor==false) {
+			rightWall=true;
+		}
 	}
 	public void topwall() {
-		topWall=true;
+		if(topDoor==false) {
+			topWall=true;
+		}
 	}
 	public void downwall() {
-		downWall=true;
+		if(downDoor==false) {
+			downWall=true;
+		}
 	}
 	public void leftdoor() {
-		leftDoor=true;
+		if(leftWall==false) {
+			leftDoor=true;
+		}
 	}
 	public void light() {
 		light=true;
 	}
 	public void rightdoor() {
-		rightDoor=true;
+		if(rightWall==false) {
+			rightDoor=true;
+		}
 	}
 	public void topdoor() {
-		topDoor=true;
+		if(topWall==false) {
+			topDoor=true;
+		}
 	}
 	public void downdoor() {
-		downDoor=true;
+		if(downWall==false) {
+			downDoor=true;
+		}
 	}
 	public void haveKey() {
 		key=true;

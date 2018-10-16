@@ -1,9 +1,9 @@
 package GameWorld;
 
-public class Door extends Wall{
+public class Door {
 
 	public Door(int Location) {
-		super(Location);
+		
 	}
 
 	// Can call Door.getWallId();

@@ -127,7 +127,7 @@ public class InitialiseMap {
 		
 		//This calls the LoadXml class to start unmarshalling. 
 		LoadXml load = new LoadXml();
-		//load.unMarshal();
+		GameMapComponent game = load.unMarshal(new File("Map1.xml"));
 	}
 	
 	/**

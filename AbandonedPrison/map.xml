@@ -32,14 +32,14 @@
 	</player>
 
 	<inventory>
-		<slot1>key</slot1>
-		<slot2>keycard</slot2>
-		<slot3>crowbar</slot3>
-		<slot4>empty</slot4>
-		<slot5>empty</slot5>
-		<slot6>empty</slot6>
-		<slot7>empty</slot7>
-		<slot8>empty</slot8>
+		<slot1>KEY,1,DefaultImage,Key</slot1>
+		<slot2>KEYCARD,1,DefaultImage,Key</slot2>
+		<slot3>CROWBAR,1,DefaultImage,Crowbar</slot3>
+		<slot4>KEY,2,DefaultImage,Key</slot4>
+		<slot5>empty,0,DefaultImage,Empty</slot5>
+		<slot6>empty,0,DefaultImage,Empty</slot6>
+		<slot7>empty,0,DefaultImage,Empty</slot7>
+		<slot8>empty,0,DefaultImage,Empty</slot8>
 
 
 	</inventory>

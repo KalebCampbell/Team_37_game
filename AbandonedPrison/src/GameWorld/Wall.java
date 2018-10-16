@@ -1,5 +1,9 @@
 package GameWorld;
-
+/**
+ * 
+ * @author Michael Vincent 300140128
+ *
+ */
 public class Wall {
 	
 	private int location;

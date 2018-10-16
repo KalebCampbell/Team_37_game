@@ -18,7 +18,7 @@ public class LoadXml {
 	    Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 	     
 	    GameMapComponent gameMap = (GameMapComponent) jaxbUnmarshaller.unmarshal(file);
-
+//
 //	    System.out.println("=======");
 //	    //How to access all inventory items
 //	    for(int i = 0; i < gameMap.getInventory().size(); i ++) {
@@ -44,6 +44,7 @@ public class LoadXml {
 //	    		System.out.println("=======");
 //	    }
 //	   
+//	    System.out.println(gameMap.player.getLocation());
 	    return gameMap;
 	}
 }

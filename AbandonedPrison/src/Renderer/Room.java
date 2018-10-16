@@ -1,6 +1,14 @@
 package Renderer;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
+import java.util.PriorityQueue;
+
+/**
+ * Represents a Room in a 3D environment, with 0 - 4 walls, and a 2d array of
+ * Items within the Room.
+ * 
+ * @author Joel Harris
+ */
 public class Room implements Comparable<Room> {
 
 	private ArrayList<Wall> walls = new ArrayList<Wall>();
@@ -8,14 +16,36 @@ public class Room implements Comparable<Room> {
 	private Floor floor;
 	private Point3D position;
 
+	/**
+	 * Room constructor.
+	 * 
+	 * @param position
+	 *            center position
+	 * @param walls
+	 *            walls
+	 * @param items
+	 *            items on the floor
+	 * @param floor
+	 *            floor
+	 */
 	public Room(Point3D position, ArrayList<Wall> walls, Item[][] items, Floor floor) {
-		this.position = new Point3D(0, 0, 0);
+		this.position = position;
 		this.walls = walls;
 		this.items = items;
 		this.floor = floor;
 		translate(position.getX(), position.getY(), position.getZ());
 	}
 
+	/**
+	 * Translates the Room by the delta values.
+	 *
+	 * @param x
+	 *            delta x
+	 * @param y
+	 *            delta y
+	 * @param z
+	 *            delta z
+	 */
 	public void translate(int x, int y, int z) {
 		for (Wall wall : walls) {
 			wall.translate(x, y, z);
@@ -30,6 +60,9 @@ public class Room implements Comparable<Room> {
 		position.translate(x, y, z);
 	}
 
+	/**
+	 * Rotates the Room 90 degrees to left.
+	 */
 	public void rotateLeft() {
 		for (Wall wall : walls) {
 			wall.rotateLeft();
@@ -44,6 +77,9 @@ public class Room implements Comparable<Room> {
 		position.rotateLeft();
 	}
 
+	/**
+	 * Rotates the Room 90 degrees to right.
+	 */
 	public void rotateRight() {
 		for (Wall wall : walls) {
 			wall.rotateRight();
@@ -56,6 +92,25 @@ public class Room implements Comparable<Room> {
 		}
 		floor.rotateRight();
 		position.rotateRight();
+	}
+
+	/**
+	 * Uses the compareTo method in Item to order the Items within a Room using a
+	 * PriorityQueue.
+	 * 
+	 * @return PriorityQueue of Items
+	 */
+	public PriorityQueue<Item> orderItems() {
+		PriorityQueue<Item> orderedItems = new PriorityQueue<Item>();
+		Item[][] items = this.items;
+		for (int i = 0; i < items.length; i++) {
+			for (int j = 0; j < items.length; j++) {
+				if (items[i][j].getPosition().getZ() >= 0) {
+					orderedItems.add(items[i][j]);
+				}
+			}
+		}
+		return orderedItems;
 	}
 
 	/**
@@ -86,12 +141,16 @@ public class Room implements Comparable<Room> {
 		return position;
 	}
 
+	@Override
 	public int compareTo(Room other) {
-		if (this.getPosition().getRealZ() > other.getPosition().getRealZ())
+		if (this.position.getRealZ() > other.getPosition().getRealZ())
 			return 1;
-		else if (this.getPosition().getRealZ() < other.getPosition().getRealZ())
+		else if (this.position.getRealZ() < other.getPosition().getRealZ())
 			return -1;
-		// add ordering on x axis here
+		if (Math.abs(this.position.getRealX()) > Math.abs(other.getPosition().getRealX()))
+			return 1;
+		if (Math.abs(this.position.getRealX()) < Math.abs(other.getPosition().getRealX()))
+			return -1;
 		return 0;
 	}
 }

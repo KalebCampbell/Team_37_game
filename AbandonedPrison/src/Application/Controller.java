@@ -5,15 +5,24 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import Renderer.RendererGUI;
+import javax.swing.ImageIcon;
 
+import Application.Window.Direction;
+import Renderer.Room;
+/**
+ * Controller to communicate with game world, and manipulate the Window 
+ * based on this communication.
+ * 
+ * @author liam
+ *
+ */
 public class Controller {
 	
 	private Window window;
 	
 	public Controller(Window window) {
 		this.window = window;
-		this.window.frame.addKeyListener(new Input());
+		this.window.getFrame().addKeyListener(new Input());
 	}
 	
 	//main method for testing
@@ -70,60 +79,63 @@ public class Controller {
 		
 		public class UseButton implements ActionListener {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				//use an item
 			}
 			
 		}
+		
 	
+	/**
+	 * Inner class to process keyInput from the Window.
+	 * 
+	 * @author liam 
+	 */
 	public class Input implements KeyListener {
 		
-
-		@Override
 		public void keyTyped(KeyEvent e) {
 			
 		}
 
-		@Override
 		public void keyPressed(KeyEvent e) {
 			
-			if(e.getKeyChar() == 'w') {
-				for(Renderer.Room r : window.renderer.rooms) {
-					r.translate(0, 0, -8);
-				}
-				window.canvas.repaint();
-				window.compass.setIcon(window.north);
-			}
-			if(e.getKeyChar() == 's') {
-				for(Renderer.Room r : window.renderer.rooms) {
-					r.translate(0, 0, 8);
-				}
-				window.canvas.repaint();
-				window.compass.setIcon(window.south);
-			}
-			if(e.getKeyChar() == 'a') { //rotate left
-			
+			if(e.getKeyChar() == 'w' || e.getKeyChar() == 'W') {
+				window.getRenderer().moveForward();
+				window.getCompass().setIcon(window.north);
+				window.getCanvas().repaint();
 			}
 			
-			if(e.getKeyChar() == 'd') { //rotate right
-				
+			if(e.getKeyChar() == 's' || e.getKeyChar() == 'S') {
+				window.getRenderer().moveBackward();
+				window.getCompass().setIcon(window.south);
+				window.getCanvas().repaint();
 			}
 			
-			if(e.getKeyChar() == 'c') { //crouch/stand
+			if(e.getKeyChar() == 'a' || e.getKeyChar() == 'A') {
+				window.getRenderer().rotateLeft();
+				window.getCompass().setIcon(window.west);
+				window.getCanvas().repaint();
+			}
+			
+			if(e.getKeyChar() == 'd' || e.getKeyChar() == 'D') {
+				window.getRenderer().rotateRight();
+				window.getCompass().setIcon(window.east);
+				window.getCanvas().repaint();
+			}
+			
+			if(e.getKeyChar() == 'c' || e.getKeyChar() == 'C') {
 				if(window.standing) {
-					window.status.setIcon(window.crouch);
 					window.standing = false;
 					window.crouching = true;
+					window.getStatus().setIcon(window.crouch);
 				} else {
-					window.status.setIcon(window.stand);
 					window.standing = true;
 					window.crouching = false;
+					window.getStatus().setIcon(window.stand);
 				}
 			}
 		}
 
-		@Override
 		public void keyReleased(KeyEvent e) {
 			
 		}

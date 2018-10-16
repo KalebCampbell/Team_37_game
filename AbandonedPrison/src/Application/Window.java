@@ -31,7 +31,7 @@ import javax.swing.border.TitledBorder;
 /**
  * @author Liam Royal
  *	
- *Represents the application window.
+ *Builds GUI with SWING components, represents the application Window.
  */
 
 public class Window {
@@ -39,22 +39,23 @@ public class Window {
 	/**
 	 * Icons for movement buttons.
 	 */
-	ImageIcon upA = new ImageIcon("up.png");
-	ImageIcon downA = new ImageIcon("down.png");
-	ImageIcon leftA = new ImageIcon("left.png");
-	ImageIcon rightA = new ImageIcon("right.png");
+	ImageIcon upA = new ImageIcon("src/Application/up.png");
+	ImageIcon downA = new ImageIcon("src/Application/down.png");
+	ImageIcon leftA = new ImageIcon("src/Application/left.png");
+	ImageIcon rightA = new ImageIcon("src/Application/right.png");
 	
 	/**
-	 * Icons for items.
+	 * Icons for other application components.
 	 */
-	ImageIcon key = new ImageIcon("key.png");
-	ImageIcon blueprints = new ImageIcon("blueprints.png");
-	ImageIcon crouch = new ImageIcon("crouch-icon.png");
-	ImageIcon stand = new ImageIcon("standing-symbol.png");
-	ImageIcon north = new ImageIcon("compassNorth.png");
-	ImageIcon south = new ImageIcon("compassSouth.png");
-	ImageIcon east = new ImageIcon("compassEast.png");
-	ImageIcon west = new ImageIcon("compassWest.png");
+	ImageIcon key = new ImageIcon("src/Application/key.png");
+	ImageIcon blueprints = new ImageIcon("src/Application/blueprints.png");
+	ImageIcon crouch = new ImageIcon("src/Application/crouch-icon.png");
+	ImageIcon stand = new ImageIcon("src/Application/standing-symbol.png");
+	ImageIcon north = new ImageIcon("src/Application/compassNorth.png");
+	ImageIcon south = new ImageIcon("src/Application/compassSouth.png");
+	ImageIcon east = new ImageIcon("src/Application/compassEast.png");
+	ImageIcon west = new ImageIcon("src/Application/compassWest.png");
+	ImageIcon texture = new ImageIcon("src/Application/inventory.png");
 
 	
 	/**
@@ -70,89 +71,105 @@ public class Window {
 	 */
 	public static final Dimension CANVAS_SIZE = new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT);
 	
-	
-	
+	/**
+	 * Grey background color.
+	 */
 	private Color background = new Color(58, 58, 58);
 	
-	//reference to a renderer object
-	//made public so gui can handle key input
-	public JFrame frame;
-	public Renderer renderer;
-	public JComponent canvas;
-	public JLabel status;
-	public JLabel compass;
-	boolean crouching = false;
-	boolean standing = true;
+	/**
+	 * Enum to represent direction facing.
+	 */
+	public enum Direction{ 
+		NORTH,
+		EAST, 
+		SOUTH,
+		WEST
+	}
 	
-	//could need a reference to the game in the constructor
+	//Components to be accessed by controller.
+	private JFrame frame;
+	private Renderer renderer;
+	private JComponent canvas;
+	private JLabel status;
+	private JLabel compass;
+	private JTextArea output;
+	public boolean crouching = false;
+	public boolean standing = true;
+	protected Direction facing = Direction.NORTH;
+	
+	
+	/**
+	 * Constructor for a new Window.
+	 * 
+	 * @param width - width of the frame
+	 * @param height - height of the frame
+	 * @param title - title of the frame
+	 */
+	
+	@SuppressWarnings("serial")
 	public Window(int width, int height, String title) {
 		
-		//initialize frame
+		//Setup JFrame.
 		Dimension fs = new Dimension(width, height);
-		frame = new JFrame();
-		frame.setTitle(title);
-		frame.setPreferredSize(fs);
-		frame.setMaximumSize(fs);
-		frame.setMinimumSize(fs);
-		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		frame.setFocusable(true);
-		frame.setLayout(null);
+		this.frame = new JFrame();
+			frame.setTitle(title);
+			frame.setPreferredSize(fs);
+			frame.setMaximumSize(fs);
+			frame.setMinimumSize(fs);
+			frame.setResizable(false);
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.setLocationRelativeTo(null);
+			frame.setFocusable(true);
+			frame.setLayout(null);
+			//set the background color of frame
+			Container c = frame.getContentPane();
+			c.setBackground(background);
 		
-		
-		//use this to change the background later on
-		Container c = frame.getContentPane();
-		c.setBackground(background);
 		
 	//-------COMPONENTS--------
 		
-		//rendering window
+		//--Rendering canvas.--
 		this.renderer = new Renderer();
 		this.canvas = new JComponent() {
 			protected void paintComponent(Graphics g) {
 				renderer.render(g);
 			}
 		};
-		Dimension canvasBounds = new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT);
+		//Setup canvas.
 		canvas.setBounds(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-		canvas.setPreferredSize(canvasBounds);
-		canvas.setMinimumSize(canvasBounds);
-		canvas.setMaximumSize(canvasBounds);
-		compass = new JLabel();
-		compass.setVisible(true);
-		compass.setBounds(445,5,150,150);
-		compass.setIcon(north);
-		status = new JLabel();
-		status.setVisible(true);
-		status.setBounds(10,530, 60, 60);
-		status.setIcon(stand);
+		canvas.setPreferredSize(CANVAS_SIZE);
+		canvas.setMinimumSize(CANVAS_SIZE);
+		canvas.setMaximumSize(CANVAS_SIZE);
+		this.compass = new JLabel();
+			compass.setVisible(true);
+			compass.setBounds(445,5,150,150);
+			compass.setIcon(north); //loaded facing north
+		this.status = new JLabel();
+			status.setVisible(true);
+			status.setBounds(10,530, 60, 60);
+			status.setIcon(stand);
 		canvas.add(compass);
 		canvas.add(status);
 		
-		
 		frame.add(canvas);
 		
-		//menu
+		//--Menu bar.--
 		ColoredMenu menubar = new ColoredMenu();
-		//tabs
-		JMenu mainMenu = new JMenu("File");
-		JMenu help = new JMenu("Help");
-		help.setOpaque(true);
-		help.setForeground(Color.BLACK);
-		//menu items
-		JMenuItem exit, save, load, newGame;
-		save = mainMenu.add("Save");
-		load = mainMenu.add("Load");
-		newGame = mainMenu.add("New game");
-		exit = mainMenu.add("Exit");
-		//add to menu
+			//Menu tabs.
+			JMenu mainMenu = new JMenu("File");
+			JMenu help = new JMenu("Help");
+			//Menu items.
+			JMenuItem exit, save, load, newGame;
+			save = mainMenu.add("Save");
+			load = mainMenu.add("Load");
+			newGame = mainMenu.add("New game");
+			exit = mainMenu.add("Exit");
 		menubar.add(mainMenu);
 		menubar.add(help);
 		
 		frame.setJMenuBar(menubar);
 		
-		//inventory panel
+		//--Inventory panel.--
 		GridLayout grid = new GridLayout(6,1);
 		grid.setHgap(10);
 		TexturedPanel inven = new TexturedPanel();
@@ -163,7 +180,7 @@ public class Window {
 		border.setTitleColor(Color.BLACK);
 		border.setTitleJustification(TitledBorder.CENTER);
 		inven.setBorder(border);
-		//inventory slots
+		//Inventory slots.
 		ArrayList<JLabel> slots = new ArrayList<JLabel>();
 		
 			for(int i = 0; i < 7; i++) {
@@ -177,35 +194,34 @@ public class Window {
 			
 		frame.add(inven);
 		
-		//movement buttons
+		//--Movement buttons.--
 		JPanel move = new JPanel();
 		move.setBackground(background);
 		move.setLayout(new GridLayout(2,3));
 		move.setBounds(10, 610, width/3, 100);	
-		//invisible buttons to arrange the grid 
-		JButton e1 = new JButton("Pick up"); e1.setVisible(true);
+		JButton pickup = new JButton("Pick up"); 
 		JButton up = new JButton(upA);
-		JButton e2 = new JButton("Use"); e2.setVisible(true);
+		JButton use = new JButton("Use");
 		JButton left = new JButton(leftA);
 		JButton down = new JButton(downA);
 		JButton right = new JButton(rightA);
-		move.add(e1); move.add(up); move.add(e2);
+		move.add(pickup); move.add(up); move.add(use);
 		move.add(left);	move.add(down); move.add(right);
 		
 		frame.add(move);
 		
-		//text output area
-		JTextArea output = new JTextArea(30,20);
-		output.setKeymap(null);
-		output.setBackground(background);
-		output.setForeground(Color.white);
-		Border etched = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
-		TitledBorder outputBorder = BorderFactory.createTitledBorder(etched, "Game output");
-		outputBorder.setTitleColor(Color.white);
-		outputBorder.setTitleJustification(TitledBorder.CENTER);
-		output.setBorder(outputBorder);
-		output.setBounds(20+width/3, 608, 440, 102);
-		output.setText(" You picked up a key...");
+		//--Text output area.--
+		this.output = new JTextArea(30,20);
+			output.setKeymap(null); //no input
+			output.setBackground(background);
+			output.setForeground(Color.white);
+			Border etched = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+			TitledBorder outputBorder = BorderFactory.createTitledBorder(etched, "Game output");
+			outputBorder.setTitleColor(Color.white);
+			outputBorder.setTitleJustification(TitledBorder.CENTER);
+			output.setBorder(outputBorder);
+			output.setBounds(20+width/3, 608, 440, 102);
+			output.setText(" You picked up a key...");
 		frame.add(output);
 		
 		
@@ -215,6 +231,36 @@ public class Window {
 		frame.pack();
 	}
 	
-		
+		//Getters for controller to access and manipulate components.
+		public JFrame getFrame() {
+			return frame;
+		}
 	
+		public Renderer getRenderer() {
+			return renderer;
+		}
+	
+		public JLabel getStatus() {
+			return status;
+		}
+	
+		public JTextArea getOutput() {
+			return output;
+		}
+		
+		public JComponent getCanvas() {
+			return canvas;
+		}
+		
+		public JLabel getCompass() {
+			return compass;
+		}
+		
+		public Direction getFacing() {
+			return facing;
+		}
+		
+		public void setFacing(Window.Direction dir) {
+			this.facing = dir;
+		}
 }

@@ -1,4 +1,5 @@
 package Renderer;
+
 import java.awt.Color;
 import java.util.PriorityQueue;
 
@@ -17,12 +18,16 @@ public class Mesh {
 	 * Mesh constructor.
 	 *
 	 * @param polygons
+	 *            Polygons in this Mesh.
 	 */
 	public Mesh(Polygon3D[] polygons) {
 		this.polygons = polygons;
 		calculatePosition();
 	}
 
+	/**
+	 * Calculates the center position of this Mesh.
+	 */
 	private void calculatePosition() {
 		float minX = Float.MAX_VALUE;
 		float maxX = Float.MIN_VALUE;
@@ -56,13 +61,17 @@ public class Mesh {
 	}
 
 	/**
-	 * Translates the mesh by the delta values.
+	 * Translates the Mesh by the delta values.
 	 *
 	 * @param x
+	 *            delta x
 	 * @param y
+	 *            delta y
 	 * @param z
+	 *            delta z
+	 * @return the updated Mesh
 	 */
-	public Mesh translate(int x, int y, int z) {
+	public Mesh translate(float x, float y, float z) {
 		for (int i = 0; i < polygons.length; i++) {
 			polygons[i].translate(x, y, z);
 		}
@@ -70,6 +79,11 @@ public class Mesh {
 		return this;
 	}
 
+	/**
+	 * Rotates the Mesh 90 degrees to left.
+	 * 
+	 * @return the updated Mesh
+	 */
 	public Mesh rotateLeft() {
 		for (int i = 0; i < polygons.length; i++) {
 			polygons[i].rotateLeft();
@@ -78,6 +92,11 @@ public class Mesh {
 		return this;
 	}
 
+	/**
+	 * Rotates the Mesh 90 degrees to right.
+	 * 
+	 * @return the updated Mesh
+	 */
 	public Mesh rotateRight() {
 		for (int i = 0; i < polygons.length; i++) {
 			polygons[i].rotateRight();
@@ -85,8 +104,14 @@ public class Mesh {
 		position.rotateRight();
 		return this;
 	}
-	
-	public PriorityQueue<Polygon3D> orderPolygons(){
+
+	/**
+	 * Uses the compareTo method in Polygon3D to order the Polygons3D using a
+	 * PriorityQueue.
+	 * 
+	 * @return PriorityQueue of Polygon3Ds
+	 */
+	public PriorityQueue<Polygon3D> orderPolygons() {
 		PriorityQueue<Polygon3D> orderedPolygons = new PriorityQueue<Polygon3D>();
 		for (Polygon3D poly : polygons) {
 			orderedPolygons.add(poly);
@@ -96,21 +121,26 @@ public class Mesh {
 
 	public Mesh getCopy() {
 		Polygon3D[] copy = new Polygon3D[polygons.length];
-		for(int i = 0; i < polygons.length; i++) {
+		for (int i = 0; i < polygons.length; i++) {
 			copy[i] = polygons[i].clone();
 		}
 		return new Mesh(copy);
 	}
 
 	/**
-	 * Returns the polygons that make up this mesh.
+	 * Returns the polygons that make up this Mesh.
 	 *
-	 * @return polygons
+	 * @return the polygons that make up this Mesh
 	 */
 	public Polygon3D[] getPolygons() {
 		return polygons;
 	}
 
+	/**
+	 * Returns the center position of this Mesh.
+	 * 
+	 * @return the center position
+	 */
 	public Point3D getPosition() {
 		return position;
 	}

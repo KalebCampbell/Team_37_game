@@ -3,7 +3,7 @@ package GameWorld;
 /** AbstractItem abstract class
  *  
  * 
- * @author Michael Vincent
+ * @author Michael Vincent 300140128
  *
  */
 
@@ -12,6 +12,7 @@ public abstract class AbstractItem{
 	protected String itemDescription;
 	protected String itemImage;
 	protected Location itemLocation;
+	protected int itemId;
 	
 	/**
 	 * Constructor for creating an item.
@@ -20,13 +21,19 @@ public abstract class AbstractItem{
 	 * @param itemImage name of item image file name
 	 * @param itemDescription description of item
 	 */
-	public AbstractItem(String itemName,String itemImage, String itemDescription, Location itemLocation) {
+	public AbstractItem(String itemName,int itemId,String itemImage, String itemDescription, Location itemLocation) {
 		this.setItemName(itemName);
 		this.setItemDescription(itemImage);
 		this.setItemImage(itemDescription);	
 		this.setItemLocation(itemLocation);
+		this.setItemId(itemId);
 	}
 	
+	private void setItemId(int itemId) {
+		this.itemId = itemId;
+		
+	}
+
 	private void setItemLocation(Location itemLocation) {
 		this.itemLocation = itemLocation;
 	}
@@ -35,7 +42,7 @@ public abstract class AbstractItem{
 	
 	public void pickUp() {
 	// Implementation for picking up an item
-		System.out.println("pickup");
+		System.out.println("Picked up: "+this.itemName+" id: "+this.itemId);
 	}
 	public void placeItem() {
 	// Implementation for placing item on ground

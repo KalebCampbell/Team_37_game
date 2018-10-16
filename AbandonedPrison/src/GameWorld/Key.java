@@ -2,8 +2,8 @@ package GameWorld;
 
 public class Key extends AbstractItem{
 	
-	public Key(String keyName, String keyImage, String keyDescription, Location keyLocation) {
-		super(keyName,keyImage,keyDescription, keyLocation);	
+	public Key(String keyName,int itemId, String keyImage, String keyDescription, Location keyLocation) {
+		super(keyName,itemId, keyImage,keyDescription, keyLocation);	
 	}
 	
 	/**

@@ -10,14 +10,17 @@ import Persistence2.GameMap;
 /**
  * Game class controls the creation of the game.
  * Handles logic of game
- * @author Michael Vincent
+ * @author Michael Vincent 300140128
  *
  */
 public class Game {
 	
 	// Fields for storing the game components
-	List<RoomComponent> roomComponents = new ArrayList<RoomComponent>();
+	//List<RoomComponent> roomComponents = new ArrayList<RoomComponent>();
+	
+	// Stores everything about the game as room objects.
 	List<Room> roomList = new ArrayList<Room>();
+	// Stores everythinhg about the player including inventory.
 	Player player;
 	
 	/**
@@ -36,6 +39,7 @@ public class Game {
 			this.player.setInventory(initialiseInventory(setup));
 			// Creates rooms & map setup
 			initialiseMap(setup);	
+			
 		}else {
 			System.out.println("GameMap is empty");
 		}
@@ -43,15 +47,21 @@ public class Game {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public void itemDrop(String itemName) {
+		
+		
+		
+	}
+
+	/**
+	 * Pickup item
+	 * @param itemName in string format
+	 * @return true/false if item can be picked up
+	 */
+	public boolean itemPickUp(AbstractItem item) {	
+		item.pickUp(); // Demonstrate strategy.
+		return player.getInventory().addItemToInventory(item);
+	}
 	
 	/**
 	 * Sets the players direction
@@ -103,14 +113,11 @@ public class Game {
 							System.out.println("After move: "+ player.getPlayerLocation().getX() +"," + player.getPlayerLocation().getY());
 							// Sets the players new roomId
 							
-							for(Room room : roomList) {
-								
+							for(Room room : roomList) {	
 								if(player.getPlayerLocation().getX() == room.getLocation().getX() &&
-								   player.getPlayerLocation().getY() == room.getLocation().getY()) {
-									
+								   player.getPlayerLocation().getY() == room.getLocation().getY()) {		
 									// Set room id of player
 									player.setRoomID(room.getRoomID());
-
 								}
 							}		
 						}
@@ -128,6 +135,9 @@ public class Game {
 	 */
 	public void initialiseMap(GameMap setup) {
 		
+		// iterate over all rooms
+		// create items
+		// 
 		for(Persistence2.RoomComponent rc : setup.getRooms()) {			
 			
 			List<AbstractItem> itemList = initialiseItems(rc.getItem());		
@@ -151,10 +161,10 @@ public class Game {
 			
 			// Makes items based on their input names
 			if(items.get(0).equals("KEY")){
-				 item = new Key(items.get(0), "DefaultImage", "A key for opening doors",
+				 item = new Key(items.get(0),Integer.parseInt(items.get(1)), "DefaultImage", "Key",
 					    new Location(Integer.parseInt(items.get(2)),Integer.parseInt(items.get(3))));
 			}else if(items.get(0).equals("KEYCARD")) {
-				 item = new KeyCard(items.get(0), "DefaultImage", "A keycard for swiping at doors",
+				 item = new KeyCard(items.get(0),Integer.parseInt(items.get(1)), "DefaultImage", "KeyCard",
 					    new Location(Integer.parseInt(items.get(2)),Integer.parseInt(items.get(3))));
 			}else if(items.get(0).equals("CROWBAR")) {
 				
@@ -193,14 +203,36 @@ public class Game {
 	 * @return Inventory
 	 */
 	private Inventory initialiseInventory(GameMap setup) {
+		Persistence2.InventoryComponent ic = setup.getInventory();
 		Inventory inv = new Inventory();
 		
-		// For each slot in inventory gamefile
-		for(String slot : setup.getInventory()) {
-			inv.addItemToInventory(slot);			
+		
+		for(String s : ic.getInventory()) {
+			String[] itemArr = s.split(",");
+			AbstractItem item = null;
+			
+			if(itemArr[0].equals("KEY")) {
+				 item = new Key(itemArr[0], Integer.parseInt(itemArr[1]), itemArr[2],
+						    itemArr[3], new Location(99,99));
+			}else if(itemArr[0].equals("KEYCARD")) {
+				 item = new KeyCard(itemArr[0], Integer.parseInt(itemArr[1]), itemArr[2],
+						 itemArr[3], new Location(99,99));
+			}else if(itemArr[0].equals("CROWBAR")) {
+				 //item = new (itemArr[1], itemArr[2], itemArr[3],
+				 //	    new Location(99,99));
+			}else {
+
 			}
-			return inv;
+			
+			inv.addItemToInventory(item);
 		}
+		return inv;
+	}
+		
+		//List<AbstractItem> itemList = initialiseItems(ArrayList<String> items);	
+		
+		
+
 	
 	private void initialiseGameState() {
 		// Responsible for Game Time Limit		
