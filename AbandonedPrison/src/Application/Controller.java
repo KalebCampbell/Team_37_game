@@ -4,16 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
 
 import javax.swing.ImageIcon;
-import javax.xml.bind.JAXBException;
 
 import Application.Window.Direction;
+import GameWorld.AbstractItem;
 import GameWorld.Game;
-import Persistence.GameMapComponent;
-import Persistence.LoadXml;
-import Renderer.Room;
+import GameWorld.Player;
+import GameWorld.Room;
+
 /**
  * Controller to communicate with game world, and manipulate the Window 
  * based on this communication.
@@ -23,33 +22,24 @@ import Renderer.Room;
  */
 public class Controller {
 	
-	private Window window;
+	private Window window; //view
+	private Game game; //model
+	public String item;
 	
 	public Controller(Window window) {
-		// Autoload
-		LoadXml load = new LoadXml();
-		GameMapComponent gameComp = null;
-		try {
-			gameComp = load.unMarshal(new File("Map1.xml"));
-		} catch (JAXBException e) {
-			System.out.println("Parsing failed");
-		}
-		System.out.println("Parsing complete");
-		Game game = new Game(gameComp);
-		System.out.println("Load complete");
-		
-		
-		
-		
-		
 		this.window = window;
-		this.window.getFrame().addKeyListener(new Input());
+		this.game = new Game();
+		window.getFrame().addKeyListener(new Input());
+		window.getPickUp().addActionListener(new PickUpButton());
+		window.getUse().addActionListener(new UseButton());
+	
+		
 	}
 	
 	//main method for testing
-	//public static void main(String[] args) {
-	//	new Controller(new Window(700,760,"Abandoned Prison"));
-	//}
+	public static void main(String[] args) {
+		new Controller(new Window(700,760,"Abandoned Prison"));
+	}
 	
 		//Action listeners for movement buttons
 		public class ButtonUp implements ActionListener {
@@ -92,8 +82,33 @@ public class Controller {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//list of items in room with a pickup option
-				//add and remove items from inventory
+				 
+				int roomID = game.getPlayer().getRoomId();
+				Room currentRoom = null;
+				
+					for(Room r : game.roomList) {
+						if(r.getRoomID() == roomID) {
+							currentRoom = r;
+						} else {
+							System.out.println("You are not in a room with items in it");
+							currentRoom = null;
+						}
+					}
+					//add list of items in room to pop up menu
+					for(AbstractItem i : currentRoom.getItems()) {
+						window.getItemPopUp().addItem(i.getItemName());
+					}
+					
+					window.getItemPopUp().addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							item = (String) window.getItemPopUp().getSelectedItem();
+						}
+						
+					});
+				
+					System.out.println(item);
+					//add new JLabel with corrosponding image to item
 			}
 			
 		}
@@ -101,7 +116,7 @@ public class Controller {
 		public class UseButton implements ActionListener {
 
 			public void actionPerformed(ActionEvent e) {
-				//use an item
+				System.out.println("you used and item");
 			}
 			
 		}

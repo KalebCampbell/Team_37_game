@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -93,6 +94,11 @@ public class Window {
 	private JLabel status;
 	private JLabel compass;
 	private JTextArea output;
+	private JButton pickup;
+	private JButton use;
+	private JPanel itemPopUp;
+	private TexturedPanel inven;
+	private JComboBox<String> itemMenu;
 	public boolean crouching = false;
 	public boolean standing = true;
 	protected Direction facing = Direction.NORTH;
@@ -148,6 +154,15 @@ public class Window {
 			status.setVisible(true);
 			status.setBounds(10,530, 60, 60);
 			status.setIcon(stand);
+		this.itemPopUp = new JPanel();
+			itemPopUp.setBounds(300, 300, 100, 100);
+			itemPopUp.setBackground(Color.WHITE);
+			itemPopUp.setVisible(true);
+		this.itemMenu = new JComboBox<String>();
+			itemMenu.addItem("Key");
+			itemPopUp.add(itemMenu);
+		
+		canvas.add(itemPopUp);
 		canvas.add(compass);
 		canvas.add(status);
 		
@@ -172,7 +187,7 @@ public class Window {
 		//--Inventory panel.--
 		GridLayout grid = new GridLayout(6,1);
 		grid.setHgap(10);
-		TexturedPanel inven = new TexturedPanel();
+		inven = new TexturedPanel();
 		inven.setBounds(610, 10, 80, 590);
 		inven.setBackground(Color.LIGHT_GRAY);
 		Border blackline = BorderFactory.createLineBorder(Color.WHITE);
@@ -199,9 +214,9 @@ public class Window {
 		move.setBackground(background);
 		move.setLayout(new GridLayout(2,3));
 		move.setBounds(10, 610, width/3, 100);	
-		JButton pickup = new JButton("Pick up"); 
+		pickup = new JButton("Pick up"); 
 		JButton up = new JButton(upA);
-		JButton use = new JButton("Use");
+		use = new JButton("Use");
 		JButton left = new JButton(leftA);
 		JButton down = new JButton(downA);
 		JButton right = new JButton(rightA);
@@ -256,11 +271,19 @@ public class Window {
 			return compass;
 		}
 		
-		public Direction getFacing() {
-			return facing;
+		public JButton getPickUp() {
+			return pickup;
 		}
 		
-		public void setFacing(Window.Direction dir) {
-			this.facing = dir;
+		public JButton getUse() {
+			return use;
+		}
+		
+		public TexturedPanel getInventory() {
+			return inven;
+		}
+		
+		public JComboBox<String> getItemPopUp(){
+			return itemMenu;
 		}
 }
