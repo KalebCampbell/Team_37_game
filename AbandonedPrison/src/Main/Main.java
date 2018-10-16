@@ -1,16 +1,14 @@
 package Main;
 
-import Application.GUI;
+import Application.Controller;
+import Application.Window;
 
 public class Main {
 	
 	public static void main(String[] args) {
-	startGame();
+		new Controller(new Window(700,760,"Abandoned Prison"));
 	}
 	
-	public static void startGame(){
-		Application.GUI gui = new GUI();	
-		
-	}
+
 }
 	// Gotta fix up main method to call applicaton

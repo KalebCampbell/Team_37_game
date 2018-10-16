@@ -1,13 +1,11 @@
 package Persistence;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -126,8 +124,8 @@ public class InitialiseMap {
 		
 		
 		//This calls the LoadXml class to start unmarshalling. 
-		LoadXml load = new LoadXml();
-		GameMapComponent game = load.unMarshal(new File("Map1.xml"));
+		//LoadXml load = new LoadXml();
+		//GameMapComponent game = load.unMarshal(new File("Map1.xml"));
 	}
 	
 	/**

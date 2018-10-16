@@ -14,6 +14,10 @@ public class Key extends AbstractItem{
 		System.out.println("Key unlock");
 		return false;
 	}
+	
+	public void pickUp() {
+		System.out.println("Key picked up");
+	}
 
 	/** 
 	 * Own implementation of the unlock method.

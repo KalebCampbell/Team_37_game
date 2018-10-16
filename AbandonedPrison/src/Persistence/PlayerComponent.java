@@ -30,6 +30,8 @@ public class PlayerComponent {
 	public void setRoomid(String roomid) {
 		this.roomid = roomid;
 	}
+	
+	
 	public String getName() {
 		return name;
 	}
@@ -44,13 +46,16 @@ public class PlayerComponent {
 		int y = Integer.parseInt(arr[1]);
 		return new Location(x,y);
 	}
-	public String getLocation(){
+	
+	public String getLocation() {
 		return location;
 	}
+
 	//@XmlElement is needed for all setter emthods to be able to be marshalled. 
 	@XmlElement
 	public void setLocation(String location) {
 		this.location = location;
+		
 	}
 
 

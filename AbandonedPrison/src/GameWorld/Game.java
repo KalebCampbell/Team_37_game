@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Persistence.RoomComponent;
-import Persistence2.GameMap;
+import Persistence.RoomsComponent;
+import Persistence.GameMapComponent;
+import Persistence.ItemComponent;
+//import Persistence2.GameMap;
 
 
 /**
@@ -14,10 +17,6 @@ import Persistence2.GameMap;
  *
  */
 public class Game {
-	
-	// Fields for storing the game components
-	//List<RoomComponent> roomComponents = new ArrayList<RoomComponent>();
-	
 	// Stores everything about the game as room objects.
 	List<Room> roomList = new ArrayList<Room>();
 	// Stores everythinhg about the player including inventory.
@@ -30,7 +29,7 @@ public class Game {
 	 * 
 	 * @param GameMap gameMap object from persistence package
 	 */
-	public Game(GameMap setup) {
+	public Game(GameMapComponent setup) {
 		// Null check
 		if(setup != null) {
 			// Player setup
@@ -38,19 +37,52 @@ public class Game {
 			// Inventory setup
 			this.player.setInventory(initialiseInventory(setup));
 			// Creates rooms & map setup
-			initialiseMap(setup);	
+			//initialiseMap(setup);	
 			
 		}else {
 			System.out.println("GameMap is empty");
 		}
 	}
 	
-	
-	
 	public void itemDrop(String itemName) {
+			
 		
-		
-		
+	}
+	
+	
+	
+	
+	/**
+	 * Method to find item in a room
+	 * Will be extended for multiple items
+	 * @return Item, or null if none
+	 */
+	public AbstractItem findItemInRoom() {
+		// Find which room player is in
+		int roomId = player.getRoomId();
+		Room room = findRoom(roomId);
+		// Iterate over the room list
+		for(Room r : roomList) {
+			// If ID's match
+			if(r.getRoomID() == room.getRoomID()) {
+				return r.getItems().get(0);
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Method to find a room based on an id
+	 * @param roomId
+	 * @return room object or null if no room
+	 */
+	public Room findRoom(int roomId) {
+		for(Room r : roomList) {
+			if(r.getRoomID() == roomId) {
+				return r;
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -133,16 +165,17 @@ public class Game {
 	 * Created rooms, from a parsed XML file
 	 * @param roomComponents
 	 */
-	public void initialiseMap(GameMap setup) {
+	private void initialiseMap(GameMapComponent setup) {
 		
 		// iterate over all rooms
 		// create items
 		// 
-		for(Persistence2.RoomComponent rc : setup.getRooms()) {			
+		for(RoomComponent rc : setup.getRooms().Rooms()) {	
 			
-			List<AbstractItem> itemList = initialiseItems(rc.getItem());		
+			
+			List<AbstractItem> itemList = initialiseItems(rc.getItems());		
 			// Build room
-			Room room = new Room(Integer.parseInt(rc.getRoomid()), rc.getWall(), rc.getLocation(),rc.getDoor(), itemList);
+			Room room = new Room(rc.getId(), rc.getWalls(), new Location(rc.getLocX(),rc.getLocY()),rc.getDoors(), itemList);
 			// Add room to roomList
 			roomList.add(room);
 		}	
@@ -151,30 +184,25 @@ public class Game {
 	/**
 	 * Private method only called within game object
 	 * Creates items based on input string
-	 * @param items arraylist of string items
+	 * @param list arraylist of string items
 	 * @return List of abstractItems
 	 */
-	private List<AbstractItem> initialiseItems(ArrayList<String> items) {
+	private List<AbstractItem> initialiseItems(List<ItemComponent> list) {
 		AbstractItem item = null;
+		List<AbstractItem> returnItems = new ArrayList<AbstractItem>();
 		
-		if(items != null) {
+		if(list != null) {
 			
-			// Makes items based on their input names
-			if(items.get(0).equals("KEY")){
-				 item = new Key(items.get(0),Integer.parseInt(items.get(1)), "DefaultImage", "Key",
-					    new Location(Integer.parseInt(items.get(2)),Integer.parseInt(items.get(3))));
-			}else if(items.get(0).equals("KEYCARD")) {
-				 item = new KeyCard(items.get(0),Integer.parseInt(items.get(1)), "DefaultImage", "KeyCard",
-					    new Location(Integer.parseInt(items.get(2)),Integer.parseInt(items.get(3))));
-			}else if(items.get(0).equals("CROWBAR")) {
+			for(ItemComponent ic : list) {
 				
-			}else {
-				//error check
+				String itemName = ic.getItem();
+				
+				if(itemName.equals("Key")) {
+					 item = new Key(itemName, 99, "KeyImage", "KeyDescription", new Location(ic.getPosX(), ic.getPosY()));
+					 returnItems.add(item);
+				}		
 			}
 		}
-		
-		List<AbstractItem> returnItems = new ArrayList<AbstractItem>();
-		returnItems.add(item);
 		return returnItems;
 	}
 
@@ -184,13 +212,13 @@ public class Game {
 	 * @param setup
 	 * @return Player
 	 */
-	private Player initialisePlayer(GameMap setup) {
+	private Player initialisePlayer(GameMapComponent setup) {
 		
 		// Parse setup
 		int id = Integer.parseInt(setup.getPlayer().getId());
 		String name = setup.getPlayer().getName();
-		int roomId = Integer.parseInt(setup.getPlayer().getRoomId());
-		Location location = setup.getPlayer().getLocation();
+		int roomId = Integer.parseInt(setup.getPlayer().getRoomid());
+		Location location = setup.getPlayer().getCord();
 		
 		// Create player
 		return new Player(id,name,roomId,location);
@@ -202,26 +230,18 @@ public class Game {
 	 * @param setup
 	 * @return Inventory
 	 */
-	private Inventory initialiseInventory(GameMap setup) {
-		Persistence2.InventoryComponent ic = setup.getInventory();
+	private Inventory initialiseInventory(GameMapComponent setup) {
+		
 		Inventory inv = new Inventory();
 		
-		
-		for(String s : ic.getInventory()) {
+		// Iterate over inventory
+		for(String s : setup.getInventory()) {
+			// split inventory up
 			String[] itemArr = s.split(",");
 			AbstractItem item = null;
 			
-			if(itemArr[0].equals("KEY")) {
-				 item = new Key(itemArr[0], Integer.parseInt(itemArr[1]), itemArr[2],
-						    itemArr[3], new Location(99,99));
-			}else if(itemArr[0].equals("KEYCARD")) {
-				 item = new KeyCard(itemArr[0], Integer.parseInt(itemArr[1]), itemArr[2],
-						 itemArr[3], new Location(99,99));
-			}else if(itemArr[0].equals("CROWBAR")) {
-				 //item = new (itemArr[1], itemArr[2], itemArr[3],
-				 //	    new Location(99,99));
-			}else {
-
+			if(itemArr[0].equals("Key")) {
+				 item = new Key(itemArr[0], Integer.parseInt(itemArr[1]), "image","description", new Location(Integer.parseInt(itemArr[2]),Integer.parseInt(itemArr[3])));
 			}
 			
 			inv.addItemToInventory(item);

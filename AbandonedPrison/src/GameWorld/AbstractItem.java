@@ -83,7 +83,11 @@ public abstract class AbstractItem{
 	}
 	public String getItemImage() {
 		return this.itemImage;
-	
 	}
+	public int getItemId() {
+		return this.itemId;
+	}
+	
+	
 
 }

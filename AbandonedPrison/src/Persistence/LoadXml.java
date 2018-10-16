@@ -8,7 +8,7 @@ import javax.xml.bind.Unmarshaller;
 
 public class LoadXml {
 
-	public static GameMapComponent unMarshal(File file) throws JAXBException {
+	public GameMapComponent unMarshal(File file) throws JAXBException {
 		
 		
 		//check in here to make sure that the file is correct. 
@@ -18,6 +18,7 @@ public class LoadXml {
 	    Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 	     
 	    GameMapComponent gameMap = (GameMapComponent) jaxbUnmarshaller.unmarshal(file);
+	    return gameMap;
 //
 //	    System.out.println("=======");
 //	    //How to access all inventory items
@@ -45,6 +46,6 @@ public class LoadXml {
 //	    }
 //	   
 //	    System.out.println(gameMap.player.getLocation());
-	    return gameMap;
+	  //  return gameMap;
 	}
 }
