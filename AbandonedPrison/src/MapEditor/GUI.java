@@ -1,3 +1,8 @@
+/**
+ * @author Pai Zhou
+ * id: 300335146
+ *
+ */
 package MapEditor;
 
 import java.awt.event.KeyEvent;
@@ -38,36 +43,36 @@ public class GUI {
 	private JButton east;
 	private JButton north;
 	private JButton south;
-	private JButton rightroom;
-	private JButton leftroom;
-	private JButton toproom;
-	private JButton downroom;
-	private JButton leftdoor;
-	private JButton rightdoor;
-	private JButton topdoor;
-	private JButton downdoor;
-	private JButton key;
-	private JButton magic;
-	private JButton treasure;
-	private JButton wall;
-	private JButton rightwall;
-	private JButton topwall;
-	private JButton downwall;
-	private JButton light;
-	private JButton clear;
+	public JButton rightroom;
+	public JButton leftroom;
+	public JButton toproom;
+	public JButton downroom;
+	public JButton leftdoor;
+	public JButton rightdoor;
+	public JButton topdoor;
+	public JButton downdoor;
+	public JButton key;
+	public JButton magic;
+	public JButton treasure;
+	public JButton wall;
+	public JButton rightwall;
+	public JButton topwall;
+	public JButton downwall;
+	public JButton light;
+	public JButton clear;
 	boolean roomExist=false;
 	boolean rightRoomCanBuild=true;
 	boolean leftRoomCanBuild=true;
 	boolean topRoomCanBuild=true;
 	boolean downRoomCanBuild=true;
-	private ArrayList<Room> rooms=new ArrayList<Room>();//rooms list
-	private ArrayList<Door> doors=new ArrayList<Door>();//doors list
-	private ArrayList<Wall> walls=new ArrayList<Wall>();//walls list
-	private ArrayList<key> keys=new ArrayList<key>();//keys list
-	private ArrayList<magic> magics=new ArrayList<magic>();//magic list
-	private ArrayList<Treasure> treasures=new ArrayList<Treasure>();//treasure list
-	private double mouseX=0;
-	private double mouseY=0;
+	public ArrayList<Room> rooms=new ArrayList<Room>();//rooms list
+	public ArrayList<Door> doors=new ArrayList<Door>();//doors list
+	public ArrayList<Wall> walls=new ArrayList<Wall>();//walls list
+	public ArrayList<key> keys=new ArrayList<key>();//keys list
+	public ArrayList<magic> magics=new ArrayList<magic>();//magic list
+	public ArrayList<Treasure> treasures=new ArrayList<Treasure>();//treasure list
+	public double mouseX=0;
+	public double mouseY=0;
 
 	/**
 	 * Width of the canvas.
@@ -138,7 +143,7 @@ public class GUI {
 		
 	}
 
-	private void initialise() {
+	public void initialise() {
 		frame = new JFrame();
 		frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.LINE_AXIS));
 		frame.setSize(new Dimension(DRAWING_SIZE.width + CONTROLS_SIZE.width, DRAWING_SIZE.height));
