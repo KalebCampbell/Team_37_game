@@ -14,7 +14,7 @@ import javax.swing.JPanel;
  */
 public class TexturedPanel extends JPanel {
 	
-	private Image image = Toolkit.getDefaultToolkit().createImage("inventory.png");
+	private Image image = Toolkit.getDefaultToolkit().createImage("src/Application/inventory.png");
 	
 	@Override
 	protected void paintComponent(Graphics g) {

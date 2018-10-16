@@ -6,17 +6,20 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import Renderer.Room;
-
-
-
-
+/**
+ * Controller to communicate with game world, and manipulate the Window 
+ * based on this communication.
+ * 
+ * @author liam
+ *
+ */
 public class Controller {
 	
 	private Window window;
 	
 	public Controller(Window window) {
 		this.window = window;
-		this.window.frame.addKeyListener(new Input());
+		this.window.getFrame().addKeyListener(new Input());
 	}
 	
 	//main method for testing
@@ -73,60 +76,28 @@ public class Controller {
 		
 		public class UseButton implements ActionListener {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				//use an item
 			}
 			
 		}
+		
 	
+	/**
+	 * Inner class to process keyInput from the Window.
+	 * 
+	 * @author liam 
+	 */
 	public class Input implements KeyListener {
 		
-
-		@Override
 		public void keyTyped(KeyEvent e) {
 			
 		}
 
-		@Override
 		public void keyPressed(KeyEvent e) {
-			
-			if(e.getKeyChar() == 'w') {
-				for(Renderer.Room r : window.renderer.rooms) {
-					r.translate(0, 0, -8);
-				}
-				window.canvas.repaint();
-				window.compass.setIcon(window.north);
-			}
-			if(e.getKeyChar() == 's') {
-				for(Renderer.Room r : window.renderer.rooms) {
-					r.translate(0, 0, 8);
-				}
-				window.canvas.repaint();
-				window.compass.setIcon(window.south);
-			}
-			if(e.getKeyChar() == 'a') { //rotate left
-			
-			}
-			
-			if(e.getKeyChar() == 'd') { //rotate right
-				
-			}
-			
-			if(e.getKeyChar() == 'c') { //crouch/stand
-				if(window.standing) {
-					window.status.setIcon(window.crouch);
-					window.standing = false;
-					window.crouching = true;
-				} else {
-					window.status.setIcon(window.stand);
-					window.standing = true;
-					window.crouching = false;
-				}
-			}
+			System.out.println("key was pressed");
 		}
 
-		@Override
 		public void keyReleased(KeyEvent e) {
 			
 		}
