@@ -42,14 +42,6 @@ public class Room {
 		return null;
 	}
 	
-	public int getX() {
- 		return this.x;
- 	}
-	
- 	public int getY() {
- 		return this.y;
- 	}
-	
 	/**
 	 * Getting method for getting description of room
 	 * @return room description
@@ -110,6 +102,10 @@ public class Room {
 	public void treasure11() {
 		treasure1=true;
 	}
+	
+	/**
+	 *print the message 
+	 */
 	public void message() {
 		System.out.println("This room elements:");
 		if(leftWall) {
@@ -155,6 +151,10 @@ public class Room {
 		return null;
 	}
 	
+	/**
+	 *draw the room
+	 */
+
 	public void draw(Graphics g) {
 		if(light) {
 			g.setColor(Color.white);

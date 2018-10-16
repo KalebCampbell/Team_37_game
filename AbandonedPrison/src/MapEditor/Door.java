@@ -44,6 +44,9 @@ public class Door {
 		return null;
 	}
 	
+	/**
+	 *draw the door
+	 */
 	public void draw(Graphics g) {
 		g.setColor(Color.red);
 		g.drawRect(x, y, width, height);
