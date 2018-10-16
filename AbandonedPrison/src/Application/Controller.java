@@ -24,7 +24,6 @@ public class Controller {
 	
 	public Controller(Window window) {
 	
-
 		this.window = window;
 		window.getFrame().addKeyListener(new Input());
 		window.getPickUp().addActionListener(new PickUpButton());
@@ -56,7 +55,8 @@ public class Controller {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				 
+				
+				window.getListPanel().setVisible(true);
 //				int roomID = game.getPlayer().getRoomId();
 //				Room currentRoom = null;
 //				
@@ -91,9 +91,8 @@ public class Controller {
 		public class UseButton implements ActionListener {
 
 			public void actionPerformed(ActionEvent e) {
-//				JFileChooser f = new JFileChooser();
-//				f.showSaveDialog(null);
-//				System.out.println("you used and item");
+
+				System.out.println("you used and item");
 			}
 			
 		}
