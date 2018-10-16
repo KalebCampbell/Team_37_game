@@ -1,29 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <map>
     <inventory>Key</inventory>
-    <inventory>Crowbar</inventory>
     <player>
         <id>0</id>
-        <location>30</location>
+        <location>0,0</location>
         <name>TestName</name>
         <roomid>0</roomid>
     </player>
     <rooms>
         <room id="1">
             <items>
-                <item>null</item>
                 <posX>0</posX>
                 <posY>0</posY>
             </items>
             <locX>0</locX>
             <locY>0</locY>
+            <walls>N</walls>
             <walls>E</walls>
-            <walls>S</walls>
             <walls>W</walls>
         </room>
         <room id="2">
             <items>
-                <item>null</item>
                 <posX>0</posX>
                 <posY>0</posY>
             </items>
@@ -34,18 +31,16 @@
         </room>
         <room id="3">
             <items>
-                <item>null</item>
                 <posX>0</posX>
                 <posY>0</posY>
             </items>
             <locX>0</locX>
             <locY>2</locY>
-            <walls>N</walls>
+            <walls>S</walls>
             <walls>W</walls>
         </room>
         <room id="4">
             <items>
-                <item>null</item>
                 <posX>0</posX>
                 <posY>0</posY>
             </items>
@@ -56,11 +51,6 @@
         </room>
         <room id="5">
             <items>
-                <item>null</item>
-                <posX>0</posX>
-                <posY>0</posY>
-            </items>
-            <items>
                 <item>Key</item>
                 <posX>1</posX>
                 <posY>1</posY>
@@ -69,7 +59,7 @@
             <locY>2</locY>
             <walls>N</walls>
             <walls>E</walls>
-            <walls>S</walls>
+            <walls>W</walls>
         </room>
     </rooms>
 </map>

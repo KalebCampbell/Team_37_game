@@ -21,6 +21,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import Persistence.LoadXml;
+import Persistence.ConvertMapEditor;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -588,7 +589,7 @@ public class GUI {
 		load.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				// set up the file chooser
-				new SaveXml(rooms);
+				new ConvertMapEditor(rooms);
 			}
 		});
 		JPanel savepanel = new JPanel(new BorderLayout());
