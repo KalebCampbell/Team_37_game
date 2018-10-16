@@ -44,6 +44,8 @@ public class Game {
 		}
 	}
 	
+	
+	
 	public void itemDrop(String itemName) {
 			
 		
@@ -150,6 +152,7 @@ public class Game {
 								   player.getPlayerLocation().getY() == room.getLocation().getY()) {		
 									// Set room id of player
 									player.setRoomID(room.getRoomID());
+									return true;
 								}
 							}		
 						}

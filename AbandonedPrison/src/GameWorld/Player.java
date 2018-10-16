@@ -13,7 +13,7 @@ public class Player {
 	private int roomId;
 	private Inventory inventory;
 	
-	private String direction = "SOUTH";
+	private String direction = "S";
 	
 	public Player(int id, String name, int roomId, Location location) {
 		this.id = id;
@@ -86,16 +86,16 @@ public class Player {
 	 */
 	public void move(String dir) {
 			//NORTH (0,1)		
-		if(dir.equals("NORTH")) {	
+		if(dir.equals("N")) {	
 			setPlayerLocation(new Location(getPlayerLocation().getX(), getPlayerLocation().getY()+1));	
 			//SOUTH (0,-1)	
-		}else if(dir.equals("SOUTH")) {
+		}else if(dir.equals("S")) {
 			setPlayerLocation(new Location(getPlayerLocation().getX(), getPlayerLocation().getY()-1));
 			//EAST (1,0)
-		}else if(dir.equals("EAST")) {
+		}else if(dir.equals("E")) {
 			setPlayerLocation(new Location(getPlayerLocation().getX()+1, getPlayerLocation().getY()));
 			//WEST (-1,0)
-		}else if(dir.equals("WEST")) {
+		}else if(dir.equals("W")) {
 			setPlayerLocation(new Location(getPlayerLocation().getX()-1, getPlayerLocation().getY()));
 		}else {
 		}
