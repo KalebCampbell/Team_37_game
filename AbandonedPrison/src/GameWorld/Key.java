@@ -16,7 +16,7 @@ public class Key extends AbstractItem{
 	}
 	
 	public void pickUp() {
-		System.out.println("Key picked up");
+		System.out.println("Key picked up and added to inventory");
 	}
 
 	/** 
@@ -24,6 +24,9 @@ public class Key extends AbstractItem{
 	 * @return boolean
 	 */
 	public boolean unlock() {
+		
+		
+		
 		System.out.println("Key Unlock");
 		return false;
 		

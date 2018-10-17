@@ -2,7 +2,6 @@ package GameWorld;
 
 /** AbstractItem abstract class
  *  
- * 
  * @author Michael Vincent 300140128
  *
  */

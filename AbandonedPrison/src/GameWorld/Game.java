@@ -51,6 +51,7 @@ public class Game {
 		
 	}
 	
+
 	
 	
 	
@@ -98,11 +99,42 @@ public class Game {
 	}
 	
 	/**
-	 * Sets the players direction
+	 * Turn player left
 	 * @param direction
 	 */
-	public void playerTurn(String direction) {
-		player.setDirection(direction);
+	public void playerTurnLeft() {
+		
+		String dir = player.getDirection();
+		
+		if(dir.equals("N")) {
+			player.setDirection("W");	
+		}else if(dir.equals("W")){
+			player.setDirection("S");
+		}else if(dir.equals("S")) {
+			player.setDirection("E");
+		}else if(dir.equals("E")) {
+			player.setDirection("N");
+		}	
+		System.out.println("Current direction: "+player.getDirection());
+	}
+	/**
+	 * Turn player Right
+	 * @param direction
+	 */
+	public void playerTurnRight() {
+		
+		String dir = player.getDirection();
+		
+		if(dir.equals("N")) {
+			player.setDirection("E");
+		}else if(dir.equals("E")){
+			player.setDirection("S");
+		}else if(dir.equals("S")) {
+			player.setDirection("W");
+		}else if(dir.equals("W")) {
+			player.setDirection("N");
+		}	
+		System.out.println("Current direction: "+player.getDirection());
 	}
 	
 	/**
@@ -115,8 +147,7 @@ public class Game {
 	 */
 	public boolean playerMove() {
 		
-		// Step forward or backward
-		
+		// Step forward or backward	
 		// Get the direction the player is facing
 		String dir = player.getDirection();
 			// Check if wall is in the way
@@ -130,6 +161,7 @@ public class Game {
 					// Can't use ".contains()" as it's different objects, whoops.
 					for(String s : r.getWalls()) {
 						if(s.equals(dir)) {
+							System.out.println("Direction: "+dir+ " Wall: "+s);
 							// Illegal move E.G PLAYER FACING WEST, WALLS WEST
 							return false;
 						}
@@ -172,11 +204,9 @@ public class Game {
 		
 		// iterate over all rooms
 		// create items
-		
-		RoomsComponent rc = setup.getRooms();
-		
+		RoomsComponent rc = setup.getRooms();	
 		for(RoomComponent roomC : rc.Rooms()) {
-			List<ItemComponent> ic = roomC.getItems();
+			//List<ItemComponent> ic = roomC.getItems();
 			
 			List<AbstractItem> itemList = initialiseItems(roomC.getItems());		
 			// Build room
@@ -196,14 +226,15 @@ public class Game {
 		AbstractItem item = null;
 		List<AbstractItem> returnItems = new ArrayList<AbstractItem>();
 		
-		if(list != null) {
-			
-			for(ItemComponent ic : list) {
-				
+		if(list != null) {	
+			for(ItemComponent ic : list) {			
 				String itemName = ic.getItem();
 				if(itemName != null) {
 					if(itemName.equals("Key")) {
 						item = new Key(itemName, 99,"KeyDescription","KeyImage", new Location(ic.getPosX(), ic.getPosY()));
+						returnItems.add(item);
+					}else if (itemName.equals("Keycard")) {
+						item = new KeyCard(itemName, 99,"KeyCardDescription","KeyCardImage", new Location(ic.getPosX(), ic.getPosY()));
 						returnItems.add(item);
 					}
 				}
@@ -219,7 +250,6 @@ public class Game {
 	 * @return Player
 	 */
 	private Player initialisePlayer(GameMapComponent setup) {
-		
 		// Parse setup
 		int id = Integer.parseInt(setup.getPlayer().getId());
 		String name = setup.getPlayer().getName();
@@ -238,8 +268,7 @@ public class Game {
 	 */
 	private Inventory initialiseInventory(GameMapComponent setup) {
 		
-		Inventory inv = new Inventory();
-		
+		Inventory inv = new Inventory();	
 		// Iterate over inventory
 		for(String s : setup.getInventory()) {
 			// split inventory up
@@ -258,6 +287,12 @@ public class Game {
 		
 		//List<AbstractItem> itemList = initialiseItems(ArrayList<String> items);	
 		
+	public Player getPlayer() {
+		return player;
+	}
+	public List<Room> getRoomList() {
+		return roomList;
+	}
 		
 
 	
