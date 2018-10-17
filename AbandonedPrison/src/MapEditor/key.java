@@ -35,6 +35,9 @@ public class key {
 		return null;
 	}
 	
+	/**
+	 *redraw the key
+	 */
 	public void draw(Graphics g) {
 		g.setColor(Color.GREEN);
 		g.drawLine(x+2, y+2, x+5, y+5);

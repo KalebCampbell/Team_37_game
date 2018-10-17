@@ -1,0 +1,5 @@
+For the MapEditor:
+	add buttons for add items such as walls, doors, keys, magics, treasures and light.
+	when clicked the buttons, it will add the items such as when clicked leftRoom, it will add the room if there is no room in left side.
+	the clear button is for initialize the map and restart it again.
+	save and load button connected with persistence package.

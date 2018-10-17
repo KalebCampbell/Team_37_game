@@ -5,7 +5,7 @@
         <id>0</id>
         <location>0,0</location>
         <name>TestName</name>
-        <roomid>0</roomid>
+        <roomid>1</roomid>
     </player>
     <rooms>
         <room id="1">
@@ -18,6 +18,7 @@
             <walls>N</walls>
             <walls>E</walls>
             <walls>W</walls>
+            <doors>S</doors>
         </room>
         <room id="2">
             <items>
@@ -25,9 +26,11 @@
                 <posY>0</posY>
             </items>
             <locX>0</locX>
-            <locY>1</locY>
+            <locY>-1</locY>
             <walls>E</walls>
             <walls>W</walls>
+            <doors>N</doors>
+            <doors>S</doors>
         </room>
         <room id="3">
             <items>
@@ -38,6 +41,8 @@
             <locY>2</locY>
             <walls>S</walls>
             <walls>W</walls>
+            <doors>N</doors>
+            <doors>E</doors>
         </room>
         <room id="4">
             <items>

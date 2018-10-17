@@ -44,6 +44,9 @@ public class Wall {
 		return null;
 	}
 	
+	/**
+	 *draw the wall
+	 */
 	public void draw(Graphics g) {
 		g.setColor(Color.yellow);
 		g.drawRect(x, y, width, height);

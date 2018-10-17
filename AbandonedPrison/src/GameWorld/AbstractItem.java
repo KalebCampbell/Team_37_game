@@ -87,6 +87,9 @@ public abstract class AbstractItem{
 	public int getItemId() {
 		return this.itemId;
 	}
+	public Location getItemLocation() {
+		return this.itemLocation;
+	}
 	
 	
 

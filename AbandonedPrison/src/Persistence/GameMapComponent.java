@@ -18,6 +18,7 @@ public class GameMapComponent {
 	RoomsComponent rooms;
 	List<String> inventory = new ArrayList<String>();
 	PlayerComponent player;
+	List<String> containers = new ArrayList<String>();
 	
 	/**
 	 * Returns the rooms RoomsComponent from the GameMapComponent.
@@ -69,6 +70,19 @@ public class GameMapComponent {
 	public void setPlayer(PlayerComponent player) {
 		this.player = player;
 	}
+	/**
+	 * Sets the containers to contnainers.
+	 * @return 
+	 */
+	@XmlElement
+	public void setContainers(List<String> containers) {
+		this.containers = containers;
+	}
+	
+	public List<String> getContainers(){
+		return containers;
+	}
+	
 	
 	
 }

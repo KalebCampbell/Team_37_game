@@ -51,6 +51,6 @@ public class LoadXml {
 //	    }
 //	   
 //	    System.out.println(gameMap.player.getLocation());
-	    return gameMap;
+	    //return gameMap;
 	}
 }
