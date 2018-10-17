@@ -6,6 +6,7 @@ package Renderer;
  * @author Joel Harris
  */
 abstract public class Item extends Piece implements Comparable<Item> {
+	protected GameWorld.Item value;
 	@Override
 	public int compareTo(Item other) {
 		if(this.position.getRealZ() > other.getPosition().getRealZ())

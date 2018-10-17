@@ -17,10 +17,10 @@ public class SouthWall extends Wall {
 	 *            center position of this wall
 	 */
 	public SouthWall(Point3D position) {
-		this.mesh = Renderer.loadMesh(new File("frontwall.txt"));
+		this.mesh = Renderer.loadMesh(new File("Models/frontwall.txt"));
 		this.mesh = mesh.translate(position.getRealX(), position.getRealY(), position.getRealZ());
 		this.position = position;
-		this.color = new Color(58, 40, 124);
+		this.color = new Color(80, 255, 255);
 		setPolygonColors(color);
 	}
 }

@@ -43,13 +43,13 @@ public class Pipeline {
 	public static Color getShading(Polygon3D poly, float[] lightDirection) {
 		float[] incidentLight = lightDirection;
 		float[] ambientColour = new float[3];
-		ambientColour[0] = 0.5f;
-		ambientColour[1] = 0.5f;
-		ambientColour[2] = 0.5f;
+		ambientColour[0] = 0.6f;
+		ambientColour[1] = 0.6f;
+		ambientColour[2] = 0.6f;
 		float[] incidentColour = new float[3];
-		incidentColour[0] = 0.7f;
-		incidentColour[1] = 0.7f;
-		incidentColour[2] = 0.7f;
+		incidentColour[0] = 0.6f;
+		incidentColour[1] = 0.6f;
+		incidentColour[2] = 0.6f;
 		int[] polyColour = new int[3];
 		polyColour[0] = poly.getColor().getRed();
 		polyColour[1] = poly.getColor().getGreen();

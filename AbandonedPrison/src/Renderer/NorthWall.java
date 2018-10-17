@@ -17,11 +17,10 @@ public class NorthWall extends Wall {
 	 *            center position of this wall
 	 */
 	public NorthWall(Point3D position) {
-		door = new Door(position);
 		this.mesh = Renderer.loadMesh(new File("Models/frontwall.txt"));
 		this.mesh = mesh.translate(position.getRealX(), position.getRealY(), position.getRealZ());
 		this.position = position;
-		this.color = new Color(58, 40, 124);
+		this.color = new Color(80, 255, 255);
 		setPolygonColors(color);
 	}
 }

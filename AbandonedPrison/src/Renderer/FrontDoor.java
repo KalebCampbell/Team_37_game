@@ -3,21 +3,15 @@ package Renderer;
 import java.awt.Color;
 import java.io.File;
 
-/**
- * Represents a WestWall in 3D space.
- * 
- * @author Joel Harris
- */
-public class WestWall extends Wall {
-
+public class FrontDoor extends Wall {
 	/**
-	 * WestWall constructor.
+	 * NorthDoor constructor.
 	 * 
 	 * @param position
-	 *            center position of this wall
+	 *            the center position of this object
 	 */
-	public WestWall(Point3D position) {
-		this.mesh = Renderer.loadMesh(new File("Models/sidewall.txt"));
+	public FrontDoor(Point3D position) {
+		this.mesh = Renderer.loadMesh(new File("Models/door2.txt"));
 		this.mesh = mesh.translate(position.getRealX(), position.getRealY(), position.getRealZ());
 		this.position = position;
 		this.color = new Color(80, 255, 255);

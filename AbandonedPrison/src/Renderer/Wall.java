@@ -15,6 +15,10 @@ abstract public class Wall extends Piece {
 	public Door getDoor() {
 		return door;
 	}
+	
+	public void addDoor(Door door) {
+		this.door = door;
+	}
 
 	/**
 	 * Translates the object by the delta values provided.
