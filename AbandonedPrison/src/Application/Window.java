@@ -93,9 +93,8 @@ public class Window {
 	private JTextArea output;
 	private JButton pickup;
 	private JButton use;
-	private JPanel itemPopUp;
+	private ListPanel itemList;
 	private TexturedPanel inven;
-	private JComboBox<String> itemMenu;
 	private JMenuItem exit;
 	private JMenuItem save;
 	private JMenuItem load;
@@ -157,15 +156,13 @@ public class Window {
 			status.setVisible(true);
 			status.setBounds(10,530, 60, 60);
 			status.setIcon(stand);
-		this.itemPopUp = new JPanel();
-			itemPopUp.setBounds(300, 300, 100, 100);
-			itemPopUp.setBackground(Color.WHITE);
-			itemPopUp.setVisible(true);
-		this.itemMenu = new JComboBox<String>();
-			itemMenu.addItem("Key");
-			itemPopUp.add(itemMenu);
+		this.itemList = new ListPanel();
+			itemList.setBounds(250,250,100,100);
+			itemList.setVisible(false);
+			itemList.addItem("Key");
+			itemList.addItem("Box");
 		
-		canvas.add(itemPopUp);
+		canvas.add(itemList);
 		canvas.add(compass);
 		canvas.add(status);
 		
@@ -285,8 +282,8 @@ public class Window {
 			return inven;
 		}
 		
-		public JComboBox<String> getItemPopUp(){
-			return itemMenu;
+		public ListPanel getListPanel() {
+			return itemList;
 		}
 		
 		public JFileChooser getFileChooser() {
