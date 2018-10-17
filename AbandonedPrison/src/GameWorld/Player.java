@@ -218,6 +218,15 @@ public class Player {
 			default: return "";
 	}
 	}
+
+	public boolean inventoryContains(Item item) {
+		for(Item i : inventory.getInventory()) {
+			if(i.getItemId() == item.getItemId()) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
 
 

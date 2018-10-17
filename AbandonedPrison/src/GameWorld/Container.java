@@ -1,11 +1,10 @@
 package GameWorld;
 
-/** AbstractItem abstract class
- *  
- * @author Michael Vincent 300140128
+/** Container class
+ * Stores information about the container
+ * @author Michael Vincent
  *
  */
-
 public class Container implements ContainerInterface{
 	protected String containerName;
 	protected String containerDescription;
@@ -16,7 +15,6 @@ public class Container implements ContainerInterface{
 	
 	/**
 	 * Constructor for creating a container.
-	 * 
 	 * @param containerName name of container
 	 * @param containerImage name of container image file name
 	 * @param containerDescription description of container
@@ -28,17 +26,15 @@ public class Container implements ContainerInterface{
 		this.setcontainerId(containerId);
 	}
 	
+	// Setters //
 	private void setcontainerId(int containerId) {
-		this.containerId = containerId;
-		
+		this.containerId = containerId;	
 	}
 
 	private void setcontainerLocation(Location containerLocation) {
 		this.containerLocation = containerLocation;
 	}
 
-	
-	// Setters //
 	public void setcontainerName(String containerName) {
 		this.containerName = containerName;
 	}
@@ -47,49 +43,66 @@ public class Container implements ContainerInterface{
 		this.containerDescription = containerDescription;
 	}
 
-
-	
-	// Getters //
+	/*
+	 * Getter method for container Name.
+	 * @return containerName
+	 */
 	public String getcontainerName() {
 		return this.containerName;
 	}
+	/*
+	 * Getter method for container Description.
+	 * @return container Description
+	 */
 	public String getcontainerDescription() {
 		return this.containerDescription;
 		
 	}
+	/*
+	 * Getter method for container Location.
+	 * @return containerLocation
+	 */
 	public Location getContainerLocation() {
 		return this.containerLocation;
 	}
-
+	
+	/**
+	 * Getter method for container id.
+	 * @return container id
+	 */
 	public int getId() {
 		return this.containerId;
 	}
-
+	
+	/**
+	 * Generic open method
+	 */
 	public boolean open() {
 		System.out.println("Cannot find container to oepn");
 		return false;
 	}
-
+	/**
+	 * Generic unlock method
+	 */
 	public boolean unlock() {
 		System.out.println("Cannot find container to open");
 		return false;
 	}
-
+	/**
+	 * Generic store method
+	 */
 	@Override
 	public boolean store() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean pickUp() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean lock() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

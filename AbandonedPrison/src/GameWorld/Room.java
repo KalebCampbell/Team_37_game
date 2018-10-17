@@ -9,6 +9,8 @@ import java.util.List;
  */
 public class Room {
 	
+	private final int GRID_SIZE = 4;
+	
 	private int roomID;
 	private List<String> walls;
 	private List<Item> items = new ArrayList <Item>();
@@ -70,8 +72,8 @@ public class Room {
 	}	
 
 	private void createGrid() {
-		for(int i = 0; i < 4; i++) {
-			for(int j = 0; j <4; j++) {
+		for(int i = 0; i < GRID_SIZE; i++) {
+			for(int j = 0; j < GRID_SIZE; j++) {
 				itemGrid[i][j] = new Object();
 			}
 		}
@@ -87,12 +89,13 @@ public class Room {
 	 * @return true or false is item was placed.
 	 */
 	public boolean addItemToGrid(Item item, String direction) {
-		
+		 
 		if(direction.equals("N")) {
 			for(int i = 0; i < 2; i++) {
 				for(int j = 0; j < 4; j++ ) {
 					if(itemGrid[i][j].getClass() != item.getClass()) {
 						itemGrid[i][j] = item;
+						items.add(item);
 						return true;
 					}
 				}
@@ -104,6 +107,7 @@ public class Room {
 				for(int j = 0; j < 2; j++ ) {
 					if(itemGrid[i][j].getClass() != item.getClass()) {
 						itemGrid[i][j] = item;
+						items.add(item);
 						return true;
 					}
 				}
@@ -115,6 +119,7 @@ public class Room {
 				for(int j = 0; j < 4; j++ ) {
 					if(itemGrid[i][j].getClass() != item.getClass()) {
 						itemGrid[i][j] = item;
+						items.add(item);
 						return true;
 					}
 				}
@@ -126,6 +131,7 @@ public class Room {
 				for(int j = 2; j < 4; j++ ) {
 					if(itemGrid[i][j].getClass() != item.getClass()) {
 						itemGrid[i][j] = item;
+						items.add(item);
 						return true;
 					}
 				}
@@ -140,6 +146,17 @@ public class Room {
 	
 	public Object[][] getGrid(){
 		return this.itemGrid;
+	}
+	
+	public boolean itemOnGrid(Item item) {
+		for(int i = 0; i < GRID_SIZE; i++) {
+			for(int j = 0; j < GRID_SIZE; j++) {
+				if(itemGrid[i][j] == item) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	// Rooms //

@@ -1,4 +1,4 @@
-package GameWorld;
+package Testing;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -12,12 +12,14 @@ import javax.xml.bind.JAXBException;
 
 import org.junit.Test;
 
+import GameWorld.Game;
+import GameWorld.Item;
+import GameWorld.Key;
+import GameWorld.Location;
 import Persistence.GameMapComponent;
 import Persistence.LoadXml;
 
 public class GameWorldMovementTests {
-	
-	
 	
 	/**
 	 * Basic test to ensure that the player moves one room down.
@@ -26,11 +28,11 @@ public class GameWorldMovementTests {
 	public void movementTest1() {
 		Game game = loadHelper("GameWorldTestMap.xml");
 		
-		game.player.setDirection("N");
+		game.getPlayer().setDirection("N");
 		game.playerMove();
 		
-		assertEquals(game.player.getPlayerLocation().getX(),0);
-		assertEquals(game.player.getPlayerLocation().getY(),-1);
+		assertEquals(game.getPlayer().getPlayerLocation().getX(),0);
+		assertEquals(game.getPlayer().getPlayerLocation().getY(),-1);
 		
 	}
 	/*
@@ -45,8 +47,8 @@ public class GameWorldMovementTests {
 		game.playerTurnRight(); // turn N->E
 		game.playerMove(); // East 1 room
 		
-		assertEquals(game.player.getPlayerLocation().getX(),1);
-		assertEquals(game.player.getPlayerLocation().getY(),-2);
+		assertEquals(game.getPlayer().getPlayerLocation().getX(),1);
+		assertEquals(game.getPlayer().getPlayerLocation().getY(),-2);
 		
 	}
 	/*
@@ -74,22 +76,21 @@ public class GameWorldMovementTests {
 		assertFalse(game.playerMove());		
 	}
 	
-	
-	
+	/*
+	 * Cannot move into wall.
+	 */
 	@Test
-	public void pickUpTest1() {
-		Game game = loadHelper("GameWorldTestMap1.xml");
+	public void movementTestFail3() {
+		Game game = loadHelper("GameWorldTestMap.xml");
 		
-		Item i = game.locOfItemUsingPlayer(game.player,new Location(1,1));
-		
-		assertEquals(i.getItemId(),1);
+		game.playerMove();
+		game.playerTurnLeft(); // N->W
+		// Facing wall.
+		assertFalse(game.playerMove());		
 	}
 	
 
-	@Test
-	public void pickUpTest2() {
-		
-	}
+
 	@Test
 	public void openContainerTest1() {
 		
@@ -109,7 +110,6 @@ public class GameWorldMovementTests {
 		try {
 			gameComp = load.unMarshal(new File(testMap));
 		} catch (JAXBException e) {
-			System.out.println("Parsing failed");
 		}
 		return new Game(gameComp);
 		

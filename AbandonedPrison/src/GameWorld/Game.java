@@ -45,9 +45,7 @@ public class Game {
 			// Creates rooms & map setup
 			initialiseMap(setup);
 			
-		}else {
-			System.out.println("GameMap is empty");
-		}
+		} 
 	}
 	
 
@@ -99,6 +97,10 @@ public class Game {
 			return room.addItemToGrid(item, dir);			
 	}
 	
+	/**
+	 * Getter method to return rooms
+	 * @return List of rooms
+	 */
 	public List<Room> getRooms() {
 		return roomList;
 	}
@@ -241,7 +243,7 @@ public class Game {
 			Item item = null;
 			
 			if(itemArr[0].equals("Key")) {
-				 item = new Key(itemArr[0], Integer.parseInt(itemArr[1]), "description", new Location(Integer.parseInt(itemArr[2]),Integer.parseInt(itemArr[3])));
+				 item = new Key(itemArr[0], Integer.parseInt(itemArr[1]), "KeyDescription", new Location(Integer.parseInt(itemArr[2]),Integer.parseInt(itemArr[3])));
 				 inv.addItemToInventory(item);
 			}else {
 				
