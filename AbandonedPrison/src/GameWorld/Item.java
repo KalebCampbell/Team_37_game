@@ -26,9 +26,10 @@ public class Item implements ItemInterface {
 		this.itemId =itemId;
 	}
 	
-	public Item() {
-		
-	}
+	/**
+	 * Empty constructor
+	 */
+	public Item() {}
 	
 	@Override
 	public boolean use() {
@@ -74,6 +75,11 @@ public class Item implements ItemInterface {
 	}
 	public Location getItemLocation() {
 		return this.itemLocation;
+	}
+
+	@Override
+	public String getType() {
+		return "Empty";
 	}
 
 

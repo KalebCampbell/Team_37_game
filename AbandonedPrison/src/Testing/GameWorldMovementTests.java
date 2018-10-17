@@ -21,6 +21,45 @@ import Persistence.LoadXml;
 
 public class GameWorldMovementTests {
 	
+	
+	
+	
+	// Turn right
+	@Test
+	public void movementTestTurnRight1() {
+		Game game = loadHelper("GameWorldTestMap.xml");
+		game.playerTurnRight();
+		assert(game.getPlayer().getDirection().equals("E"));
+	}
+	// Turn left
+	@Test
+	public void movementTestTurnLeft1() {
+		Game game = loadHelper("GameWorldTestMap.xml");
+		game.playerTurnLeft();
+		assert(game.getPlayer().getDirection().equals("W"));
+	} 
+	
+	// Turn around
+	@Test
+	public void movementTestTurnLeft2() {
+		Game game = loadHelper("GameWorldTestMap.xml");
+		game.playerTurnLeft();
+		game.playerTurnLeft();
+		game.playerTurnLeft();
+		game.playerTurnLeft();
+		assert(game.getPlayer().getDirection().equals("N"));
+	} 
+	@Test
+	public void movementTestTurnRight2() {
+		Game game = loadHelper("GameWorldTestMap.xml");
+		game.playerTurnRight();
+		game.playerTurnRight();
+		game.playerTurnRight();
+		game.playerTurnRight();
+		assert(game.getPlayer().getDirection().equals("N"));
+	}
+	
+
 	/**
 	 * Basic test to ensure that the player moves one room down.
 	 */
@@ -62,7 +101,7 @@ public class GameWorldMovementTests {
 		// Facing wall.
 		assertFalse(game.playerMove());		
 	}
-	
+	 
 	/*
 	 * Cannot move into wall.
 	 */
@@ -87,18 +126,43 @@ public class GameWorldMovementTests {
 		game.playerTurnLeft(); // N->W
 		// Facing wall.
 		assertFalse(game.playerMove());		
+	} 
+	/*
+	 * Coverage navigate
+	 */ 
+	@Test
+	public void movementTestNavigate1() {
+		Game game = loadHelper("GameWorldTestMap.xml");
+		
+		game.playerMove(); // -> N
+		game.playerMove(); // -> N
+		game.playerTurnRight(); // N-> E
+		game.playerMove(); // -> E
+		game.playerTurnRight(); // E -> S
+		game.playerMove(); // -> S
+		
+		assertFalse(game.playerMove());		
+	}
+	
+	/*
+	 * Coverage navigate
+	 */ 
+	@Test
+	public void movementTestNavigate2() {
+		Game game = loadHelper("GameWorldTestMap.xml");
+		
+		game.playerMove(); // -> N
+		game.playerMove(); // -> N
+		game.playerTurnRight(); // N-> E
+		game.playerMove(); // -> E
+		game.playerTurnRight(); // E -> S
+		game.playerTurnRight(); // S -> W
+		game.playerMove(); // -> W
+		
+		assertFalse(game.playerMove());		
 	}
 	
 
-
-	@Test
-	public void openContainerTest1() {
-		
-	}
-	@Test
-	public void openLockedContainerTest1() {
-		
-	}
 	
 	
 

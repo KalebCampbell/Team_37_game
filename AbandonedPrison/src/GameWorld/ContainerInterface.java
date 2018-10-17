@@ -8,6 +8,7 @@ package GameWorld;
  */
 public interface ContainerInterface {
 	
+	public String getType();
 	public boolean open();
 	public boolean store();
 	public boolean pickUp();

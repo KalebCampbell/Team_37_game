@@ -203,6 +203,7 @@ public class Game {
 						returnItems.add(item);
 					}else if(itemName.equals("Crowbar")) {
 						item = new Crowbar(itemName, ic.getId(), "CrowbarDescription", new Location(ic.getPosX(), ic.getPosY()));
+						returnItems.add(item);
 					}
 				}
 			}

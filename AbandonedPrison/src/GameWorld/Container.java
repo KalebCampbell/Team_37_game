@@ -106,6 +106,11 @@ public class Container implements ContainerInterface{
 		return false;
 	}
 
+	@Override
+	public String getType() {
+		return "Empty";
+	}
+
 
 
 }

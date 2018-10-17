@@ -29,7 +29,7 @@ public class Player {
 		this.name = name;
 		this.roomId = roomId;
 		this.location = location;
-	}
+	} 
 
 	// Public SETTERS as they're used outside of construction //
 	public void setInventory(Inventory inventory) {
@@ -120,7 +120,6 @@ public class Player {
 			//WEST (-1,0)
 		}else if(dir.equals("W")) {
 			setPlayerLocation(new Location(getPlayerLocation().getX()-1, getPlayerLocation().getY()));
-		}else {
 		}
 		
 	}

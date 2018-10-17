@@ -30,4 +30,7 @@ public class KeyCard extends Item{
 		return false;
 	}
 
+	public String getType() {
+		return "KeyCard";
+	}
 }

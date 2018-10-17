@@ -60,9 +60,6 @@ public class GameWorldPickupTests {
 		Room r = game.findRoom(roomId);
 		assert(r.itemOnGrid(item));
 		
-
-		
-		
 		
 	}
 	

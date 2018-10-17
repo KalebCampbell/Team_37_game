@@ -35,5 +35,8 @@ public class WoodenBox extends Container{
 		}
 		return isLocked;
 	}
+	public String getType() {
+		return "WoodenBox";
+	}
 
 }

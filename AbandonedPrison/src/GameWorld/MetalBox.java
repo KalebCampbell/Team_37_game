@@ -35,5 +35,10 @@ public boolean unlock(Item item) {
 	}
 	return isLocked;
 }
+public String getType() {
+	return "MetalBox";
+			
+			
+}
 
 }

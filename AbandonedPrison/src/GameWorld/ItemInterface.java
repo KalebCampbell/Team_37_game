@@ -8,6 +8,7 @@ package GameWorld;
  */
 public interface ItemInterface {
 	
+	public String getType();
 	public boolean use();
 	public boolean pickUp();
 	public boolean drop();

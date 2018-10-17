@@ -1,11 +1,11 @@
 package GameWorld;
 
-public class Key extends Item{
+public class Key extends Item implements ItemInterface{
 	
 	public Key(String keyName,int itemId, String itemDescription, Location keyLocation) {
 		super(keyName,itemId, itemDescription, keyLocation);	
 	}
-	
+	 
 	/**
 	 * own implementation of the lock method
 	 * @return boolean
@@ -14,7 +14,10 @@ public class Key extends Item{
 		System.out.println("Key unlock");
 		return false;
 	}
-	
+	/**
+	 * own implementation of the pickup method
+	 * @return boolean
+	 */
 	public boolean pickUp() {
 		System.out.println("Key picked up and added to inventory");
 		return false;		
@@ -43,5 +46,10 @@ public class Key extends Item{
 		System.out.println("Storing "+itemName);
 		return false;
 	}
+	
+	public String getType() {
+		return "Key";
+	}
+	
 
 }
