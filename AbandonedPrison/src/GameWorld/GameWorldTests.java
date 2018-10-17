@@ -1,6 +1,8 @@
 package GameWorld;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
@@ -25,6 +27,9 @@ public class GameWorldTests {
 		
 		int x = game.player.getPlayerLocation().getX();
 		int y = game.player.getPlayerLocation().getY();
+
+		assertEquals(x,0);
+		assertEquals(y,-1);
 		
 	}
 	@Test
@@ -60,7 +65,7 @@ public class GameWorldTests {
 		LoadXml load = new LoadXml();
 		GameMapComponent gameComp = null;
 		try {
-			gameComp = load.unMarshal(new File("Map1.xml"));
+			gameComp = load.unMarshal(new File("Map3.xml"));
 		} catch (JAXBException e) {
 			System.out.println("Parsing failed");
 		}

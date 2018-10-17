@@ -37,26 +37,28 @@ public class Game {
 			// Inventory setup
 			this.player.setInventory(initialiseInventory(setup));
 			// Creates rooms & map setup
-			initialiseMap(setup);	
+			initialiseMap(setup);
 			
 		}else {
 			System.out.println("GameMap is empty");
 		}
 	}
 	
-	
-	
-	public void itemDrop(String itemName) {
-			
-		
-	}
-	
 
 	
-	
+	/**
+	 * Attempts to place item in front of the player.
+	 * @param item
+	 */
+	public boolean itemDrop(AbstractItem item) {
+			Room room = findRoom(player.getRoomId());
+			String dir = player.getDirection();
+			return room.addItemToGrid(item, dir);			
+	}
+
 	
 	/**
-	 * Method to find item in a room
+	 * Method to find items in a room
 	 * Will be extended for multiple items
 	 * @return Item, or null if none
 	 */
