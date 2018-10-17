@@ -6,8 +6,8 @@ import java.awt.Graphics2D;
 
 import javax.swing.JMenu;
 
-public class ColoredMenuItem extends JMenu{
-	
+public class ColoredMenuItem extends JMenu {
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);

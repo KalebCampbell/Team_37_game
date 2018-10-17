@@ -12,13 +12,13 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
 public class ListPanel extends JPanel {
-	
+
 	private JComboBox<String> list;
-	
+
 	private Image texture = Toolkit.getDefaultToolkit().createImage("src/Application/panelTexture.png");
-	
-	ListPanel(){
-		
+
+	ListPanel() {
+
 		Border blackline = BorderFactory.createLineBorder(Color.WHITE);
 		TitledBorder border = BorderFactory.createTitledBorder(blackline, "Pick Up item");
 		border.setTitleColor(Color.WHITE);
@@ -26,18 +26,22 @@ public class ListPanel extends JPanel {
 		this.setBorder(border);
 		this.list = new JComboBox<String>();
 		this.add(list);
-	
+
 	}
-	
+
 	@Override
 	public void paintComponent(Graphics g) {
-		
+
 		super.paintComponent(g);
-		g.drawImage(texture, 0 ,0, this);
+		g.drawImage(texture, 0, 0, this);
 	}
-	
+
 	public void addItem(String item) {
 		this.list.addItem(item);
+	}
+
+	public JComboBox<String> getList() {
+		return list;
 	}
 
 }
