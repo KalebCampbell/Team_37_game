@@ -576,6 +576,7 @@ public class GUI {
 			public void actionPerformed(ActionEvent ev) {
 				// set up the file chooser
 				try {
+				
 					LoadXml.unMarshal();
 				} catch (JAXBException e) {
 					// TODO Auto-generated catch block

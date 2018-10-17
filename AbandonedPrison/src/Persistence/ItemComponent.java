@@ -16,14 +16,17 @@ public class ItemComponent {
 
 	int posX;
 	int posY;
+	int id;
 	String item;
+	
 	//To be marshalled the objects all need an empty constructor. 
 	public ItemComponent() {
 	}
-	public ItemComponent(int posX, int posY, String item) {
+	public ItemComponent(int posX, int posY, String item, int id) {
 		this.posX = posX;
 		this.posY = posY;
 		this.item = item;
+		this.id = id;
 	}
 
 	public int getPosX() {
@@ -51,6 +54,13 @@ public class ItemComponent {
 	@XmlElement
 	public void setItem(String item) {
 		this.item = item;
+	}
+	public int getId() {
+		return id;
+	}
+	@XmlElement
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	
