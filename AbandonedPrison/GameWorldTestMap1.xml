@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<map>
+    <player>
+        <id>5</id>
+        <location>0,0</location>
+        <name>PlayerOne</name>
+        <roomid>1</roomid>
+    </player>
+    <rooms>
+        <room id="1">
+            <items>
+                <item>Key</item>
+                	<posX>1</posX>
+                	<posY>1</posY>
+                	<id>1</id>
+            </items>
+            <locX>0</locX>
+            <locY>0</locY>
+            <walls>S</walls>
+            <walls>W</walls>
+            <walls>E</walls>
+            <doors>N</doors>
+        </room>
+    </rooms>
+</map>

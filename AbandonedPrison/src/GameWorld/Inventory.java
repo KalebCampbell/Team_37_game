@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Inventory {
 	public final int MAX_SIZE = 8;
-	private List<AbstractItem> inventory = new ArrayList<AbstractItem>(MAX_SIZE);
+	private List<Item> inventory = new ArrayList<Item>(MAX_SIZE);
 	
 	/**
 	 * Constructor for Inventory
@@ -24,7 +24,7 @@ public class Inventory {
 	 * Getter for getting inventory.
 	 * @return List of items in inventory
 	 */
-	public List<AbstractItem> getInventory() {
+	public List<Item> getInventory() {
 		return inventory;
 	}
 
@@ -34,7 +34,7 @@ public class Inventory {
 	 * @param item
 	 * @return 
 	 */
-	public boolean addItemToInventory(AbstractItem item) {
+	public boolean addItemToInventory(Item item) {
 		
 		if(item != null && inventory.size() != MAX_SIZE) {
 			inventory.add(item);
@@ -49,7 +49,7 @@ public class Inventory {
 	 * Removes items from inventory if it exists.
 	 * @param item
 	 */
-	public void removeItemFromInventory(AbstractItem item) {
+	public void removeItemFromInventory(Item item) {
 		if(inventory.contains(item)) {
 			inventory.remove(item);
 		}else {
@@ -64,7 +64,7 @@ public class Inventory {
 	 * @param itemName
 	 * @return boolean if item exists
 	 */
-	public boolean itemExistsInInventory(AbstractItem item) {
+	public boolean itemExistsInInventory(Item item) {
 		return inventory.contains(item);	
 	}
 	

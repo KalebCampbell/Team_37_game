@@ -1,6 +1,6 @@
 package GameWorld;
 
-public class WoodenBox extends AbstractContainer{
+public class WoodenBox extends Container{
 
 	public WoodenBox(String containerName, int containerId, String containerImage, String containerDescription,
 			Location containerLocation) {
@@ -22,7 +22,7 @@ public class WoodenBox extends AbstractContainer{
 		}
 	}
 	
-	public boolean unlock(AbstractItem item) {
+	public boolean unlock(Item item) {
 		if(this.isLocked) {
 			System.out.println("A wooden Clunk the chest is locked");
 			if(item.getItemId() == this.getId()) {

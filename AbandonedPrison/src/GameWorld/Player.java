@@ -3,20 +3,27 @@ package GameWorld;
 import java.util.List;
 
 /**
- * Basic creation of player, nothing added yet.
- * @author Michael Vincent 300140128
- *
+ * Player class
+ * Handles the creation,Movement, Inventory of a player.
+ * 
+ * @author Michael Vincent 
  */
 public class Player {
 
 	private int id;
 	private String name;
-	private Location location; // Location inside room
+	private Location location; 
 	private int roomId;
 	private Inventory inventory;
-	
 	private String direction = "N";
 	
+	/**
+	 * Player constructor
+	 * @param id player id
+	 * @param name string
+	 * @param roomId 
+	 * @param location
+	 */
 	public Player(int id, String name, int roomId, Location location) {
 		this.id = id;
 		this.name = name;
@@ -24,9 +31,7 @@ public class Player {
 		this.location = location;
 	}
 
-	
-	
-	// Public SETTERS as they're used out side of construction //
+	// Public SETTERS as they're used outside of construction //
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
 	}
@@ -35,44 +40,61 @@ public class Player {
 		this.roomId = roomId;
 	}
 
-	// Public GETTERS to be accessed outside of class //
+	/**
+	 * Getter for player ID
+	 * @return return player ID
+	 */
 	public int getPlayerId() {
 		return id;
 	}
-	
+	/**
+	 * Getter for player Name
+	 * @return return player name
+	 */
 	public String getPlayerName() {
 		return name;	
 	}
+	
+	/**
+	 * Getter for player Location.
+	 * @return return player location
+	 */
 	public Location getPlayerLocation() {
 		return location;
 	}
 	
+	/**
+	 * Getter for Room ID
+	 * @return return room id;
+	 */
 	public int getRoomId() {
 		return roomId;
 	}
 	
+	/**
+	 * Getter for Inventory
+	 * @return return inventory
+	 */
 	public Inventory getInventory() {
 		return inventory;
 	}
-
-	// MOVEMENT HANDLING //
+	
+	/**
+	 * Public setter for player location
+	 * @param loc location
+	 */
 	public void setPlayerLocation(Location loc) {
 		this.location = loc;
 	}
 	
-	
-	
-
-	// DIRECTION HANDLING //
-	
 	/**
 	 * Sets direction of player
-	 * @param direction
+	 * @param direction to set
 	 */
 	public void setDirection(String direction) {
 		this.direction = direction;
-		
 	}
+	
 	/**
 	 * get direction of player
 	 * @return Direction
@@ -81,10 +103,9 @@ public class Player {
 		return direction;
 	}
 
-
 	/**
 	 * Move method moves the player to a new location ready to application to redraw
-	 * @param dir
+	 * @param Direction the player is facing
 	 */
 	public void move(String dir) {
 			//NORTH (0,-1)		
@@ -104,8 +125,9 @@ public class Player {
 		
 	}
 
-
-
+	/**
+	 * Method for turning the player to the left.
+	 */
 	public void turnLeft() {
 		String dir = this.direction;
 		if(dir.equals("N")) {
@@ -117,12 +139,13 @@ public class Player {
 		}else if(dir.equals("E")) {
 			setDirection("N");
 		}	
-		System.out.println("Current direction: "+getDirection());
-		
+		//Debug System.out.println("Current direction: "+getDirection());
 	}
+	/**
+	 * Method for turning the player to the right.
+	 */
 	public void turnRight() {
 		String dir = this.direction;
-	
 		if(dir.equals("N")) {
 			setDirection("E");
 		}else if(dir.equals("E")){
@@ -132,65 +155,75 @@ public class Player {
 		}else if(dir.equals("W")) {
 			setDirection("N");
 		}	
-		System.out.println("Current direction: "+getDirection());
+		//Debug System.out.println("Current direction: "+getDirection());
 	}
 
+	/**
+	 * Move player forward
+	 * @param roomList
+	 * @return
+	 */
 	public boolean playerMove(List<Room> roomList) {
 		
 		// Step forward or backward	
 		// Get the direction the player is facing
 		String dir = getDirection();
+		Room currentRoom = null;
 			// Check if wall is in the way
 		
 			// Iterate through all rooms
 			for(Room r : roomList) {
 				// find room player is in
-				if(r.getRoomID() == getRoomId()){
-							
-					// If the walls array contains the direction the player is facing
-					// Can't use ".contains()" as it's different objects, whoops.
-					for(String s : r.getWalls()) {
-						if(s.equals(dir)) {
-							System.out.println("Direction: "+dir+ " Wall: "+s);
-							// Illegal move E.G PLAYER FACING WEST, WALLS WEST
-							return false;
-						}
-					}
-					
-					// Can't use ".contains()" as it's different objects, whoops.
-					for(String s : r.getDoors()) {
-						if(s.equals(dir)) {
-							// MISSING: CHECK IF DOOR IS LOCKED
-							// ASSUME DOOR IS UNLOCKED & OPEN
-							// Update player location
-							System.out.println("Current location: "+ getPlayerLocation().getX() +"," + getPlayerLocation().getY());
-							// Moves the player
-							move(dir);
-							System.out.println("After move: "+ getPlayerLocation().getX() +"," + getPlayerLocation().getY());
-							// Sets the players new roomId
-							
-							for(Room room : roomList) {	
-								if(getPlayerLocation().getX() == room.getLocation().getX() &&
-								   getPlayerLocation().getY() == room.getLocation().getY()) {		
-									// Set room id of player
-									setRoomID(room.getRoomID());
-									return true;
-								}
-							}		
-						}
-					}
+				if(r.getRoomID() == getRoomId()){							
+					// Sets the room the player is in
+					currentRoom = r;
 				}
+			}
+			
+			// WALL CHECK
+			for(String s : currentRoom.getWalls()) {
+				// Forwards
+				if(s.equals(dir)) {
+				System.out.println("Cannot move into a wall");
+				// Illegal move E.G PLAYER FACING WEST, WALLS WEST
+				return false;
+				}	
+			}
+					
+			// DOOR CHECK
+			for(String s : currentRoom.getDoors()) {
+				if(s.equals(dir)) {
+				move(dir);
+				System.out.println("Move through: "+dir+" door to"+ getPlayerLocation().getX() +"," + getPlayerLocation().getY());
+				}
+			}
+			
+			// FIND NEW ROOM
+			for(Room room : roomList) {	
+				if(getPlayerLocation().getX() == room.getLocation().getX() &&
+				   getPlayerLocation().getY() == room.getLocation().getY()) {		
+					setRoomID(room.getRoomID());
+							return true;
+					}
 			}
 		return false;
 	}
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+	private String getOpposite(String dir) {
+		switch (dir) {
+			case "N": return "S";
+			case "S": return "N";
+			case "E": return "W";
+			case "W": return "E";
+			default: return "";
 	}
+	}
+}
+
 
 
 		

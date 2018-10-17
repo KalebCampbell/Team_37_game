@@ -6,7 +6,7 @@ package GameWorld;
  *
  */
 
-public abstract class AbstractContainer{
+public class Container{
 	protected String containerName;
 	protected String containerDescription;
 	protected String containerImage;
@@ -22,7 +22,7 @@ public abstract class AbstractContainer{
 	 * @param containerImage name of container image file name
 	 * @param containerDescription description of container
 	 */
-	public AbstractContainer(String containerName,int containerId,String containerImage, String containerDescription, Location containerLocation) {
+	public Container(String containerName,int containerId,String containerImage, String containerDescription, Location containerLocation) {
 		this.setcontainerName(containerName);
 		this.setcontainerDescription(containerImage);
 		this.setcontainerImage(containerDescription);	

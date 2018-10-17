@@ -8,7 +8,7 @@ import Persistence.RoomsComponent;
 import Persistence.ContainerComponent;
 import Persistence.GameMapComponent;
 import Persistence.ItemComponent;
-//import Persistence2.GameMap;
+
 
 
 /** 
@@ -53,33 +53,38 @@ public class Game {
 
 	// CONTAINER FUNCTIONS //
 
-	public boolean openContainer(AbstractContainer container) {
-		String containerType = container.getcontainerName();
-		//if(container)
+	public boolean openContainer(Container container) {
+		container.open();
 		return container.open();
 	}
 	
-	public boolean unlockContainer(AbstractContainer container) {
-		Room room = findRoom(player.getRoomId());
+	public boolean unlockContainer(Container container) {
+		container.unlock();
 		return container.unlock();
 		
 	}
 	
-	
-	
-	
-	
-
-
-	
 	// ROOM FUNCTIONS //
 	
+	/**
+	 * 
+	 */
+	public Item locOfItemUsingPlayer(Player p,Location loc) {
+		Room room = findRoom(p.getRoomId());
+		for(Item i : room.getItems()) {
+			if(i.getItemLocation() == loc) {
+				return i;
+			}
+		}
+		return null;
+	}
+		
 	/**
 	 * Pickup item
 	 * @param itemName in string format
 	 * @return true/false if item can be picked up
 	 */
-	public boolean itemPickUp(AbstractItem item) {	
+	public boolean itemPickUp(Item item) {	
 		item.pickUp(); // Demonstrate strategy.
 		return player.getInventory().addItemToInventory(item);
 	}
@@ -88,7 +93,7 @@ public class Game {
 	 * Attempts to place item in front of the player.
 	 * @param item
 	 */
-	public boolean itemDrop(AbstractItem item) {
+	public boolean itemDrop(Item item) {
 			Room room = findRoom(player.getRoomId());
 			String dir = player.getDirection();
 			return room.addItemToGrid(item, dir);			
@@ -111,9 +116,7 @@ public class Game {
 		}
 		return null;
 	}
-	
-	// PLAYER FUNCTIONS //
-	
+	//PLAYER FUNCTIONS
 	/**
 	 * Turn player left
 	 * @param direction
@@ -139,6 +142,13 @@ public class Game {
 	}
 	
 	/**
+	 * Call for player to move backwards
+	 * Check player direction against player movement
+	 * @return true/false
+	 */
+	
+	
+	/**
 	 * Get player
 	 * @return player
 	 */
@@ -160,8 +170,8 @@ public class Game {
 		RoomsComponent rc = setup.getRooms();	
 		for(RoomComponent roomC : rc.Rooms()) {
 			//List<ItemComponent> ic = roomC.getItems();
-			List<AbstractContainer> containerList = initialiseContainers(roomC.getContainers());
-			List<AbstractItem> itemList = initialiseItems(roomC.getItems());		
+			List<Container> containerList = initialiseContainers(roomC.getContainers());
+			List<Item> itemList = initialiseItems(roomC.getItems());		
 			// Build room
 			Room room = new Room(roomC.getId(), roomC.getWalls(), new Location(roomC.getLocX(),roomC.getLocY()),roomC.getDoors(), itemList, containerList);
 			// Add room to roomList
@@ -175,9 +185,9 @@ public class Game {
 	 * @param list arraylist of string items
 	 * @return List of abstractItems
 	 */
-	private List<AbstractItem> initialiseItems(List<ItemComponent> list) {
-		AbstractItem item = null;
-		List<AbstractItem> returnItems = new ArrayList<AbstractItem>();
+	private List<Item> initialiseItems(List<ItemComponent> list) {
+		Item item = null;
+		List<Item> returnItems = new ArrayList<Item>();
 		
 		if(list != null) {	
 			for(ItemComponent ic : list) {			
@@ -187,8 +197,10 @@ public class Game {
 						item = new Key(itemName, ic.getId(),"KeyDescription","KeyImage", new Location(ic.getPosX(), ic.getPosY()));
 						returnItems.add(item);
 					}else if (itemName.equals("Keycard")) {
-						item = new KeyCard(itemName, 99,"KeyCardDescription","KeyCardImage", new Location(ic.getPosX(), ic.getPosY()));
+						item = new KeyCard(itemName, ic.getId(),"KeyCardDescription","KeyCardImage", new Location(ic.getPosX(), ic.getPosY()));
 						returnItems.add(item);
+					}else if(itemName.equals("Crowbar")) {
+						item = new Crowbar(itemName, ic.getId(), "CrowbarDescription", "CrowbarImage", new Location(ic.getPosX(), ic.getPosY()));
 					}
 				}
 			}
@@ -226,7 +238,7 @@ public class Game {
 		for(String s : setup.getInventory()) {
 			// split inventory up
 			String[] itemArr = s.split(",");
-			AbstractItem item = null;
+			Item item = null;
 			
 			if(itemArr[0].equals("Key")) {
 				 item = new Key(itemArr[0], Integer.parseInt(itemArr[1]), "image","description", new Location(Integer.parseInt(itemArr[2]),Integer.parseInt(itemArr[3])));
@@ -238,8 +250,8 @@ public class Game {
 		return inv;
 	}
 		
-	private List<AbstractContainer> initialiseContainers(List<ContainerComponent> list){
-		List<AbstractContainer> returnContainer = new ArrayList<AbstractContainer>();
+	private List<Container> initialiseContainers(List<ContainerComponent> list){
+		List<Container> returnContainer = new ArrayList<Container>();
 		
 		for(ContainerComponent cc : list) {
 			if(cc.getContainer().equals("WoodenBox")) {
@@ -250,15 +262,9 @@ public class Game {
 						new Location(cc.getPosX(),cc.getPosY())));
 			}		
 		}
-		
-		
 		return returnContainer;
-		
-		
-		
 	}
-		
 
 
-		
+
 }

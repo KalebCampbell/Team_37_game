@@ -1,6 +1,6 @@
 package GameWorld;
 
-public class MetalBox extends AbstractContainer{
+public class MetalBox extends Container{
 
 	public MetalBox(String containerName, int containerId, String containerImage, String containerDescription,
 			Location containerLocation) {
@@ -22,7 +22,7 @@ public boolean open() {
 	}
 }
 
-public boolean unlock(AbstractItem item) {
+public boolean unlock(Item item) {
 	if(this.isLocked) {
 		System.out.println("A metal Clunk the chest is locked");
 		if(item.getItemId() == this.getId()) {

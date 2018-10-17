@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<map>
+    <player>
+        <id>5</id>
+        <location>0,0</location>
+        <name>PlayerOne</name>
+        <roomid>1</roomid>
+    </player>
+    <rooms>
+        <room id="1">
+            <items>
+                <posX>0</posX>
+                <posY>0</posY>
+            </items>
+            <locX>0</locX>
+            <locY>0</locY>
+            <walls>S</walls>
+            <walls>E</walls>
+            <walls>W</walls>
+            <doors>N</doors>
+        </room>
+        <room id="2">
+            <items>
+                <posX>0</posX>
+                <posY>0</posY>
+            </items>
+            <locX>0</locX>
+            <locY>-1</locY>
+            <walls>E</walls>
+            <walls>W</walls>
+            <doors>N</doors>
+            <doors>S</doors>
+        </room>
+        <room id="3">
+            <items>
+                <posX>0</posX>
+                <posY>0</posY>
+            </items>
+            <locX>0</locX>
+            <locY>-2</locY>
+            <walls>W</walls>
+            <walls>N</walls>
+            <doors>S</doors>
+            <doors>E</doors>
+        </room>
+        <room id="4">
+            <items>
+                <posX>0</posX>
+                <posY>0</posY>
+            </items>
+            <locX>1</locX>
+            <locY>-2</locY>
+            <walls>N</walls>
+            <walls>E</walls>
+            <doors>W</doors>
+            <doors>S</doors>
+        </room>
+        <room id="5">
+            <items>
+                <item>Key</item>
+                	<posX>1</posX>
+                	<posY>1</posY>
+                	<id>1</id>
+            	</items>
+            <containers>
+            	<container>WoodenBox</container>
+            	<posX>2</posX>
+            	<posY>2</posY>
+            	<id>1</id>
+            	<locked>Y</locked>
+            </containers>
+            <locX>1</locX>
+            <locY>-1</locY>
+            <walls>S</walls>
+            <walls>W</walls>
+            <walls>E</walls>
+            <doors>N</doors>
+        </room>
+    </rooms>
+</map>

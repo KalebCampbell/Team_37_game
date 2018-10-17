@@ -11,13 +11,12 @@ public class Room {
 	
 	private int roomID;
 	private List<String> walls;
-	private List<AbstractItem> items = new ArrayList <AbstractItem>();
-	private List<AbstractContainer> containers = new ArrayList<AbstractContainer>();
+	private List<Item> items = new ArrayList <Item>();
+	private List<Container> containers = new ArrayList<Container>();
 	private Location location;
 	private List<String> doors;
-	private AbstractItem[][] itemGrid = new AbstractItem[4][4];
-	private AbstractContainer[][] containerGrid = new AbstractContainer[4][4];
-
+	private Item[][] itemGrid = new Item[4][4];
+	private Container[][] containerGrid = new Container[4][4];
 
 
 	/**
@@ -27,7 +26,7 @@ public class Room {
 	 * @param containerList 
 	 * 
 	 */
-	public Room (int roomID, List<String> walls, Location loc,List<String>doors, List<AbstractItem> aitems, List<AbstractContainer> containers){
+	public Room (int roomID, List<String> walls, Location loc,List<String>doors, List<Item> aitems, List<Container> containers){
 		this.setRoomID(roomID);
 		this.setWalls(walls);
 		this.setLocation(loc);
@@ -45,8 +44,8 @@ public class Room {
 	
 
 
-	private void containerSetup(List<AbstractContainer> containers) {
-		for(AbstractContainer ac : containers) {
+	private void containerSetup(List<Container> containers) {
+		for(Container ac : containers) {
 			int x = ac.getContainerLocation().getX();
 			int y = ac.getContainerLocation().getY();	
 			containerGrid[x][y] = ac;
@@ -54,8 +53,8 @@ public class Room {
 	}
 
 
-	private void itemSetup(List<AbstractItem> aitems) {
-		for(AbstractItem i : aitems) {
+	private void itemSetup(List<Item> aitems) {
+		for(Item i : aitems) {
 			int x = i.getItemLocation().getX();
 			int y = i.getItemLocation().getY();		
 			itemGrid[x][y] = i;
@@ -88,7 +87,7 @@ public class Room {
 	 * @param direction direction of player
 	 * @return true or false is item was placed.
 	 */
-	public boolean addItemToGrid(AbstractItem item, String direction) {
+	public boolean addItemToGrid(Item item, String direction) {
 		
 		if(direction.equals("N")) {
 			for(int i = 0; i < 2; i++) {
@@ -140,7 +139,7 @@ public class Room {
 		
 	}
 	
-	public AbstractItem[][] getItemGrid(){
+	public Item[][] getItemGrid(){
 		return this.itemGrid;
 	}
 
@@ -153,16 +152,16 @@ public class Room {
 		this.roomID = id;
 	}
 	
-	private void setItem(List<AbstractItem> aitems) {
+	private void setItem(List<Item> aitems) {
 		this.items = aitems;
 	}
 	
 	// Items //
-	public List<AbstractItem> getItems() {
+	public List<Item> getItems() {
 		return items;
 	}
 	
-	public void setItems(List<AbstractItem> items){
+	public void setItems(List<Item> items){
 		this.items = items;
 	}
 
@@ -193,20 +192,20 @@ public class Room {
 		return doors;
 	}
 
-	public void addItem(AbstractItem item) {
+	public void addItem(Item item) {
 		// TODO Auto-generated method stub
 		
 	}
 
 
 
-	public List<AbstractContainer> getContainer() {
+	public List<Container> getContainer() {
 		return containers;
 	}
 
 
 
-	public void setContainer(List<AbstractContainer> container) {
+	public void setContainer(List<Container> container) {
 		this.containers = container;
 	}
 
