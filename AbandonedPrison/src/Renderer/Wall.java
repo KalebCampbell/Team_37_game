@@ -1,26 +1,55 @@
 package Renderer;
 
 import java.awt.Color;
+import java.io.File;
 
 /**
  * Represents a Wall in 3D space.
  * 
  * @author Joel Harris
  */
-public class Wall extends Piece {
+abstract public class Wall extends Piece {
+
+	protected Door door;
+
+	public Door getDoor() {
+		return door;
+	}
 
 	/**
-	 * Wall constructor.
+	 * Translates the object by the delta values provided.
 	 * 
-	 * @param mesh
-	 *            mesh of this wall
-	 * @param position
-	 *            center position of this wall
+	 * @param x
+	 *            delta x
+	 * @param y
+	 *            delta y
+	 * @param z
+	 *            delta z
 	 */
-	public Wall(Mesh mesh, Point3D position) {
-		this.mesh = mesh.translate(position.getRealX(), position.getRealY(), position.getRealZ());
-		this.position = position;
-		this.color = new Color(58, 40, 124);
-		setPolygonColors(color);
+	public void translate(float x, float y, float z) {
+		mesh.translate(x, y, z);
+		position.translate(x, y, z);
+		if (door != null)
+			door.translate(x, y, z);
+	}
+
+	/**
+	 * Rotates the object 90 degrees to the left.
+	 */
+	public void rotateLeft() {
+		mesh.rotateLeft();
+		position.rotateLeft();
+		if (door != null)
+			door.rotateLeft();
+	}
+
+	/**
+	 * Rotates the object 90 degrees to the right.
+	 */
+	public void rotateRight() {
+		mesh.rotateRight();
+		position.rotateRight();
+		if (door != null)
+			door.rotateRight();
 	}
 }

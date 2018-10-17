@@ -93,6 +93,17 @@ public class Mesh {
 	}
 
 	/**
+	 * Converts this meshes polygons into YAxisPolygon's which uses a compareTo
+	 * method based on the polygons Y axis.
+	 */
+	public void yAxisPolygons() {
+		for (int i = 0; i < polygons.length; i++) {
+			polygons[i] = new YAxisPolygon3D(polygons[i].getxPoints(), polygons[i].getyPoints(),
+					polygons[i].getzPoints(), 3);
+		}
+	}
+
+	/**
 	 * Rotates the Mesh 90 degrees to right.
 	 * 
 	 * @return the updated Mesh

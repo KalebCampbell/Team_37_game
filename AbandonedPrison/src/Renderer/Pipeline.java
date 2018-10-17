@@ -47,9 +47,9 @@ public class Pipeline {
 		ambientColour[1] = 0.5f;
 		ambientColour[2] = 0.5f;
 		float[] incidentColour = new float[3];
-		incidentColour[0] = 0.5f;
-		incidentColour[1] = 0.5f;
-		incidentColour[2] = 0.5f;
+		incidentColour[0] = 0.7f;
+		incidentColour[1] = 0.7f;
+		incidentColour[2] = 0.7f;
 		int[] polyColour = new int[3];
 		polyColour[0] = poly.getColor().getRed();
 		polyColour[1] = poly.getColor().getGreen();

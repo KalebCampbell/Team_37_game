@@ -17,12 +17,12 @@ public class Polygon3D implements Comparable<Polygon3D> {
 	 */
 	public static final int CANVAS_MIDDLE = 300;
 
-	private float[] xPoints;
-	private float[] yPoints;
-	private float[] zPoints;
-	private int nPoints;
-	private Color color;
-	private Point3D position;
+	protected float[] xPoints;
+	protected float[] yPoints;
+	protected float[] zPoints;
+	protected int nPoints;
+	protected Color color;
+	protected Point3D position;
 
 	/**
 	 * Polygon3D constructor.
@@ -188,16 +188,16 @@ public class Polygon3D implements Comparable<Polygon3D> {
 				+ xPoints3D[1] + " y2: " + yPoints3D[1] + " z2: " + zPoints[1] + "\nx3: " + xPoints3D[2] + " y3: "
 				+ yPoints3D[2] + " z3: " + zPoints[2]);
 	}
-
+	
 	@Override
 	public int compareTo(Polygon3D other) {
+		if (this.position.getRealZ() > other.getPosition().getRealZ())
+			return -1;
+		else if (this.position.getRealZ() < other.getPosition().getRealZ())
+			return 1;
 		if (Math.abs(this.position.getRealY()) > Math.abs(other.getPosition().getRealY()))
 			return -1;
 		if (Math.abs(this.position.getRealY()) < Math.abs(other.getPosition().getRealY()))
-			return 1;
-		if (this.position.getRealZ() > other.getPosition().getRealZ())
-			return -1;
-		if (this.position.getRealZ() < other.getPosition().getRealZ())
 			return 1;
 		return 0;
 	}

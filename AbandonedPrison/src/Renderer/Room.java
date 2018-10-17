@@ -105,8 +105,10 @@ public class Room implements Comparable<Room> {
 		Item[][] items = this.items;
 		for (int i = 0; i < items.length; i++) {
 			for (int j = 0; j < items.length; j++) {
-				if (items[i][j].getPosition().getRealZ() >= 0) {
-					orderedItems.add(items[i][j]);
+				if (items[i][j] != null) {
+					if (items[i][j].getPosition().getRealZ() >= 0) {
+						orderedItems.add(items[i][j]);
+					}
 				}
 			}
 		}
