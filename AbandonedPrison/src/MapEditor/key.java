@@ -40,6 +40,6 @@ public class key {
 	 */
 	public void draw(Graphics g) {
 		g.setColor(Color.GREEN);
-		g.drawLine(x+2, y+2, x+5, y+5);
+		g.drawLine(x+2, y+2, x+30, y+30);
 	}
 }

@@ -21,6 +21,6 @@ public class Treasure {
 	 */
 	public void draw(Graphics g) {
 		g.setColor(Color.gray);
-		g.fillOval(x+12, y, 5, 5);
+		g.fillOval(x+30, y, 15, 15);
 	}
 }

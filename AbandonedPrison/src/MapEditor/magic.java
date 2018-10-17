@@ -20,6 +20,6 @@ public class magic {
 	 */
 	public void draw(Graphics g) {
 		g.setColor(Color.red);
-		g.fillOval(x+12, y+12, 5, 5);
+		g.fillOval(x+32, y+32, 15, 15);
 	}
 }
