@@ -590,10 +590,6 @@ public class GUI {
 			public void actionPerformed(ActionEvent ev) {
 				 //set up the file chooser
 				try {
-<<<<<<< HEAD
-				
-					LoadXml.unMarshal();
-=======
 					int result = fileChooser.showOpenDialog(frame);
 					File f = null;
 						if(result == JFileChooser.APPROVE_OPTION) {
@@ -603,27 +599,63 @@ public class GUI {
 					GameMapComponent gameMap =load1.unMarshal(f);
 					List<RoomComponent> roomsC=gameMap.getRooms().Rooms();
 					for(RoomComponent r:roomsC) {
-						rooms.add(new Room(r.getLocX(),r.getLocY(),w,h));
+						Room r1=new Room(r.getLocX()*w*2,r.getLocY()*h*2,w-2,h-2);
+						rooms.add(r1);
 						for(String s: r.getDoors()) {
-							if(s.equals("N"))doors.add(new Door(r.getLocX(),r.getLocY(),w*2,h/5));
-							if(s.equals("S"))doors.add(new Door(r.getLocX(),r.getLocY()+(w*2),w*2,h/5));
-							if(s.equals("W"))doors.add(new Door(r.getLocX()+(w*2),r.getLocY(),w/5,h*2));
-							if(s.equals("E"))doors.add(new Door(r.getLocX(),r.getLocY(),w/5,h*2));
+							if(s.equals("N")) {
+								doors.add(new Door(r.getLocX()*w*2,r.getLocY()*2*h,w*2,h/5));
+								r1.topdoor();
+							}
+							if(s.equals("S")) {
+								doors.add(new Door(r.getLocX()*2*w,r.getLocY()*2*h+(w*2),w*2,h/5));
+								r1.downdoor();
+							}
+							if(s.equals("W")) {
+								doors.add(new Door(r.getLocX()*2*w,r.getLocY()*2*h,w/5,h*2));
+								r1.leftdoor();
+							}
+							if(s.equals("E")) {
+								doors.add(new Door(r.getLocX()*2*w+(w*2),r.getLocY()*2*h,w/5,h*2));
+								r1.rightdoor();
+							}
 						}
 						for(String s: r.getWalls()) {
-							if(s.equals("N"))walls.add(new Wall(r.getLocX(),r.getLocY(),w*2,h/5));
-							if(s.equals("S"))walls.add(new Wall(r.getLocX(),r.getLocY()+(w*2),w*2,h/5));
-							if(s.equals("W"))walls.add(new Wall(r.getLocX()+(w*2),r.getLocY(),w/5,h*2));
-							if(s.equals("E"))walls.add(new Wall(r.getLocX(),r.getLocY(),w/5,h*2));
+							if(s.equals("N")) {
+								r1.topwall();
+								walls.add(new Wall(r.getLocX()*w*2,r.getLocY()*h*2,w*2,h/5));
+							}
+							if(s.equals("S")) {
+								r1.downwall();
+								walls.add(new Wall(r.getLocX()*w*2,r.getLocY()*h*2+(h*2),w*2,h/5));
+							}
+							if(s.equals("W")) {
+								r1.leftwall();
+								walls.add(new Wall(r.getLocX()*w*2,r.getLocY()*h*2,w/5,h*2));
+							}
+							if(s.equals("E")) {
+								r1.rightwall();
+								walls.add(new Wall(r.getLocX()*w*2+(w*2),r.getLocY()*h*2,w/5,h*2));
+							}
 						}
-						List<ItemComponent> itemC=r.getItems();
-						for(ItemComponent i:itemC ) {
-							if( i.getItem().equals("Key"))keys.add(new key(r.getLocX(),r.getLocY()));
-							if( i.getItem().equals("Treasure"))treasures.add(new Treasure(r.getLocX(),r.getLocY()));
-							if( i.getItem().equals("Magic"))magics.add(new magic(r.getLocX(),r.getLocY()));
+						
+						if(r.getItems()!=null) {
+							List<ItemComponent> itemC=r.getItems();
+							for(ItemComponent i:itemC ) {
+								if( i.getItem().equals("Key")) {
+									r1.haveKey();
+									keys.add(new key(r.getLocX()*2*w,r.getLocY()*2*h));
+								}
+								if( i.getItem().equals("Treasure")) {
+									r1.treasure11();
+									treasures.add(new Treasure(r.getLocX()*2*w,r.getLocY()*2*h));
+								}
+								if( i.getItem().equals("Magic")) {
+									r1.magic11();
+									magics.add(new magic(r.getLocX()*2*w,r.getLocY()*w*h));
+								}
+							}
 						}
 					}
->>>>>>> a8190e7795d2cf9d9d1d0b4d37821ea0e1d65e45
 				} catch (JAXBException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -666,6 +698,7 @@ public class GUI {
 		controls.add(rdoorpanel);
 		controls.add(tdoorpanel);
 		controls.add(loadpanel);
+		controls.add(savepanel);
 		controls.add(ddoorpanel);
 		controls.add(clearpanel);
 		controls.add(wallpanel);
