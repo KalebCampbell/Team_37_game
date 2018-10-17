@@ -698,6 +698,7 @@ public class GUI {
 		controls.add(rdoorpanel);
 		controls.add(tdoorpanel);
 		controls.add(loadpanel);
+		controls.add(savepanel);
 		controls.add(ddoorpanel);
 		controls.add(clearpanel);
 		controls.add(wallpanel);

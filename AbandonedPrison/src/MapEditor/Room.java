@@ -35,6 +35,20 @@ public class Room {
 		this.height=height;
 	}
 	/**
+	 * Getter method for getting room x position
+	 * @return x location
+	 */
+	public int getX() {
+		return x;
+	}
+	/**
+	 * Getter method for getting room y position
+	 * @return y location
+	 */
+	public int getY() {
+		return y;
+	}
+	/**
 	 * Getter method for getting room name
 	 * @return room name
 	 */
