@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JMenuBar;
+
 /**
  * Extends JMenuBar to customize the mennu
  * 
@@ -12,8 +13,7 @@ import javax.swing.JMenuBar;
  *
  */
 public class ColoredMenu extends JMenuBar {
-	
-	
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
