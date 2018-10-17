@@ -35,6 +35,7 @@ public class Inventory {
 	 * @return 
 	 */
 	public boolean addItemToInventory(AbstractItem item) {
+		
 		if(item != null && inventory.size() != MAX_SIZE) {
 			inventory.add(item);
 			return true;

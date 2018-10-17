@@ -12,31 +12,48 @@ public class Room {
 	private int roomID;
 	private List<String> walls;
 	private List<AbstractItem> items = new ArrayList <AbstractItem>();
+	private List<AbstractContainer> containers = new ArrayList<AbstractContainer>();
 	private Location location;
 	private List<String> doors;
 	private AbstractItem[][] itemGrid = new AbstractItem[4][4];
+	private AbstractContainer[][] containerGrid = new AbstractContainer[4][4];
 
-	
+
 
 	/**
 	 * Constructor for Room Objects
 	 * @param roomID Identity of room
 	 * @param walls List of all walls in the room
+	 * @param containerList 
 	 * 
 	 */
-	public Room (int roomID, List<String> walls, Location loc,List<String>doors, List<AbstractItem> aitems){
+	public Room (int roomID, List<String> walls, Location loc,List<String>doors, List<AbstractItem> aitems, List<AbstractContainer> containers){
 		this.setRoomID(roomID);
 		this.setWalls(walls);
 		this.setLocation(loc);
 		this.setDoors(doors);
 		this.setItem(aitems);
+		this.setContainer(containers);
 		createItemGrid();
+		createContainerGrid();
 		
+		containerSetup(containers);
 		itemSetup(aitems);
 		
 
 	}
 	
+
+
+	private void containerSetup(List<AbstractContainer> containers) {
+		for(AbstractContainer ac : containers) {
+			int x = ac.getContainerLocation().getX();
+			int y = ac.getContainerLocation().getY();	
+			containerGrid[x][y] = ac;
+		}	
+	}
+
+
 	private void itemSetup(List<AbstractItem> aitems) {
 		for(AbstractItem i : aitems) {
 			int x = i.getItemLocation().getX();
@@ -45,6 +62,14 @@ public class Room {
 		}
 		
 	}
+	private void createContainerGrid() {
+		for(int i = 0; i < 4; i++) {
+			for(int j = 0; j <4; j++) {
+				containerGrid[i][j] = new EmptyContainer("empty", -1, "empty", "empty", new Location(i,j));
+			}
+		}
+	}
+	
 
 	private void createItemGrid() {
 		for(int i = 0; i < 4; i++) {
@@ -171,6 +196,18 @@ public class Room {
 	public void addItem(AbstractItem item) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+
+	public List<AbstractContainer> getContainer() {
+		return containers;
+	}
+
+
+
+	public void setContainer(List<AbstractContainer> container) {
+		this.containers = container;
 	}
 
 	

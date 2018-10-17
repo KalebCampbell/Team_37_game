@@ -22,15 +22,17 @@ public class RoomComponent {
 	List<String> walls = new ArrayList<>();
 	List<String> doors = new ArrayList<>();
 	List<ItemComponent> items = new ArrayList<>();
+	List<ContainerComponent> containers = new ArrayList<>();
 
 	public RoomComponent(int id, int locX, int locY, List<String> walls,
-			List<String> doors, List<ItemComponent> items) {
+			List<String> doors, List<ItemComponent> items, List<ContainerComponent> containers) {
 		this.id = id;
 		this.locX = locX;
 		this.locY = locY;
 		this.walls = walls;
 		this.doors = doors;
 		this.items = items;
+		this.containers = containers;
 	}
 	
 	//To be marshalled the objects all need an empty constructor. 
@@ -95,6 +97,16 @@ public class RoomComponent {
 	@XmlElement
 	public void setItems(List<ItemComponent> items) {
 		this.items = items;
+	}
+	
+	public List<ContainerComponent> getContainers() {
+		return containers;
+	}
+	
+	//@XmlElement is needed for all setter emthods to be able to be marshalled. 
+	@XmlElement
+	public void setContainers(List<ContainerComponent> containers) {
+		this.containers = containers;
 	}
 	
 	

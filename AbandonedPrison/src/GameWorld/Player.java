@@ -136,8 +136,6 @@ public class Player {
 	}
 
 	public boolean playerMove(List<Room> roomList) {
-		playerMove(roomList);
-		
 		
 		// Step forward or backward	
 		// Get the direction the player is facing

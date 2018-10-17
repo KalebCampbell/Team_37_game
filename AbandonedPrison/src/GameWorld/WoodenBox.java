@@ -1,8 +1,8 @@
 package GameWorld;
 
-public class WoodenContainer extends AbstractContainer{
+public class WoodenBox extends AbstractContainer{
 
-	public WoodenContainer(String containerName, int containerId, String containerImage, String containerDescription,
+	public WoodenBox(String containerName, int containerId, String containerImage, String containerDescription,
 			Location containerLocation) {
 		super(containerName, containerId, containerImage, containerDescription, containerLocation);
 	}

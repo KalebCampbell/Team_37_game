@@ -5,15 +5,21 @@ import java.util.List;
 
 import Persistence.RoomComponent;
 import Persistence.RoomsComponent;
+import Persistence.ContainerComponent;
 import Persistence.GameMapComponent;
 import Persistence.ItemComponent;
 //import Persistence2.GameMap;
 
 
-/**
- * Game class controls the creation of the game.
- * Handles logic of game
- * @author Michael Vincent 300140128
+/** 
+ * 
+ * - The gameworld is responsibile for objects in the game
+ * 		- Furniture
+ * 		- Containers
+ * 		- Keys
+ * 
+ * 
+ * @author Michael Vincent
  *
  */
 public class Game {
@@ -48,11 +54,15 @@ public class Game {
 	// CONTAINER FUNCTIONS //
 
 	public boolean openContainer(AbstractContainer container) {
-		Room room = findRoom(player.getRoomId());
-		int containerId = container.getId();
-		
+		String containerType = container.getcontainerName();
+		//if(container)
 		return container.open();
+	}
 	
+	public boolean unlockContainer(AbstractContainer container) {
+		Room room = findRoom(player.getRoomId());
+		return container.unlock();
+		
 	}
 	
 	
@@ -84,7 +94,7 @@ public class Game {
 			return room.addItemToGrid(item, dir);			
 	}
 	
-	public List<Room> getRoomList() {
+	public List<Room> getRooms() {
 		return roomList;
 	}
 	
@@ -150,10 +160,10 @@ public class Game {
 		RoomsComponent rc = setup.getRooms();	
 		for(RoomComponent roomC : rc.Rooms()) {
 			//List<ItemComponent> ic = roomC.getItems();
-			
+			List<AbstractContainer> containerList = initialiseContainers(roomC.getContainers());
 			List<AbstractItem> itemList = initialiseItems(roomC.getItems());		
 			// Build room
-			Room room = new Room(roomC.getId(), roomC.getWalls(), new Location(roomC.getLocX(),roomC.getLocY()),roomC.getDoors(), itemList);
+			Room room = new Room(roomC.getId(), roomC.getWalls(), new Location(roomC.getLocX(),roomC.getLocY()),roomC.getDoors(), itemList, containerList);
 			// Add room to roomList
 			roomList.add(room);
 		}	
@@ -174,7 +184,7 @@ public class Game {
 				String itemName = ic.getItem();
 				if(itemName != null) {
 					if(itemName.equals("Key")) {
-						item = new Key(itemName, 99,"KeyDescription","KeyImage", new Location(ic.getPosX(), ic.getPosY()));
+						item = new Key(itemName, ic.getId(),"KeyDescription","KeyImage", new Location(ic.getPosX(), ic.getPosY()));
 						returnItems.add(item);
 					}else if (itemName.equals("Keycard")) {
 						item = new KeyCard(itemName, 99,"KeyCardDescription","KeyCardImage", new Location(ic.getPosX(), ic.getPosY()));
@@ -228,7 +238,25 @@ public class Game {
 		return inv;
 	}
 		
-		//List<AbstractItem> itemList = initialiseItems(ArrayList<String> items);	
+	private List<AbstractContainer> initialiseContainers(List<ContainerComponent> list){
+		List<AbstractContainer> returnContainer = new ArrayList<AbstractContainer>();
+		
+		for(ContainerComponent cc : list) {
+			if(cc.getContainer().equals("WoodenBox")) {
+				returnContainer.add(new WoodenBox(cc.getContainer(), cc.getId(), "containerImage", "containerDescription", 
+						new Location(cc.getPosX(),cc.getPosY())));
+			}else if(cc.getContainer().equals("MetalBox")) {
+				returnContainer.add(new MetalBox(cc.getContainer(), cc.getId(), "containerImage", "containerDescription", 
+						new Location(cc.getPosX(),cc.getPosY())));
+			}		
+		}
+		
+		
+		return returnContainer;
+		
+		
+		
+	}
 		
 
 

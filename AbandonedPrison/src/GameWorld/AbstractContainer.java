@@ -65,13 +65,21 @@ public abstract class AbstractContainer{
 		return this.containerImage;
 	
 	}
+	public Location getContainerLocation() {
+		return this.containerLocation;
+	}
 
 	public int getId() {
 		return this.containerId;
 	}
 
 	public boolean open() {
-		System.out.println("Cannot find item to oepn");
+		System.out.println("Cannot find container to oepn");
+		return false;
+	}
+
+	public boolean unlock() {
+		System.out.println("Cannot find container to oepn");
 		return false;
 	}
 

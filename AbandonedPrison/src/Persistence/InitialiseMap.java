@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class InitialiseMap {
-		
+	/*
 	//Creates the original player object
 	static PlayerComponent player = new PlayerComponent();
 	static {
@@ -116,7 +116,7 @@ public class InitialiseMap {
 		gameMap.setInventory(inventory);
 		
 	}
-	
+	*/
 	/**
 	 * @param args
 	 * @throws JAXBException
