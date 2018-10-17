@@ -2,9 +2,9 @@ package GameWorld;
 
 public class MetalBox extends Container{
 
-	public MetalBox(String containerName, int containerId, String containerImage, String containerDescription,
+	public MetalBox(String containerName, int containerId, String containerDescription,
 			Location containerLocation) {
-		super(containerName, containerId, containerImage, containerDescription, containerLocation);
+		super(containerName, containerId,  containerDescription, containerLocation);
 	}
 	
 /**

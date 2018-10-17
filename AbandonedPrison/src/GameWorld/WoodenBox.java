@@ -2,9 +2,9 @@ package GameWorld;
 
 public class WoodenBox extends Container{
 
-	public WoodenBox(String containerName, int containerId, String containerImage, String containerDescription,
+	public WoodenBox(String containerName, int containerId, String containerDescription,
 			Location containerLocation) {
-		super(containerName, containerId, containerImage, containerDescription, containerLocation);
+		super(containerName, containerId,  containerDescription, containerLocation);
 	}
 	
 	/**

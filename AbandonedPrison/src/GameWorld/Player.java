@@ -209,10 +209,6 @@ public class Player {
 		return false;
 	}
 
-
-
-
-
 	private String getOpposite(String dir) {
 		switch (dir) {
 			case "N": return "S";

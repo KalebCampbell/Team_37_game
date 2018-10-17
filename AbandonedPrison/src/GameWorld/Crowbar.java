@@ -2,8 +2,8 @@ package GameWorld;
 
 public class Crowbar extends Item {
 
-	public Crowbar(String itemName, int itemId, String itemImage, String itemDescription, Location itemLocation) {
-		super(itemName, itemId, itemImage, itemDescription, itemLocation);
+	public Crowbar(String itemName, int itemId, String itemDescription, Location itemLocation) {
+		super(itemName, itemId, itemDescription, itemLocation);
 	}
 
 	/**

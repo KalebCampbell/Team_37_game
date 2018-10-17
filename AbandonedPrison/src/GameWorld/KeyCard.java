@@ -2,8 +2,8 @@ package GameWorld;
 
 public class KeyCard extends Item{
 
-	public KeyCard(String itemName,int itemId, String itemImage, String itemDescription, Location keyCardLocation) {
-		super(itemName,itemId, itemImage, itemDescription, keyCardLocation);
+	public KeyCard(String itemName,int itemId, String itemDescription, Location keyCardLocation) {
+		super(itemName,itemId,itemDescription, keyCardLocation);
 	}
 	
 	/** 
@@ -15,15 +15,19 @@ public class KeyCard extends Item{
 		System.out.println("Key card Swipe");
 	}
 	
-	/** 
-	 * Own implementation of the unlock method.
-	 * @return boolean
-	 */
-	public boolean unlock() {
-		// Key unlock implementation
-		System.out.println("keycard unlock");
+	public boolean use() {
+		System.out.println("Using "+itemName);
 		return false;
-		
+	}
+
+	public boolean drop() {
+		System.out.println("Dropped "+itemName);
+		return false;
+	}
+
+	public boolean store() {
+		System.out.println("Storing "+itemName);
+		return false;
 	}
 
 }

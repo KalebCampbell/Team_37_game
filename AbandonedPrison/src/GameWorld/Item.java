@@ -10,7 +10,6 @@ package GameWorld;
 public class Item implements ItemInterface {
 	protected String itemName;
 	protected String itemDescription;
-	protected String itemImage;
 	protected Location itemLocation;
 	protected int itemId;
 	
@@ -20,12 +19,15 @@ public class Item implements ItemInterface {
 	 * @param itemImage name of item image file name
 	 * @param itemDescription description of item
 	 */
-	public Item(String itemName,int itemId,String itemImage, String itemDescription, Location itemLocation) {
+	public Item(String itemName,int itemId, String itemDescription, Location itemLocation) {
 		this.itemName =itemName;
-		this.itemDescription =itemImage;
-		this.itemImage = itemDescription;	
+		this.itemDescription =itemDescription;
 		this.itemLocation = itemLocation;
 		this.itemId =itemId;
+	}
+	
+	public Item() {
+		
 	}
 	
 	@Override
@@ -66,10 +68,6 @@ public class Item implements ItemInterface {
 	}
 	public String getItemDescription() {
 		return this.itemDescription;
-		
-	}
-	public String getItemImage() {
-		return this.itemImage;
 	}
 	public int getItemId() {
 		return this.itemId;

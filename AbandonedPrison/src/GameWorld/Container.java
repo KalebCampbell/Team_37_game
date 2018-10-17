@@ -6,10 +6,9 @@ package GameWorld;
  *
  */
 
-public class Container{
+public class Container implements ContainerInterface{
 	protected String containerName;
 	protected String containerDescription;
-	protected String containerImage;
 	protected Location containerLocation;
 	protected int containerId;
 	protected boolean isLocked = true;
@@ -22,10 +21,9 @@ public class Container{
 	 * @param containerImage name of container image file name
 	 * @param containerDescription description of container
 	 */
-	public Container(String containerName,int containerId,String containerImage, String containerDescription, Location containerLocation) {
+	public Container(String containerName,int containerId, String containerDescription, Location containerLocation) {
 		this.setcontainerName(containerName);
-		this.setcontainerDescription(containerImage);
-		this.setcontainerImage(containerDescription);	
+		this.setcontainerDescription(containerDescription);	
 		this.setcontainerLocation(containerLocation);
 		this.setcontainerId(containerId);
 	}
@@ -49,9 +47,7 @@ public class Container{
 		this.containerDescription = containerDescription;
 	}
 
-	public void setcontainerImage(String containerImage) {
-		this.containerImage = containerImage;
-	}
+
 	
 	// Getters //
 	public String getcontainerName() {
@@ -60,10 +56,6 @@ public class Container{
 	public String getcontainerDescription() {
 		return this.containerDescription;
 		
-	}
-	public String getcontainerImage() {
-		return this.containerImage;
-	
 	}
 	public Location getContainerLocation() {
 		return this.containerLocation;
@@ -79,7 +71,25 @@ public class Container{
 	}
 
 	public boolean unlock() {
-		System.out.println("Cannot find container to oepn");
+		System.out.println("Cannot find container to open");
+		return false;
+	}
+
+	@Override
+	public boolean store() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean pickUp() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean lock() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 

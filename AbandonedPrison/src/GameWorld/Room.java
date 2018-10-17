@@ -15,8 +15,9 @@ public class Room {
 	private List<Container> containers = new ArrayList<Container>();
 	private Location location;
 	private List<String> doors;
-	private Item[][] itemGrid = new Item[4][4];
-	private Container[][] containerGrid = new Container[4][4];
+	//private Item[][] itemGridd = new Item[4][4];
+	//private Container[][] containerGrid = new Container[4][4];
+	private Object[][] itemGrid = new Object[4][4];
 
 
 	/**
@@ -26,54 +27,52 @@ public class Room {
 	 * @param containerList 
 	 * 
 	 */
-	public Room (int roomID, List<String> walls, Location loc,List<String>doors, List<Item> aitems, List<Container> containers){
+	public Room (int roomID, List<String> walls, Location loc,List<String>doors, List<Item> items, List<Container> containers){
 		this.setRoomID(roomID);
 		this.setWalls(walls);
 		this.setLocation(loc);
 		this.setDoors(doors);
-		this.setItem(aitems);
+		this.setItem(items);
 		this.setContainer(containers);
-		createItemGrid();
-		createContainerGrid();
+		createGrid();
 		
 		containerSetup(containers);
-		itemSetup(aitems);
+		itemSetup(items);
+		System.out.println(" d");
 		
 
 	}
 	
 
-
+	/**
+	 * Add containers to grid
+	 * @param containers
+	 */
 	private void containerSetup(List<Container> containers) {
 		for(Container ac : containers) {
 			int x = ac.getContainerLocation().getX();
 			int y = ac.getContainerLocation().getY();	
-			containerGrid[x][y] = ac;
+			itemGrid[x][y] = ac;
 		}	
 	}
 
-
-	private void itemSetup(List<Item> aitems) {
-		for(Item i : aitems) {
+	/**
+	 * Add items to grid
+	 * @param items
+	 */
+	private void itemSetup(List<Item> items) {
+		for(Item i : items) {
 			int x = i.getItemLocation().getX();
 			int y = i.getItemLocation().getY();		
 			itemGrid[x][y] = i;
 		}
 		
-	}
-	private void createContainerGrid() {
-		for(int i = 0; i < 4; i++) {
-			for(int j = 0; j <4; j++) {
-				containerGrid[i][j] = new EmptyContainer("empty", -1, "empty", "empty", new Location(i,j));
-			}
-		}
-	}
-	
+	}	
 
-	private void createItemGrid() {
+	private void createGrid() {
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j <4; j++) {
-				itemGrid[i][j] = new EmptyItem("empty", -1, "empty", "empty", new Location(i,j));
+				itemGrid[i][j] = new Object();
 			}
 		}
 	}
@@ -92,7 +91,7 @@ public class Room {
 		if(direction.equals("N")) {
 			for(int i = 0; i < 2; i++) {
 				for(int j = 0; j < 4; j++ ) {
-					if(itemGrid[i][j].getItemName().equals("empty")) {
+					if(itemGrid[i][j].getClass() != item.getClass()) {
 						itemGrid[i][j] = item;
 						return true;
 					}
@@ -103,7 +102,7 @@ public class Room {
 		if(direction.equals("W")) {
 			for(int i = 0; i < 4; i++) {
 				for(int j = 0; j < 2; j++ ) {
-					if(itemGrid[i][j].getItemName().equals("empty")) {
+					if(itemGrid[i][j].getClass() != item.getClass()) {
 						itemGrid[i][j] = item;
 						return true;
 					}
@@ -114,7 +113,7 @@ public class Room {
 		if(direction.equals("S")) {
 			for(int i = 2; i < 4; i++) {
 				for(int j = 0; j < 4; j++ ) {
-					if(itemGrid[i][j].getItemName().equals("empty")) {
+					if(itemGrid[i][j].getClass() != item.getClass()) {
 						itemGrid[i][j] = item;
 						return true;
 					}
@@ -125,7 +124,7 @@ public class Room {
 		if(direction.equals("E")) {
 			for(int i = 0; i < 4; i++) {
 				for(int j = 2; j < 4; j++ ) {
-					if(itemGrid[i][j].getItemName().equals("empty")) {
+					if(itemGrid[i][j].getClass() != item.getClass()) {
 						itemGrid[i][j] = item;
 						return true;
 					}
@@ -139,7 +138,7 @@ public class Room {
 		
 	}
 	
-	public Item[][] getItemGrid(){
+	public Object[][] getGrid(){
 		return this.itemGrid;
 	}
 

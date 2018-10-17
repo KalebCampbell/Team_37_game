@@ -194,13 +194,13 @@ public class Game {
 				String itemName = ic.getItem();
 				if(itemName != null) {
 					if(itemName.equals("Key")) {
-						item = new Key(itemName, ic.getId(),"KeyDescription","KeyImage", new Location(ic.getPosX(), ic.getPosY()));
+						item = new Key(itemName, ic.getId(),"KeyDescription", new Location(ic.getPosX(), ic.getPosY()));
 						returnItems.add(item);
 					}else if (itemName.equals("Keycard")) {
-						item = new KeyCard(itemName, ic.getId(),"KeyCardDescription","KeyCardImage", new Location(ic.getPosX(), ic.getPosY()));
+						item = new KeyCard(itemName, ic.getId(),"KeyCardDescription", new Location(ic.getPosX(), ic.getPosY()));
 						returnItems.add(item);
 					}else if(itemName.equals("Crowbar")) {
-						item = new Crowbar(itemName, ic.getId(), "CrowbarDescription", "CrowbarImage", new Location(ic.getPosX(), ic.getPosY()));
+						item = new Crowbar(itemName, ic.getId(), "CrowbarDescription", new Location(ic.getPosX(), ic.getPosY()));
 					}
 				}
 			}
@@ -241,7 +241,7 @@ public class Game {
 			Item item = null;
 			
 			if(itemArr[0].equals("Key")) {
-				 item = new Key(itemArr[0], Integer.parseInt(itemArr[1]), "image","description", new Location(Integer.parseInt(itemArr[2]),Integer.parseInt(itemArr[3])));
+				 item = new Key(itemArr[0], Integer.parseInt(itemArr[1]), "description", new Location(Integer.parseInt(itemArr[2]),Integer.parseInt(itemArr[3])));
 				 inv.addItemToInventory(item);
 			}else {
 				
@@ -255,10 +255,10 @@ public class Game {
 		
 		for(ContainerComponent cc : list) {
 			if(cc.getContainer().equals("WoodenBox")) {
-				returnContainer.add(new WoodenBox(cc.getContainer(), cc.getId(), "containerImage", "containerDescription", 
+				returnContainer.add(new WoodenBox(cc.getContainer(), cc.getId(), "containerDescription", 
 						new Location(cc.getPosX(),cc.getPosY())));
 			}else if(cc.getContainer().equals("MetalBox")) {
-				returnContainer.add(new MetalBox(cc.getContainer(), cc.getId(), "containerImage", "containerDescription", 
+				returnContainer.add(new MetalBox(cc.getContainer(), cc.getId(), "containerDescription", 
 						new Location(cc.getPosX(),cc.getPosY())));
 			}		
 		}
