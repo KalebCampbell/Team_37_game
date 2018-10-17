@@ -49,7 +49,7 @@ public class Room {
 	private void createItemGrid() {
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j <4; j++) {
-				itemGrid[i][j] = new emptyItem("empty", -1, "empty", "empty", new Location(i,j));
+				itemGrid[i][j] = new EmptyItem("empty", -1, "empty", "empty", new Location(i,j));
 			}
 		}
 	}

@@ -12,6 +12,8 @@ public abstract class AbstractContainer{
 	protected String containerImage;
 	protected Location containerLocation;
 	protected int containerId;
+	protected boolean isLocked = true;
+	protected boolean isOpen = false;
 	
 	/**
 	 * Constructor for creating a container.
@@ -37,16 +39,6 @@ public abstract class AbstractContainer{
 		this.containerLocation = containerLocation;
 	}
 
-
-	public void placecontainer() {
-	// Implementation for placing container on ground
-		System.out.println("placecontainer");
-	}
-	
-	public void opencontainer() {
-		// Implementation for using container
-	}
-	
 	
 	// Setters //
 	public void setcontainerName(String containerName) {
@@ -73,5 +65,16 @@ public abstract class AbstractContainer{
 		return this.containerImage;
 	
 	}
+
+	public int getId() {
+		return this.containerId;
+	}
+
+	public boolean open() {
+		System.out.println("Cannot find item to oepn");
+		return false;
+	}
+
+
 
 }

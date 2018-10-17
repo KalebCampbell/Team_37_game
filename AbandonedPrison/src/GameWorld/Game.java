@@ -45,6 +45,34 @@ public class Game {
 	}
 	
 
+	// CONTAINER FUNCTIONS //
+
+	public boolean openContainer(AbstractContainer container) {
+		Room room = findRoom(player.getRoomId());
+		int containerId = container.getId();
+		
+		return container.open();
+	
+	}
+	
+	
+	
+	
+	
+
+
+	
+	// ROOM FUNCTIONS //
+	
+	/**
+	 * Pickup item
+	 * @param itemName in string format
+	 * @return true/false if item can be picked up
+	 */
+	public boolean itemPickUp(AbstractItem item) {	
+		item.pickUp(); // Demonstrate strategy.
+		return player.getInventory().addItemToInventory(item);
+	}
 	
 	/**
 	 * Attempts to place item in front of the player.
@@ -55,25 +83,9 @@ public class Game {
 			String dir = player.getDirection();
 			return room.addItemToGrid(item, dir);			
 	}
-
 	
-	/**
-	 * Method to find items in a room
-	 * Will be extended for multiple items
-	 * @return Item, or null if none
-	 */
-	public AbstractItem findItemInRoom() {
-		// Find which room player is in
-		int roomId = player.getRoomId();
-		Room room = findRoom(roomId);
-		// Iterate over the room list
-		for(Room r : roomList) {
-			// If ID's match
-			if(r.getRoomID() == room.getRoomID()) {
-				return r.getItems().get(0);
-			}
-		}
-		return null;
+	public List<Room> getRoomList() {
+		return roomList;
 	}
 	
 	/**
@@ -89,114 +101,43 @@ public class Game {
 		}
 		return null;
 	}
-
-	/**
-	 * Pickup item
-	 * @param itemName in string format
-	 * @return true/false if item can be picked up
-	 */
-	public boolean itemPickUp(AbstractItem item) {	
-		item.pickUp(); // Demonstrate strategy.
-		return player.getInventory().addItemToInventory(item);
-	}
+	
+	// PLAYER FUNCTIONS //
 	
 	/**
 	 * Turn player left
 	 * @param direction
 	 */
 	public void playerTurnLeft() {
-		
-		String dir = player.getDirection();
-		
-		if(dir.equals("N")) {
-			player.setDirection("W");	
-		}else if(dir.equals("W")){
-			player.setDirection("S");
-		}else if(dir.equals("S")) {
-			player.setDirection("E");
-		}else if(dir.equals("E")) {
-			player.setDirection("N");
-		}	
-		System.out.println("Current direction: "+player.getDirection());
+		player.turnLeft();
 	}
 	/**
 	 * Turn player Right
 	 * @param direction
 	 */
 	public void playerTurnRight() {
-		
-		String dir = player.getDirection();
-		
-		if(dir.equals("N")) {
-			player.setDirection("E");
-		}else if(dir.equals("E")){
-			player.setDirection("S");
-		}else if(dir.equals("S")) {
-			player.setDirection("W");
-		}else if(dir.equals("W")) {
-			player.setDirection("N");
-		}	
-		System.out.println("Current direction: "+player.getDirection());
+		player.turnRight();
 	}
 	
 	/**
 	 *  Call for player to move.
 	 *  Checks player direction against player movement
-	 *  
-	 *  
-	 * @param move
 	 * @return true/false
 	 */
 	public boolean playerMove() {
-		
-		// Step forward or backward	
-		// Get the direction the player is facing
-		String dir = player.getDirection();
-			// Check if wall is in the way
-		
-			// Iterate through all rooms
-			for(Room r : roomList) {
-				// find room player is in
-				if(r.getRoomID() == player.getRoomId()){
-							
-					// If the walls array contains the direction the player is facing
-					// Can't use ".contains()" as it's different objects, whoops.
-					for(String s : r.getWalls()) {
-						if(s.equals(dir)) {
-							System.out.println("Direction: "+dir+ " Wall: "+s);
-							// Illegal move E.G PLAYER FACING WEST, WALLS WEST
-							return false;
-						}
-					}
-					
-					// Can't use ".contains()" as it's different objects, whoops.
-					for(String s : r.getDoors()) {
-						if(s.equals(dir)) {
-							// MISSING: CHECK IF DOOR IS LOCKED
-							// ASSUME DOOR IS UNLOCKED & OPEN
-							// Update player location
-							System.out.println("Current location: "+ player.getPlayerLocation().getX() +"," + player.getPlayerLocation().getY());
-							// Moves the player
-							player.move(dir);
-							System.out.println("After move: "+ player.getPlayerLocation().getX() +"," + player.getPlayerLocation().getY());
-							// Sets the players new roomId
-							
-							for(Room room : roomList) {	
-								if(player.getPlayerLocation().getX() == room.getLocation().getX() &&
-								   player.getPlayerLocation().getY() == room.getLocation().getY()) {		
-									// Set room id of player
-									player.setRoomID(room.getRoomID());
-									return true;
-								}
-							}		
-						}
-					}
-				}
-			}
-		return false;
+		return player.playerMove(roomList);
 	}
 	
+	/**
+	 * Get player
+	 * @return player
+	 */
+	public Player getPlayer() {
+		return player;
+	}
+		
 
+	// INITIALISATION FUNCTIONS //
 	/**
 	 * Initialises the Map, building all the rooms.
 	 * Created rooms, from a parsed XML file
@@ -289,19 +230,7 @@ public class Game {
 		
 		//List<AbstractItem> itemList = initialiseItems(ArrayList<String> items);	
 		
-	public Player getPlayer() {
-		return player;
-	}
-	public List<Room> getRoomList() {
-		return roomList;
-	}
-		
 
-	
-	private void initialiseGameState() {
-		// Responsible for Game Time Limit		
-		// Setting up conditions i.e door open,locked,unlocked.
-		// Has puzzle been completed.
-		// Win conditions, has exit been found.	
-	}
+
+		
 }
