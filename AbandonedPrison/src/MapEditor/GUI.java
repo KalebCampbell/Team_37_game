@@ -25,7 +25,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import Persistence.ConvertMapEditor;
+import Persistence.GameMapComponent;
+import Persistence.ItemComponent;
 import Persistence.LoadXml;
+import Persistence.RoomComponent;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -73,6 +79,8 @@ public class GUI {
 	public ArrayList<Treasure> treasures=new ArrayList<Treasure>();//treasure list
 	public double mouseX=0;
 	public double mouseY=0;
+	public int w=30;
+	public int h=30;
 
 	/**
 	 * Width of the canvas.
@@ -176,12 +184,12 @@ public class GUI {
 		rightroom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				if(rightRoomCanBuild) {
-					x1=x1+25;
-					if(x1>CANVAS_WIDTH-25) {
+					x1=x1+(w*2)+5;
+					if(x1>CANVAS_WIDTH-((w*2)+5)) {
 						System.out.println("no empty space");
 					}
 					else {
-						Room room1=new Room(x1,y1,10,10);
+						Room room1=new Room(x1,y1,w,h);
 						for(Room room2:rooms) {
 							if(room2.x==x1&&room2.y==y1) {
 								System.out.println("There is already a room in the right side");
@@ -194,7 +202,7 @@ public class GUI {
 							downRoomCanBuild=true;
 						}
 						else {
-							x1=x1-25;
+							x1=x1-((w*2)+5);
 						}
 						
 					}
@@ -208,12 +216,12 @@ public class GUI {
 		leftroom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				if(leftRoomCanBuild) {
-					x1=x1-25;
+					x1=x1-((w*2)+5);
 					if(x1<0) {
 						System.out.print("no empty space");
 					}
 					else {
-						Room room1=new Room(x1,y1,10,10);
+						Room room1=new Room(x1,y1,w,h);
 						for(Room room2:rooms) {
 							if(room2.x==x1&&room2.y==y1) {
 								System.out.println("There is already a room in the left side");
@@ -226,7 +234,7 @@ public class GUI {
 							downRoomCanBuild=true;
 						}
 						else {
-							x1=x1+25;
+							x1=x1+((w*2)+5);
 						}
 					}
 				}
@@ -238,12 +246,12 @@ public class GUI {
 		toproom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				if(topRoomCanBuild) {
-					y1=y1-25;
+					y1=y1-((w*2)+5);
 					if(y1<0) {
 						System.out.print("no empty space");
 					}
 					else {
-						Room room1=new Room(x1,y1,10,10);
+						Room room1=new Room(x1,y1,w,h);
 						for(Room room2:rooms) {
 							if(room2.x==x1&&room2.y==y1) {
 								System.out.println("There is already a room in the top side");
@@ -256,7 +264,7 @@ public class GUI {
 							leftRoomCanBuild=true;
 						}
 						else {
-							y1=y1+25;
+							y1=y1+((w*2)+5);
 						}
 					}
 				}
@@ -269,12 +277,12 @@ public class GUI {
 		downroom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				if(downRoomCanBuild) {
-					y1=y1+25;
+					y1=y1+((w*2)+5);
 					if(y1<0) {
 						System.out.print("no empty space");
 					}
 					else {
-						Room room1=new Room(x1,y1,10,10);
+						Room room1=new Room(x1,y1,w,h);
 						for(Room room2:rooms) {
 							if(room2.x==x1&&room2.y==y1) {
 								System.out.println("There is already a room in the down side");
@@ -287,7 +295,7 @@ public class GUI {
 							leftRoomCanBuild=true;
 						}	
 						else {
-							y1=y1-25;
+							y1=y1-((w*2)+5);
 						}
 					}
 				}
@@ -299,7 +307,7 @@ public class GUI {
 		leftdoor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				// add key to the current room
-				Door door1=new Door(x1,y1,2,20);
+				Door door1=new Door(x1,y1,w/5,h*2);
 				for(Room room:rooms) {
 					if(room.contains(new Point(x1,y1))) {
 						if(room.leftWall==false) {
@@ -316,7 +324,7 @@ public class GUI {
 		rightdoor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				// add key to the current room
-				Door door1=new Door(x1+20,y1,2,20);
+				Door door1=new Door(x1+(2*w),y1,w/5,h*2);
 				for(Room room:rooms) {
 					if(room.contains(new Point(x1,y1))) {
 						if(room.rightWall==false) {
@@ -333,7 +341,7 @@ public class GUI {
 		topdoor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				// add key to the current room
-				Door door1=new Door(x1,y1,20,2);
+				Door door1=new Door(x1,y1,w*2,h/5);
 				for(Room room:rooms) {
 					if(room.contains(new Point(x1,y1))) {
 						if(room.topWall==false) {
@@ -350,7 +358,7 @@ public class GUI {
 		downdoor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				// add key to the current room
-				Door door1=new Door(x1,y1+20,20,2);
+				Door door1=new Door(x1,y1+(w*2),w*2,h/5);
 				for(Room room:rooms) {
 					if(room.contains(new Point(x1,y1))) {
 						if(room.downWall==false) {
@@ -367,7 +375,7 @@ public class GUI {
 		wall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				// add key to the current room
-				Wall wall1=new Wall(x1,y1,2,20);
+				Wall wall1=new Wall(x1,y1,w/5,h*2);
 				for(Room room:rooms) {
 					if(room.contains(new Point(x1,y1))) {
 						if(room.leftDoor==false) {
@@ -383,7 +391,7 @@ public class GUI {
 		rightwall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				// add key to the current room
-				Wall wall1=new Wall(x1+20,y1,2,20);
+				Wall wall1=new Wall(x1+(w*2),y1,w/5,h*2);
 				for(Room room:rooms) {
 					if(room.contains(new Point(x1,y1))) {
 						if(room.rightDoor==false) {
@@ -398,7 +406,7 @@ public class GUI {
 		topwall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				// add key to the current room
-				Wall wall1=new Wall(x1,y1,20,2);
+				Wall wall1=new Wall(x1,y1,w*2,h/5);
 				for(Room room:rooms) {
 					if(room.contains(new Point(x1,y1))) {
 						if(room.topDoor==false) {
@@ -413,7 +421,7 @@ public class GUI {
 		downwall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				// add key to the current room
-				Wall wall1=new Wall(x1,y1+20,20,2);
+				Wall wall1=new Wall(x1,y1+(w*2),w*2,h/5);
 				for(Room room:rooms) {
 					if(room.contains(new Point(x1,y1))) {
 						if(room.downDoor==false) {
@@ -580,9 +588,37 @@ public class GUI {
 		JButton load = new JButton("Load");
 		load.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
-				// set up the file chooser
+				 //set up the file chooser
 				try {
-					LoadXml.unMarshal();
+					int result = fileChooser.showOpenDialog(frame);
+					File f = null;
+						if(result == JFileChooser.APPROVE_OPTION) {
+							f = fileChooser.getSelectedFile();
+						}
+					LoadXml load1=new LoadXml();
+					GameMapComponent gameMap =load1.unMarshal(f);
+					List<RoomComponent> roomsC=gameMap.getRooms().Rooms();
+					for(RoomComponent r:roomsC) {
+						rooms.add(new Room(r.getLocX(),r.getLocY(),w,h));
+						for(String s: r.getDoors()) {
+							if(s.equals("N"))doors.add(new Door(r.getLocX(),r.getLocY(),w*2,h/5));
+							if(s.equals("S"))doors.add(new Door(r.getLocX(),r.getLocY()+(w*2),w*2,h/5));
+							if(s.equals("W"))doors.add(new Door(r.getLocX()+(w*2),r.getLocY(),w/5,h*2));
+							if(s.equals("E"))doors.add(new Door(r.getLocX(),r.getLocY(),w/5,h*2));
+						}
+						for(String s: r.getWalls()) {
+							if(s.equals("N"))walls.add(new Wall(r.getLocX(),r.getLocY(),w*2,h/5));
+							if(s.equals("S"))walls.add(new Wall(r.getLocX(),r.getLocY()+(w*2),w*2,h/5));
+							if(s.equals("W"))walls.add(new Wall(r.getLocX()+(w*2),r.getLocY(),w/5,h*2));
+							if(s.equals("E"))walls.add(new Wall(r.getLocX(),r.getLocY(),w/5,h*2));
+						}
+						List<ItemComponent> itemC=r.getItems();
+						for(ItemComponent i:itemC ) {
+							if( i.getItem().equals("Key"))keys.add(new key(r.getLocX(),r.getLocY()));
+							if( i.getItem().equals("Treasure"))treasures.add(new Treasure(r.getLocX(),r.getLocY()));
+							if( i.getItem().equals("Magic"))magics.add(new magic(r.getLocX(),r.getLocY()));
+						}
+					}
 				} catch (JAXBException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -597,10 +633,10 @@ public class GUI {
 		
 		//save button for saving;
 		JButton save = new JButton("Save");
-		load.addActionListener(new ActionListener() {
+		save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				// set up the file chooser
-				new SaveXml(rooms);
+				new ConvertMapEditor(rooms);
 			}
 		});
 		JPanel savepanel = new JPanel(new BorderLayout());
