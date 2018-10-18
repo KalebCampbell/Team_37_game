@@ -22,7 +22,7 @@ public class key {
 	public String getName() {
 		return null;
 	}
-	
+
 	/**
 	 * Getting method for getting description of room
 	 * @return room description
@@ -30,7 +30,7 @@ public class key {
 	public String getDescription() {
 		return null;
 	}
-	
+
 	/**
 	 * Get room image
 	 * @return room image
@@ -38,7 +38,7 @@ public class key {
 	public String getImage() {
 		return null;
 	}
-	
+
 	/**
 	 *redraw the key
 	 */
