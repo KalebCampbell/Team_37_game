@@ -107,14 +107,17 @@ public class Room {
 			downDoor=true;
 		}
 	}
-	public void haveKey() {
+	public Point haveKey(int x2,int y2) {
 		key=true;
+		return new Point(x2,y2);
 	}
-	public void magic11() {
+	public Point magic11(int x2,int y2) {
 		magic1=true;
+		return new Point(x2,y2);
 	}
-	public void treasure11() {
+	public Point treasure11(int x2,int y2) {
 		treasure1=true;
+		return new Point(x2,y2);
 	}
 	
 	/**

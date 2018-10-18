@@ -454,7 +454,7 @@ public class GUI {
 				for(Room room:rooms) {
 					if(room.contains(new Point(x1,y1))) {
 						if(room.key==false) {
-							room.haveKey();
+							room.haveKey(mousePX,mousePY);
 							keys.add(key1);
 						}
 					}
@@ -476,7 +476,7 @@ public class GUI {
 				for(Room room:rooms) {
 					if(room.contains(new Point(x1,y1))) {
 						if(room.magic1==false) {
-							room.magic11();
+							room.magic11(mousePX,mousePY);
 							magics.add(m);
 						}
 					}
@@ -498,7 +498,7 @@ public class GUI {
 				for(Room room:rooms) {
 					if(room.contains(new Point(x1,y1))) {
 						if(room.treasure1==false) {
-							room.treasure11();
+							room.treasure11(mousePX,mousePY);
 							treasures.add(t);
 						}
 					}
@@ -668,15 +668,15 @@ public class GUI {
 							List<ItemComponent> itemC=r.getItems();
 							for(ItemComponent i:itemC ) {
 								if( i.getItem().equals("Key")) {
-									r1.haveKey();
+									r1.haveKey(r.getLocX(),r.getLocY());
 									keys.add(new key(r.getLocX()*2*w,r.getLocY()*2*h,r.getLocX(),r.getLocY()));
 								}
 								if( i.getItem().equals("Treasure")) {
-									r1.treasure11();
+									r1.treasure11(r.getLocX(),r.getLocY());
 									treasures.add(new Treasure(r.getLocX()*2*w,r.getLocY()*2*h,r.getLocX(),r.getLocY()));
 								}
 								if( i.getItem().equals("Magic")) {
-									r1.magic11();
+									r1.magic11(r.getLocX(),r.getLocY());
 									magics.add(new magic(r.getLocX()*2*w,r.getLocY()*w*h,r.getLocX(),r.getLocY()));
 								}
 							}

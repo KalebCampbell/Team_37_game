@@ -13,4 +13,10 @@ public class Point {
 		x=mouseX;
 		y=mouseY;
 	}
+	public double getX() {
+		return x;
+	}
+	public double getY() {
+		return y;
+	}
 }
