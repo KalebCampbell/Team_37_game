@@ -3,7 +3,6 @@ package GameWorld;
 import java.util.ArrayList;
 import java.util.List;
 
-import Persistence.DoorComponent;
 /**
  * 
  * @author Michael Vincent 300140128
@@ -41,7 +40,6 @@ public class Room {
 		
 		containerSetup(containers);
 		itemSetup(items);
-		System.out.println(" d");
 		
 	}
 	

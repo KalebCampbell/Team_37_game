@@ -26,5 +26,4 @@ public class RoomsComponent {
 	public void setRooms(List<RoomComponent> rooms) {
 		this.rooms = rooms;
 	}
-	
 }

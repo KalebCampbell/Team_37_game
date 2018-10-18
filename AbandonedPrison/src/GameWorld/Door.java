@@ -14,29 +14,23 @@ public class Door {
 		this.setDirection(direction);
 		this.setLocked(locked);
 		this.setType(type);
-		
 	}
-
 
 	public String getType() {
 		return type;
 	}
 
-
 	public void setType(String type) {
 		this.type = type;
 	}
-
 
 	public boolean isLocked() {
 		return locked;
 	}
 
-
 	public void setLocked(boolean locked) {
 		this.locked = locked;
 	}
-
 
 	public String getDirection() {
 		return direction;

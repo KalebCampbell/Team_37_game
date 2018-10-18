@@ -48,6 +48,7 @@ public class Polygon3D implements Comparable<Polygon3D> {
 	 * Calculates the center position of this Polygon.
 	 */
 	private void calculatePosition() {
+		// sets all values to the opposite
 		float minX = Float.MAX_VALUE;
 		float maxX = Float.MIN_VALUE;
 		float minY = Float.MAX_VALUE;
@@ -58,6 +59,7 @@ public class Polygon3D implements Comparable<Polygon3D> {
 		float[] yPoints = getyPoints();
 		float[] zPoints = getzPoints();
 		for (int i = 0; i < xPoints.length; i++) {
+			// find min and max values for each axis
 			if (xPoints[i] > maxX)
 				maxX = xPoints[i];
 			else if (xPoints[i] < minX)
@@ -71,6 +73,7 @@ public class Polygon3D implements Comparable<Polygon3D> {
 			else if (zPoints[i] < minZ)
 				minZ = zPoints[i];
 		}
+		// calculate center values
 		float midX = ((minX + maxX) / 2);
 		float midY = ((minY + maxY) / 2);
 		float midZ = ((minZ + maxZ) / 2);
@@ -89,8 +92,11 @@ public class Polygon3D implements Comparable<Polygon3D> {
 		float[] zPoints = this.zPoints;
 		for (int x = 0; x < xPoints.length; x++) {
 			if (zPoints[x] != 0) {
-				float f = 300.0f / zPoints[x];
-				xPoints3D[x] = (int) (300 + (xPointsOG[x] * Math.abs(f)));
+				// uses z value to work out how much the coords should be affected by
+				// perspective
+				float persp = 300.0f / zPoints[x];
+				// uses the perspective z value to calculate screen related x values
+				xPoints3D[x] = (int) (300 + (xPointsOG[x] * Math.abs(persp)));
 			} else {
 				xPoints3D[x] = (int) (300 + (xPointsOG[x] * 300));
 			}
@@ -110,8 +116,11 @@ public class Polygon3D implements Comparable<Polygon3D> {
 		float[] zPoints = this.zPoints;
 		for (int y = 0; y < yPoints.length; y++) {
 			if (zPoints[y] != 0) {
-				float f = 300.0f / zPoints[y];
-				yPoints3D[y] = (int) (300 + (yPointsOG[y] * Math.abs(f)));
+				// uses z value to work out how much the coords should be affected by
+				// perspective
+				float persp = 300.0f / zPoints[y];
+				// uses the perspective z value to calculate screen related y values
+				yPoints3D[y] = (int) (300 + (yPointsOG[y] * Math.abs(persp)));
 			} else {
 				yPoints3D[y] = (int) (300 + (yPointsOG[y] * 300));
 			}
@@ -163,8 +172,6 @@ public class Polygon3D implements Comparable<Polygon3D> {
 	}
 
 	/**
-	 * Creates a clone of this Polygon3D.
-	 * 
 	 * @return a clone of this Polygon3D
 	 */
 	public Polygon3D clone() {
@@ -175,8 +182,6 @@ public class Polygon3D implements Comparable<Polygon3D> {
 	}
 
 	/**
-	 * Returns a string representation of this object.
-	 * 
 	 * @return a string representation of this object.
 	 */
 	public String toString() {
@@ -191,10 +196,12 @@ public class Polygon3D implements Comparable<Polygon3D> {
 
 	@Override
 	public int compareTo(Polygon3D other) {
+		// compares on z axis first
 		if (this.position.getRealZ() > other.getPosition().getRealZ())
 			return -1;
 		else if (this.position.getRealZ() < other.getPosition().getRealZ())
 			return 1;
+		// then compares on x axis
 		if (Math.abs(this.position.getRealY()) > Math.abs(other.getPosition().getRealY()))
 			return -1;
 		if (Math.abs(this.position.getRealY()) < Math.abs(other.getPosition().getRealY()))

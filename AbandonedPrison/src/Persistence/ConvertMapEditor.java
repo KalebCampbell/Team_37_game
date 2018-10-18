@@ -58,7 +58,7 @@ public class ConvertMapEditor{
 				if(room.key) {
 					lock=true;
 				}
-				doors.add(new DoorComponent("Wooden", 1, room.getdoors().get(l), lock));
+				doors.add(new DoorComponent("Wooden", 1, room.getdoors().get(l), true));
 				System.out.println(room.getdoors().get(l));
 			}
 			roomMap.Rooms().add(new RoomComponent(r, room.getX()/60, room.getY()/60, room.getwalls(), doors,items, null));

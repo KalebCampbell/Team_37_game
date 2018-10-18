@@ -95,6 +95,7 @@ public class Renderer {
 	public void createRoom(GameWorld.Room room, Point3D position, boolean northWall, boolean southWall,
 			boolean eastWall, boolean westWall, ArrayList<GameWorld.Door> doors, AbstractItem[][] items) {
 		ArrayList<AbstractWall> walls = new ArrayList<AbstractWall>();
+		// checks if there is a wall in each direction and if there is, makes one
 		if (eastWall)
 			walls.add(new SideWall(
 					new Point3D(position.getRealX() + HALF_ROOM, position.getRealY(), position.getRealZ())));
@@ -107,33 +108,45 @@ public class Renderer {
 		if (southWall)
 			walls.add(new FrontWall(
 					new Point3D(position.getRealX(), position.getRealY(), position.getRealZ() - HALF_ROOM)));
+		// iterates through the GameWorld.Door's and creates the Renderer versions as
+		// necessary
 		for (GameWorld.Door door : room.getDoors()) {
 			String str = door.getDirection();
+			Boolean open = !door.isLocked();
 			if (str.equals("N")) {
 				FrontDoor currDoor = new FrontDoor(
 						new Point3D(position.getRealX(), position.getRealY(), position.getRealZ() + HALF_ROOM));
 				currDoor.setDoor(door);
+				if (open)
+					currDoor.openDoor();
 				walls.add(currDoor);
 			}
 			if (str.equals("E")) {
 				SideDoor currDoor = new SideDoor(
 						new Point3D(position.getRealX() + HALF_ROOM, position.getRealY(), position.getRealZ()));
 				currDoor.setDoor(door);
+				if (open)
+					currDoor.openDoor();
 				walls.add(currDoor);
 			}
 			if (str.equals("S")) {
 				FrontDoor currDoor = new FrontDoor(
 						new Point3D(position.getRealX(), position.getRealY(), position.getRealZ() - HALF_ROOM));
 				currDoor.setDoor(door);
+				if (open)
+					currDoor.openDoor();
 				walls.add(currDoor);
 			}
 			if (str.equals("W")) {
 				SideDoor currDoor = new SideDoor(
 						new Point3D(position.getRealX() - HALF_ROOM, position.getRealY(), position.getRealZ()));
 				currDoor.setDoor(door);
+				if (open)
+					currDoor.openDoor();
 				walls.add(currDoor);
 			}
 		}
+		// translates each item to match the rooms position
 		for (int i = 0; i < ITEMS_SIZE; i++) {
 			for (int j = 0; j < ITEMS_SIZE; j++) {
 				if (items[i][j] != null)
@@ -154,8 +167,10 @@ public class Renderer {
 		for (GameWorld.Room room : rooms) {
 			ArrayList<GameWorld.Door> doors = new ArrayList<GameWorld.Door>();
 			boolean n = false, e = false, s = false, w = false;
+			// translate from GameWorld coords to Renderer coords
 			int roomX = room.getLocation().getX() * HALF_ROOM;
 			int roomZ = room.getLocation().getY() * HALF_ROOM;
+			// checks for walls in each direction
 			for (String str : room.getWalls()) {
 				if (str.equals("N"))
 					n = true;
@@ -167,6 +182,7 @@ public class Renderer {
 					w = true;
 			}
 			AbstractItem[][] items = new AbstractItem[4][4];
+			// creates items
 			for (GameWorld.Item item : room.getItems()) {
 				int itemX = item.getItemLocation().getX();
 				int itemY = item.getItemLocation().getY();
@@ -174,6 +190,7 @@ public class Renderer {
 			}
 			createRoom(room, new Point3D(roomX, 0, -roomZ), n, s, e, w, doors, items);
 		}
+		GameWorld.Player player = game.getPlayer();
 	}
 
 	/**
@@ -187,6 +204,7 @@ public class Renderer {
 		int itemX = item.getItemLocation().getX();
 		int itemY = item.getItemLocation().getY();
 		AbstractItem currItem = null;
+		// translates the item based on its GameWorld coords to fit the grid system
 		if (item.getItemName().equals("Key")) {
 			currItem = new Key(new Point3D(-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemX), -1,
 					-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemY)));
@@ -214,12 +232,14 @@ public class Renderer {
 		AbstractItem item = null;
 		Room room = getCurrentRoom();
 		if (room != null) {
+			// iterates through items from farthest to closest
 			PriorityQueue<AbstractItem> items = room.orderItems();
 			while (!items.isEmpty()) {
 				AbstractItem currItem = items.poll();
 				if (currItem.getPosition().getRealZ() >= 0) {
 					PriorityQueue<Polygon3D> polys = currItem.getMesh().orderPolygons();
 					while (!polys.isEmpty()) {
+						// converts to Java Polygon to make use of .contains() method
 						Polygon3D poly = polys.poll();
 						Polygon currPoly = new Polygon(poly.xPoints3D(), poly.yPoints3D(), 3);
 						if (currPoly.contains(click)) {
@@ -244,11 +264,14 @@ public class Renderer {
 		Room room = getCurrentRoom();
 		if (room != null) {
 			for (AbstractWall wall : room.getWalls()) {
+				// checks if a wall is door
 				if (wall instanceof AbstractDoor) {
 					AbstractDoor currDoor = (AbstractDoor) wall;
+					// if the door is visible
 					if (currDoor.getPosition().getRealZ() >= 0) {
 						PriorityQueue<Polygon3D> polys = currDoor.getMesh().orderPolygons();
 						while (!polys.isEmpty()) {
+							// converts to Java Polygon to make use of .contains() method
 							Polygon3D poly = polys.poll();
 							Polygon currPoly = new Polygon(poly.xPoints3D(), poly.yPoints3D(), 3);
 							if (currPoly.contains(click)) {
@@ -300,6 +323,7 @@ public class Renderer {
 			for (int i = 0; i < verts; i++) {
 				line = br.readLine();
 				tokens = line.split("\\ ");
+				// axis values for vertex
 				float x = Float.parseFloat(tokens[0]);
 				float y = Float.parseFloat(tokens[1]);
 				float z = Float.parseFloat(tokens[2]);
@@ -308,9 +332,11 @@ public class Renderer {
 			for (int i = 0; i < polys; i++) {
 				line = br.readLine();
 				tokens = line.split("\\ ");
+				// gets vertices for this polygon from previously loaded vertices
 				Point3D a = vertices[Integer.parseInt(tokens[1])];
 				Point3D b = vertices[Integer.parseInt(tokens[2])];
 				Point3D c = vertices[Integer.parseInt(tokens[3])];
+				// transforms into correct structure for creating Polygon3D
 				float[] xPoints = new float[] { a.getRealX(), b.getRealX(), c.getRealX() };
 				float[] yPoints = new float[] { a.getRealY(), b.getRealY(), c.getRealY() };
 				float[] zPoints = new float[] { a.getRealZ(), b.getRealZ(), c.getRealZ() };
@@ -388,6 +414,7 @@ public class Renderer {
 		g.fillRect(0, 0, Renderer.CANVAS_WIDTH, Renderer.CANVAS_HEIGHT);
 		while (!orderedRooms.isEmpty()) {
 			Room room = orderedRooms.poll();
+			// renders walls, then floors, then items
 			renderWalls(g, room);
 			renderFloor(g, room);
 			renderItems(g, room);
@@ -404,12 +431,17 @@ public class Renderer {
 	 *            room whose floor is to be drawn
 	 */
 	private void renderFloor(Graphics g, Room room) {
+		// uses compareTo method to ensure painters algorithm works properly
 		PriorityQueue<Polygon3D> orderedPolygons = room.getFloor().getMesh().orderPolygons();
 		while (!orderedPolygons.isEmpty()) {
 			Polygon3D poly = orderedPolygons.poll();
+			// checks if the polygon is facing away from the viewer or if it behind the
+			// viewer
 			if (!Pipeline.isHidden(poly) && poly.getPosition().getRealZ() > 0) {
+				// get coloring
 				g.setColor(Pipeline.getShading(poly,
 						new float[] { light.getRealX(), light.getRealY(), light.getRealZ() }));
+				// fill
 				g.fillPolygon(poly.xPoints3D(), poly.yPoints3D(), poly.getnPoints());
 			}
 		}
@@ -426,12 +458,17 @@ public class Renderer {
 	 */
 	private void renderWalls(Graphics g, Room room) {
 		for (AbstractWall wall : room.getWalls()) {
+			// uses compareTo method to ensure painters algorithm works properly
 			PriorityQueue<Polygon3D> polys = wall.getMesh().orderPolygons();
 			while (!polys.isEmpty()) {
 				Polygon3D poly = polys.poll();
+				// checks if the polygon is facing away from the viewer or if it behind the
+				// viewer
 				if (!Pipeline.isHidden(poly) && poly.getPosition().getRealZ() > 0) {
+					// get coloring
 					g.setColor(Pipeline.getShading(poly,
 							new float[] { light.getRealX(), light.getRealY(), light.getRealZ() }));
+					// fill
 					g.fillPolygon(poly.xPoints3D(), poly.yPoints3D(), poly.getnPoints());
 				}
 			}
@@ -448,16 +485,22 @@ public class Renderer {
 	 *            room whose items are to be drawn
 	 */
 	private void renderItems(Graphics g, Room room) {
+		// uses compareTo method to ensure painters algorithm works properly
 		PriorityQueue<AbstractItem> items = room.orderItems();
 		while (!items.isEmpty()) {
 			AbstractItem item = items.poll();
 			if (item != null) {
+				// uses compareTo method to ensure painters algorithm works properly
 				PriorityQueue<Polygon3D> orderedPolygons = item.getMesh().orderPolygons();
 				while (!orderedPolygons.isEmpty()) {
 					Polygon3D poly = orderedPolygons.poll();
+					// checks if the polygon is facing away from the viewer or if it behind the
+					// viewer
 					if (!Pipeline.isHidden(poly) && poly.getPosition().getRealZ() > 0) {
+						// get coloring
 						g.setColor(Pipeline.getShading(poly,
 								new float[] { light.getRealX(), light.getRealY(), light.getRealZ() }));
+						// fill
 						g.fillPolygon(poly.xPoints3D(), poly.yPoints3D(), poly.getnPoints());
 					}
 				}

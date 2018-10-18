@@ -37,8 +37,10 @@ public class Controller {
 	private Game game; // model
 	private Player player;
 	private String response = null;
+	private String dropResponse = null;
 	public GameWorld.Door door = null;
 	public GameWorld.Item item = null;
+	public GameWorld.Item dropItem = null;
 
 
 	public Controller(Window window) {
@@ -59,7 +61,6 @@ public class Controller {
 		window.getRenderer().setGame(game);
 		window.getCanvas().repaint();
 		window.getFrame().addKeyListener(new Input());
-		window.getUse().addActionListener(new UseButton());
 		window.getSave().addActionListener(new SaveAction());
 		window.getLoad().addActionListener(new LoadAction());
 		window.getCanvas().addMouseListener(new MouseInput());
@@ -68,7 +69,8 @@ public class Controller {
 		window.getDown().addActionListener(new ButtonDown());
 		window.getLeft().addActionListener(new ButtonLeft());
 		window.getRight().addActionListener(new ButtonRight());
-		window.getDrop().addActionListener(new DropListener());
+		window.getDropPopUp().getCancel().addActionListener(new DropPopUpListener());
+		window.getDropPopUp().getDrop().addActionListener(new DropPopUpListener());
 		window.getPopUp().getCancel().addActionListener(new PopUpListener());
 		window.getPopUp().getPickup().addActionListener(new PopUpListener());
 		window.getFrame().requestFocus();
@@ -109,15 +111,13 @@ public class Controller {
 	 */
 	public void initialiseInventory() {
 		window.getInventory().removeAll();
+	//	window.getInventory().clear();
 		for (GameWorld.Item i : player.getInventory().getInventory()) {
-			System.out.println(i.getItemName());
 			JLabel x = new JLabel();
 			x.setIcon(window.getIcon(i.getItemName()));
-
-
 			window.getInventory().add(x);
-			window.getInventory().repaint();
 		}
+		window.getInventory().repaint();
 	}
 
 
@@ -134,12 +134,14 @@ public class Controller {
 			//dehighlight every slot
 
 				if(x >= 14 && x <= 66 && y >= 27 && y <= 77) {
+					//null check
 					//highlight slot1
-					System.out.println("yofuk");
 					window.getInventory().select(0);
 					window.setSelectedItem(window.getInventory().getItem(0));
-					Border b = BorderFactory.createLineBorder(Color.red);
-					window.getSelectedItem().label.setBorder(b);
+					window.getDropPopUp().show(window.getInventory(), e.getX(), e.getY());
+					dropItem = window.getSelectedItem().item;
+					window.getDropPopUp().setVisible(true);
+
 				}
 				if(x >= 14 && x <= 66 && y >= 91 && y <= 143) {
 					//highlight slot2
@@ -200,6 +202,30 @@ public class Controller {
 
 	}
 
+	public class DropPopUpListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("CBK");
+			dropResponse = e.getActionCommand();
+			System.out.println(dropResponse);
+			if(dropResponse.equals("Cancel")) {
+				System.out.println("yofek");
+				window.getText().setText("");
+				return;
+			} else if(dropResponse.equals("Drop")) {
+				System.out.println("Cunty");
+				window.getText().setText("You dropped your "+dropItem.getItemName());
+				window.getDropPopUp().setVisible(false);
+				//drop the item
+				window.getRenderer().putDownItem(dropItem);
+				player.getInventory().removeItemFromInventory(dropItem);
+				window.getInventory().removeItem(dropItem);
+				initialiseInventory();
+			}
+		}
+
+	}
+
 	public class PopUpListener implements ActionListener {
 
 		@Override
@@ -211,6 +237,7 @@ public class Controller {
 			} else if(response == "Pickup") {
 				window.getText().setText("You picked up a "+item.getItemName());
 				window.getPopUp().setVisible(false);
+				window.getRenderer().pickupItem(item);
 				//render.removeItem(item);
 				//add item to players inventory and update the inventory slot.
 				player.getInventory().addItemToInventory(item);
@@ -249,8 +276,6 @@ public class Controller {
 				window.getPopUp().show(window.getCanvas(),e.getX(),e.getY());
 				window.getPopUp().setVisible(true);
 			}
-
-
 		}
 
 		@Override

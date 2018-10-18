@@ -83,6 +83,7 @@ public class Window {
 
 	// Components to be accessed by controller.
 	private JFileChooser fileChooser;
+	private DropPopUp dropPopUp;
 	private PopUp popup;
 	private JFrame frame;
 	private Renderer renderer;
@@ -90,8 +91,6 @@ public class Window {
 	private JLabel status;
 	private JLabel compass;
 	private JTextArea output;
-	private JButton drop;
-	private JButton use;
 	private JButton up;
 	private JButton down;
 	private JButton left;
@@ -138,7 +137,6 @@ public class Window {
 		c.setBackground(background);
 
 		// -------COMPONENTS--------
-
 
 		// --Rendering canvas.--
 		this.renderer = new Renderer();
@@ -197,12 +195,15 @@ public class Window {
 		inven.setBorder(border);
 		// Inventory slots.
 		 ArrayList<JLabel> slots = new ArrayList<JLabel>();
+		 this.dropPopUp = new DropPopUp();
+		 dropPopUp.setVisible(false);
+		 inven.add(dropPopUp);
 
 //		 for(int i = 0; i < 7; i++) {
 //			 slots.add(new JLabel());
 //		 }
 //
-//		 for(JLabel j : slots) {
+//		 for(JLabel j : slots) {		Pickup
 //			 j.setIcon(blueprints);
 //		 inven.addItem(j);
 //		 }
@@ -215,15 +216,11 @@ public class Window {
 		move.setBackground(background);
 		move.setLayout(new GridLayout(2, 3));
 		move.setBounds(10, 610, width / 3, 100);
-		drop = new JButton("Drop");
 		up = new JButton(upA);
-		use = new JButton("Use");
 		left = new JButton(leftA);
 		down = new JButton(downA);
 		right = new JButton(rightA);
-		move.add(drop);
 		move.add(up);
-		move.add(use);
 		move.add(left);
 		move.add(down);
 		move.add(right);
@@ -290,14 +287,6 @@ public class Window {
 		return compass;
 	}
 
-	public JButton getDrop() {
-		return drop;
-	}
-
-	public JButton getUse() {
-		return use;
-	}
-
 	public TexturedPanel getInventory() {
 		return inven;
 	}
@@ -349,4 +338,9 @@ public class Window {
 	public JButton getRight() {
 		return right;
 	}
+
+	public DropPopUp getDropPopUp() {
+		return dropPopUp;
+	}
+
 }

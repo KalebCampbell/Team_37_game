@@ -1,5 +1,4 @@
 package GameWorld;
-
 /** 
  * Implementation of an interface to force all items to behave the same.
  * 

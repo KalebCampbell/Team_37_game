@@ -14,17 +14,6 @@ public class PlayerComponent {
 	//x and y location. 
 	private String location;
 	
-	
-	public PlayerComponent() {	
-	}
-	
-	public PlayerComponent(String id, String roomid, String name, String location) {
-		this.id = id;
-		this.roomid = roomid;
-		this.name = name;
-		this.location = location;
-	}
-	
 	/**
 	 * Returns the id of the player.
 	 * 

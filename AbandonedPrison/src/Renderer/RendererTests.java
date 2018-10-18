@@ -13,6 +13,11 @@ import org.junit.Test;
 
 import GameWorld.Location;
 
+/**
+ * Tests methods within the Renderer class.
+ * 
+ * @author Joel Harris
+ */
 public class RendererTests {
 	@Test
 	public void moveBackwardTest() {

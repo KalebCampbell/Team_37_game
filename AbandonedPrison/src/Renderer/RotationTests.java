@@ -7,6 +7,11 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+/**
+ * Tests rotating rooms, items, meshes.
+ * 
+ * @author Joel Harris
+ */
 public class RotationTests {
 	@Test
 	public void rotateRoomTest1() {

@@ -7,6 +7,11 @@ import java.awt.Color;
 
 import org.junit.Test;
 
+/**
+ * Tests the Pipeline class for rendering calculations.
+ * 
+ * @author Joel Harris
+ */
 public class RenderingTests {
 	@Test
 	public void hiddenPolyTest() {

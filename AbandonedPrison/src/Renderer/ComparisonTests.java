@@ -7,6 +7,11 @@ import java.util.PriorityQueue;
 
 import org.junit.Test;
 
+/**
+ * Tests compareTo methods in Renderer package.
+ * 
+ * @author Joel Harris
+ */
 public class ComparisonTests {
 	@Test
 	public void roomComparisonTest1() {
