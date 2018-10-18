@@ -2,6 +2,8 @@ package GameWorld;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import Persistence.DoorComponent;
 /**
  * 
  * @author Michael Vincent 300140128
@@ -16,9 +18,7 @@ public class Room {
 	private List<Item> items = new ArrayList <Item>();
 	private List<Container> containers = new ArrayList<Container>();
 	private Location location;
-	private List<String> doors;
-	//private Item[][] itemGridd = new Item[4][4];
-	//private Container[][] containerGrid = new Container[4][4];
+	private List<Door> doors;
 	private Object[][] itemGrid = new Object[4][4];
 
 
@@ -26,15 +26,16 @@ public class Room {
 	 * Constructor for Room Objects
 	 * @param roomID Identity of room
 	 * @param walls List of all walls in the room
+	 * @param doorList 
 	 * @param containerList 
 	 * 
 	 */
-	public Room (int roomID, List<String> walls, Location loc,List<String>doors, List<Item> items, List<Container> containers){
+	public Room (int roomID, List<String> walls, Location loc,List<Item> items, List<Container> containers, List<Door> doorList){
 		this.setRoomID(roomID);
 		this.setWalls(walls);
 		this.setLocation(loc);
-		this.setDoors(doors);
-		this.setItem(items);
+		this.setDoors(doorList);
+		this.setItem(items); 
 		this.setContainer(containers);
 		createGrid();
 		
@@ -42,7 +43,6 @@ public class Room {
 		itemSetup(items);
 		System.out.println(" d");
 		
-
 	}
 	
 
@@ -144,6 +144,10 @@ public class Room {
 		
 	}
 	
+	/**
+	 * Getter for object grid
+	 * @return itemGrid
+	 */
 	public Object[][] getGrid(){
 		return this.itemGrid;
 	}
@@ -159,7 +163,10 @@ public class Room {
 		return false;
 	}
 
-	// Rooms //
+	/**
+	 *  Getter for room id
+	 * @return id as integer
+	 */
 	public int getRoomID() {
 		return roomID;
 	}
@@ -167,12 +174,15 @@ public class Room {
 	public void setRoomID(int id) {
 		this.roomID = id;
 	}
-	
+
 	private void setItem(List<Item> aitems) {
 		this.items = aitems;
 	}
 	
-	// Items //
+	/**
+	 *  Getter for item list
+	 * @return list of items
+	 */
 	public List<Item> getItems() {
 		return items;
 	}
@@ -200,32 +210,20 @@ public class Room {
 	}
 	
 	// Doors //
-	private void setDoors(List<String> doors) {
-		this.doors = doors;
+	private void setDoors(List<Door> list) {
+		this.doors = list;
 	}
 	
-	public List<String> getDoors() {
+	public List<Door> getDoors() {
 		return doors;
 	}
-
-	public void addItem(Item item) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 
 	public List<Container> getContainer() {
 		return containers;
 	}
 
-
-
 	public void setContainer(List<Container> container) {
 		this.containers = container;
 	}
-
-	
-	
 	
 }

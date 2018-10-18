@@ -2,6 +2,8 @@ package GameWorld;
 
 import java.util.List;
 
+import Persistence.DoorComponent;
+
 /**
  * Player class
  * Handles the creation,Movement, Inventory of a player.
@@ -28,7 +30,7 @@ public class Player {
 		this.id = id;
 		this.name = name;
 		this.roomId = roomId;
-		this.location = location;
+		this.location = location; 
 	} 
 
 	// Public SETTERS as they're used outside of construction //
@@ -190,12 +192,18 @@ public class Player {
 			}
 					
 			// DOOR CHECK
-			for(String s : currentRoom.getDoors()) {
-				if(s.equals(dir)) {
-				move(dir);
-				System.out.println("Move through: "+dir+" door to"+ getPlayerLocation().getX() +"," + getPlayerLocation().getY());
-				}
+			for(Door dc : currentRoom.getDoors()) {
+					if(dir.equals(dc.getDirection())) {
+						// Check if locked
+						if(dc.isLocked()) {
+							System.out.println("Door is locked");
+							return false;
+						}
+						move(dir);
+						System.out.println("Move through: "+dir+" door to "+ getPlayerLocation().getX() +"," + getPlayerLocation().getY());
+					}
 			}
+
 			
 			// FIND NEW ROOM
 			for(Room room : roomList) {	

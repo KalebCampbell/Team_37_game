@@ -1,54 +1,104 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<GameMap>
-	<room>
-		<roomid>1</roomid>
-		<location>0,0</location>
-		<wall>NORTH,EAST,WEST</wall>
-		<item>KEY,1,1,0,</item>
-		<door>SOUTH</door>
-	</room>
-
-	<room>
-		<roomid>2</roomid>
-		<location>0,-1</location>
-		<wall>SOUTH,WEST</wall>
-		<item>NONE</item>
-		<door>NORTH,EAST</door>
-	</room>
-
-	<room>
-		<roomid>3</roomid>
-		<location>1,-1</location>
-		<wall>NORTH,SOUTH,EAST</wall>
-		<item>NONE</item>
-		<door>WEST</door>
-	</room>
-
-	<player>
-		<id>1</id>
-		<name>Michael</name>
-		<roomid>1</roomid>
-		<location>0,0</location>
-	</player>
-
-	<inventory>
-		<slot1>KEY,1,DefaultImage,Key</slot1>
-		<slot2>KEYCARD,1,DefaultImage,Key</slot2>
-		<slot3>CROWBAR,1,DefaultImage,Crowbar</slot3>
-		<slot4>KEY,2,DefaultImage,Key</slot4>
-		<slot5>empty,0,DefaultImage,Empty</slot5>
-		<slot6>empty,0,DefaultImage,Empty</slot6>
-		<slot7>empty,0,DefaultImage,Empty</slot7>
-		<slot8>empty,0,DefaultImage,Empty</slot8>
-
-
-	</inventory>
-
-</GameMap>
-
-
-
-
-
-
-
+<map>
+    <player>
+        <id>5</id>
+        <location>0,0</location>
+        <name>PlayerOne</name>
+        <roomid>1</roomid>
+    </player>
+    <rooms>
+        <room id="1">
+            <items>
+                <posX>0</posX>
+                <posY>0</posY>
+            </items>
+            <locX>-1</locX>
+            <locY>-2</locY>
+            <walls>N</walls>
+            <walls>W</walls>
+            <doors>E</doors>
+            <doors>S</doors>
+        </room>
+        <room id="2">
+            <items>
+                <posX>0</posX>
+                <posY>0</posY>
+            </items>
+            <locX>0</locX>
+            <locY>-2</locY>
+            <walls>S</walls>
+            <walls>N</walls>
+            <doors>E</doors>
+            <doors>W</doors>
+        </room>
+        <room id="3">
+            <items>
+                <posX>0</posX>
+                <posY>0</posY>
+            </items>
+            <locX>1</locX>
+            <locY>-2</locY>
+            <walls>N</walls>
+            <walls>S</walls>
+            <doors>W</doors>
+            <doors>E</doors>
+        </room>
+        <room id="4">
+            <items>
+                <posX>0</posX>
+                <posY>0</posY>
+            </items>
+            <locX>2</locX>
+            <locY>-2</locY>
+            <walls>N</walls>
+            <walls>E</walls>
+            <walls>S</walls>
+            <doors>W</doors>
+        </room>
+         <room id="5">
+            <items>
+                <posX>0</posX>
+                <posY>0</posY>
+            </items>
+            <locX>1</locX>
+            <locY>-1</locY>
+            <walls>E</walls>
+            <walls>W</walls>
+            <doors>N</doors>
+            <doors>S</doors>
+        </room>
+        <room id="6">
+            <items>
+                <posX>0</posX>
+                <posY>0</posY>
+            </items>
+            <locX>0</locX>
+            <locY>-1</locY>
+            <walls>N</walls>
+            <walls>W</walls>
+            <doors>E</doors>
+            <doors>S</doors>
+        </room>  
+        <room id="15">
+            <items>
+                <item>Key</item>
+                	<posX>1</posX>
+                	<posY>1</posY>
+                	<id>1</id>
+            	</items>
+            <containers>
+            	<container>WoodenBox</container>
+            	<posX>2</posX>
+            	<posY>2</posY>
+            	<id>1</id>
+            	<locked>Y</locked>
+            </containers>
+            <locX>1</locX>
+            <locY>-1</locY>
+            <walls>S</walls>
+            <walls>W</walls>
+            <walls>E</walls>
+            <doors>N</doors>
+        </room>
+    </rooms>
+</map>

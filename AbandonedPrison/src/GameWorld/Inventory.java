@@ -5,9 +5,9 @@ import java.util.List;
 
 /**
  * Represents an inventory for the player
- * Has a maximum size of 10
+ * Has a maximum size of 8
  * ArrayList is used as the collection
- * @author Michael Vincent 300140128
+ * @author Michael Vincent 
  *
  */
 public class Inventory {
@@ -26,7 +26,7 @@ public class Inventory {
 	 */
 	public List<Item> getInventory() {
 		return inventory;
-	}
+	} 
 
 	/**
 	 * Adds item to inventory.

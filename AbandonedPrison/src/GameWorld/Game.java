@@ -6,6 +6,7 @@ import java.util.List;
 import Persistence.RoomComponent;
 import Persistence.RoomsComponent;
 import Persistence.ContainerComponent;
+import Persistence.DoorComponent;
 import Persistence.GameMapComponent;
 import Persistence.ItemComponent;
 
@@ -25,8 +26,11 @@ import Persistence.ItemComponent;
 public class Game {
 	// Stores everything about the game as room objects.
 	List<Room> roomList = new ArrayList<Room>();
+	List<Item> allitems = new ArrayList<Item>();
+	List<Container> allContainers = new ArrayList<Container>();
 	// Stores everythinhg about the player including inventory.
 	Player player;
+	boolean demonstration = true;
 	
 	/**
 	 * 	Constructor for Game class.
@@ -43,9 +47,9 @@ public class Game {
 			// Inventory setup
 			this.player.setInventory(initialiseInventory(setup));
 			// Creates rooms & map setup
-			initialiseMap(setup);
-			
-		} 
+			initialiseMap(setup); 
+		}
+		
 	}
 	
 
@@ -95,6 +99,10 @@ public class Game {
 			Room room = findRoom(player.getRoomId());
 			String dir = player.getDirection();
 			return room.addItemToGrid(item, dir);			
+	}
+	
+	public List<Item> getAllitems(){
+		return allitems;
 	}
 	
 	/**
@@ -173,12 +181,13 @@ public class Game {
 		for(RoomComponent roomC : rc.Rooms()) {
 			//List<ItemComponent> ic = roomC.getItems();
 			List<Container> containerList = initialiseContainers(roomC.getContainers());
-			List<Item> itemList = initialiseItems(roomC.getItems());		
+			List<Item> itemList = initialiseItems(roomC.getItems());
+			List<Door> doorList = initialiseDoors(roomC.getDoors());
 			// Build room
-			Room room = new Room(roomC.getId(), roomC.getWalls(), new Location(roomC.getLocX(),roomC.getLocY()),roomC.getDoors(), itemList, containerList);
+			Room room = new Room(roomC.getId(), roomC.getWalls(), new Location(roomC.getLocX(),roomC.getLocY()), itemList, containerList,doorList);
 			// Add room to roomList
 			roomList.add(room);
-		}	
+		}	 
 	}
 	
 	/**
@@ -191,18 +200,22 @@ public class Game {
 		Item item = null;
 		List<Item> returnItems = new ArrayList<Item>();
 		
+		
 		if(list != null) {	
 			for(ItemComponent ic : list) {			
 				String itemName = ic.getItem();
 				if(itemName != null) {
 					if(itemName.equals("Key")) {
 						item = new Key(itemName, ic.getId(),"KeyDescription", new Location(ic.getPosX(), ic.getPosY()));
+						allitems.add(item);
 						returnItems.add(item);
 					}else if (itemName.equals("Keycard")) {
 						item = new KeyCard(itemName, ic.getId(),"KeyCardDescription", new Location(ic.getPosX(), ic.getPosY()));
+						allitems.add(item);
 						returnItems.add(item);
 					}else if(itemName.equals("Crowbar")) {
 						item = new Crowbar(itemName, ic.getId(), "CrowbarDescription", new Location(ic.getPosX(), ic.getPosY()));
+						allitems.add(item);
 						returnItems.add(item);
 					}
 				}
@@ -224,6 +237,14 @@ public class Game {
 		int roomId = Integer.parseInt(setup.getPlayer().getRoomid());
 		Location location = setup.getPlayer().getCord();
 		
+		if(demonstration) {
+			System.out.println("Player created!");
+			System.out.println("Name: "+name);
+			System.out.println("ID: "+id);
+			System.out.println("CurrentRoomID: "+roomId);
+			System.out.println("Location: "+location.getX()+","+location.getY());
+
+		}
 		// Create player
 		return new Player(id,name,roomId,location);
 	}
@@ -267,7 +288,15 @@ public class Game {
 		}
 		return returnContainer;
 	}
-
+	
+	private List<Door> initialiseDoors(List<DoorComponent> list){
+		List<Door> returnDoor = new ArrayList<Door>();
+		
+		for(DoorComponent dc : list) {
+				returnDoor.add(new Door(dc.getId(), dc.getDirection(), dc.isLocked(), dc.getDoor()));
+		}
+		return returnDoor;
+	}
 
 
 }

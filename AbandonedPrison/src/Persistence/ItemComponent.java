@@ -26,7 +26,7 @@ public class ItemComponent {
 		this.posX = posX;
 		this.posY = posY;
 		this.item = item;
-		this.id = id;
+		this.id = id; 
 	}
 
 	public int getPosX() {

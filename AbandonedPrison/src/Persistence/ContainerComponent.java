@@ -26,10 +26,9 @@ public class ContainerComponent {
 	public ContainerComponent(String container,int posX, int posY,int id,String locked) {
 		this.container = container;
 		this.posX = posX;
-		this.posY = posY;
+		this.posY = posY;  
 		this.id = id;
-		this.locked = locked;
-		
+		this.locked = locked; 
 	}
 
 	public int getPosX() {
