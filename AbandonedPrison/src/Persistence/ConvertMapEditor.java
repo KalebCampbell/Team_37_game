@@ -29,10 +29,22 @@ public class ConvertMapEditor{
 	public ConvertMapEditor() {
 		
 	}
+	/**
+	 * calls the ConvertIt method. 	
+	 * is bad style but was trying to organise for the Game world and ran out of time. 
+	 * @param rooms
+	 * @param file
+	 */
 	public ConvertMapEditor(List<Room> rooms, File file){
 		ConvertIt(rooms, file);
 	}
-	
+		
+		/**
+	 	* Map editor passes in rooms and the file to save too and converts 
+	 	* it all to a gameMapComponent 
+	 	* @param rooms
+	 	* @param file
+	 	*/
 		public void ConvertIt(List<Room> rooms, File file) {
 		RoomsComponent roomMap = new RoomsComponent();
 		roomMap.setRooms(new ArrayList<RoomComponent>());

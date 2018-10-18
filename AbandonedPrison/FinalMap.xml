@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<map>
+    <player>
+        <id>0</id>
+        <location>0,0</location>
+        <name>playerName</name>
+        <roomid>0</roomid>
+    </player>
+    <rooms>
+        <room id="0">
+            <locX>4</locX>
+            <locY>3</locY>
+        </room>
+        <room id="1">
+            <locX>4</locX>
+            <locY>2</locY>
+        </room>
+        <room id="2">
+            <locX>4</locX>
+            <locY>1</locY>
+        </room>
+        <room id="3">
+            <locX>4</locX>
+            <locY>0</locY>
+            <walls>W</walls>
+        </room>
+        <room id="4">
+            <doors>
+                <direction>W</direction>
+                <door>Wooden</door>
+                <id>1</id>
+                <locked>false</locked>
+            </doors>
+            <locX>3</locX>
+            <locY>0</locY>
+            <walls>N</walls>
+            <walls>S</walls>
+        </room>
+        <room id="5">
+            <items>
+                <id>0</id>
+                <item>Key</item>
+                <posX>2</posX>
+                <posY>2</posY>
+            </items>
+            <locX>2</locX>
+            <locY>0</locY>
+            <walls>N</walls>
+            <walls>S</walls>
+        </room>
+        <room id="6">
+            <locX>1</locX>
+            <locY>0</locY>
+            <walls>N</walls>
+            <walls>S</walls>
+        </room>
+        <room id="7">
+            <locX>0</locX>
+            <locY>0</locY>
+            <walls>N</walls>
+            <walls>S</walls>
+            <walls>W</walls>
+        </room>
+    </rooms>
+</map>

@@ -31,6 +31,10 @@ public class ContainerComponent {
 		this.locked = locked; 
 	}
 
+	/**
+	 * Get X position. 
+	 * @return
+	 */
 	public int getPosX() {
 		return posX;
 	}
