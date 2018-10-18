@@ -13,18 +13,20 @@ public class magic {
 	int y;
 	int x1;
 	int y1;
-	public magic(int x, int y,int x1,int y1) {
-		this.x=x;
-		this.y=y;
-		this.x1=x1;
-		this.y1=y1;
-		
+
+	public magic(int x, int y, int x1, int y1) {
+		this.x = x;
+		this.y = y;
+		this.x1 = x1;
+		this.y1 = y1;
+
 	}
+
 	/**
-	 *draw the magic
+	 * draw the magic
 	 */
 	public void draw(Graphics g) {
 		g.setColor(Color.red);
-		g.fillOval(x+1+x1*15, y+1+y1*15, 7, 7);
+		g.fillOval(x + 1 + x1 * 15, y + 1 + y1 * 15, 7, 7);
 	}
 }
