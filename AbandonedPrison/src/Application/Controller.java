@@ -263,6 +263,7 @@ public class Controller {
 		public void mouseClicked(MouseEvent e) {
 			Renderer.AbstractItem clickedItem = window.getRenderer().clickItem(e.getPoint());
 			Renderer.AbstractDoor clickedDoor = window.getRenderer().clickDoor(e.getPoint());
+			System.out.println("door is "+clickedDoor.getDoor().isLocked());
 
 		if(clickedItem != null) {
 			item = clickedItem.getItem();
