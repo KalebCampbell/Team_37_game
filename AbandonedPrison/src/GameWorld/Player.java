@@ -3,7 +3,7 @@ package GameWorld;
 import java.util.List;
 
 /**
- * Player class
+ * Player class.
  * Handles the creation,Movement, Inventory of a player.
  * 
  * @author Michael Vincent 
@@ -120,8 +120,7 @@ public class Player {
 			//WEST (-1,0)
 		}else if(dir.equals("W")) {
 			setPlayerLocation(new Location(getPlayerLocation().getX()-1, getPlayerLocation().getY()));
-		}
-		
+		}	
 	}
 
 	/**
@@ -157,66 +156,59 @@ public class Player {
 		System.out.println("Current direction: "+getDirection());
 	}
 
-	/**
-	 * Move player forward
-	 * @param roomList
-	 * @return
-	 */
-	public boolean playerMove(List<Room> roomList) {
-		
-		// Step forward or backward	
-		// Get the direction the player is facing
-		String dir = getDirection();
-		Room currentRoom = null;
-			// Check if wall is in the way
-		
-			// Iterate through all rooms
-			for(Room r : roomList) {
-				// find room player is in
-				if(r.getRoomID() == getRoomId()){							
-					// Sets the room the player is in
-					currentRoom = r;
-				}
-			}
 			
-			// WALL CHECK
-			for(String s : currentRoom.getWalls()) {
-				// Forwards
-				if(s.equals(dir)) {
-				System.out.println("Cannot move into a wall");
-				// Illegal move E.G PLAYER FACING WEST, WALLS WEST
-				return false;
-				}	
-			}
-					
-			// DOOR CHECK
-			for(Door dc : currentRoom.getDoors()) {
-					if(dir.equals(dc.getDirection())) {
-						move(dir);
-						System.out.println("Move through: "+dir+" door to "+ getPlayerLocation().getX() +"," + getPlayerLocation().getY());
-			}
-				/*if(dir.equals(dc.getDirection())) {
-						// Check if locked
-						if(dc.isLocked()) {
-							System.out.println("Door is locked");
-							return false;
-						}else if(!dc.isLocked()){
-							move(dir);
-							System.out.println("Move through: "+dir+" door to "+ getPlayerLocation().getX() +"," + getPlayerLocation().getY());
-						}
-						*/
-					
-			}
-			// FIND NEW ROOM
-			for(Room room : roomList) {	
-				if(getPlayerLocation().getX() == room.getLocation().getX() &&
-				   getPlayerLocation().getY() == room.getLocation().getY()) {		
-					setRoomID(room.getRoomID());
-							return true;
+			/**
+			 * Move player forward
+			 * @param roomList
+			 * @return
+			 */
+			public boolean playerMove(List<Room> roomList) {
+				
+				// Step forward or backward	
+				// Get the direction the player is facing
+				String dir = getDirection();
+				Room currentRoom = null;
+					// Check if wall is in the way
+				
+					// Iterate through all rooms
+					for(Room r : roomList) {
+						// find room player is in
+						if(r.getRoomID() == getRoomId()){							
+							// Sets the room the player is in
+							currentRoom = r;
+							}
 					}
-			}
-		return false;
+
+					// WALL CHECK
+					for(String s : currentRoom.getWalls()) {
+						// Forwards
+						if(s.equals(dir)) {
+						System.out.println("Cannot move into a wall");
+						// Illegal move E.G PLAYER FACING WEST, WALLS WEST
+						return false;
+						}	
+					}
+							
+					// DOOR CHECK
+					for(Door dc : currentRoom.getDoors()) {
+							if(dir.equals(dc.getDirection())) {
+								move(dir);
+								System.out.println("Move through: "+dir+" door to "+ getPlayerLocation().getX() +"," + getPlayerLocation().getY());
+					}
+							
+					}
+					// FIND NEW ROOM
+					for(Room room : roomList) {	
+						if(getPlayerLocation().getX() == room.getLocation().getX() &&
+						   getPlayerLocation().getY() == room.getLocation().getY()) {		
+							setRoomID(room.getRoomID());
+									return true;
+							}
+					}
+			return false;
 	}
+
+
 	/**
 	 * 
 	 * @param dir direction
@@ -239,6 +231,46 @@ public class Player {
 			}
 		}
 		return false;
+	}
+	
+	
+	private boolean wallCheck(String dir, Room currentRoom) {
+	// WALL CHECK
+		for(String s : currentRoom.getWalls()) {
+			// IF DIRECTION = A WALL
+			if(s.equals(dir)) {
+				System.out.println("Cannot move into a wall");
+				// Illegal move E.G PLAYER FACING WEST, WALLS WEST
+				return false;
+			}	
+		}
+		return true;
+	}
+	
+	// DOOR CHECK
+	private boolean doorCheck(String dir, Room currentRoom, List<Room> roomList) {
+		for(Door dc : currentRoom.getDoors()) {
+			if(dir.equals(dc.getDirection())) {
+				move(dir);
+				System.out.println("Move through: "+dir+" door to "+ getPlayerLocation().getX() +"," + getPlayerLocation().getY());
+				// Updates player
+				updateLocation(roomList);
+				return true;
+			}
+		}
+	return false;
+	}
+
+	// FIND NEW ROOM
+	private void updateLocation(List<Room> roomList) {
+		
+		for(Room room : roomList) {	
+			if(getPlayerLocation().getX() == room.getLocation().getX() &&
+			   getPlayerLocation().getY() == room.getLocation().getY()) {		
+				this.setRoomID(room.getRoomID());
+			}
+
+		}
 	}
 }
 
