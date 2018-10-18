@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import GameWorld.Item;
+
 /**
  * Extends JPanel to make colored JPanels.
  *
@@ -20,7 +22,7 @@ import javax.swing.border.Border;
  */
 public class TexturedPanel extends JPanel {
 
-	private ArrayList<JLabel> items = new ArrayList<JLabel>();
+	private ArrayList<ItemLabel> items = new ArrayList<ItemLabel>();
 	private Image image = Toolkit.getDefaultToolkit().createImage("src/Application/inventory.png");
 
 	@Override
@@ -31,28 +33,33 @@ public class TexturedPanel extends JPanel {
 
 	}
 
-	public void addItem(JLabel item) {
-		this.add(item);
+	public void addItem(ItemLabel item) {
+		this.add(item.label);
 		items.add(item);
+		item.label.setVisible(true);
 	}
 
-	public void removeItem(int i) {
+	public void removeItem(Item i ) {
 		items.remove(i);
 	}
 
-	public void select(int i) {
-		for(JLabel j : items) {
-			j.setBorder(null);
-		}
-		Border border = BorderFactory.createLineBorder(Color.RED);
-		items.get(i).setBorder(border);;
+	public void clear() {
+		this.items = new ArrayList<ItemLabel>();
 	}
 
-	public JLabel getItem(int i) {
+	public void select(int i) {
+		System.out.println("yofusssk");
+		for(ItemLabel j : items) {
+			j.label.setBorder(null);
+		}
+
+	}
+
+	public ItemLabel getItem(int i) {
 		return items.get(i);
 	}
 
-	public List<JLabel> getItems(){
+	public List<ItemLabel> getItems(){
 		return items;
 	}
 
