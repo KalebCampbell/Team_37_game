@@ -276,20 +276,21 @@ public class Renderer {
    */
   public AbstractItem clickItem(Point click) {
     AbstractItem item = null;
-    Room room = getCurrentRoom();
-    if (room != null) {
-      // iterates through items from farthest to closest
-      PriorityQueue<AbstractItem> items = room.orderItems();
-      while (!items.isEmpty()) {
-        AbstractItem currItem = items.poll();
-        if (currItem.getPosition().getRealZ() >= 0) {
-          PriorityQueue<Polygon3D> polys = currItem.getMesh().orderPolygons();
-          while (!polys.isEmpty()) {
-            // converts to Java Polygon to make use of .contains() method
-            Polygon3D poly = polys.poll();
-            Polygon currPoly = new Polygon(poly.xPoints3D(), poly.yPoints3D(), 3);
-            if (currPoly.contains(click)) {
-              item = currItem;
+    for (Room room : rooms) {
+      if (room != null) {
+        // iterates through items from farthest to closest
+        PriorityQueue<AbstractItem> items = room.orderItems();
+        while (!items.isEmpty()) {
+          AbstractItem currItem = items.poll();
+          if (currItem.getPosition().getRealZ() >= 0) {
+            PriorityQueue<Polygon3D> polys = currItem.getMesh().orderPolygons();
+            while (!polys.isEmpty()) {
+              // converts to Java Polygon to make use of .contains() method
+              Polygon3D poly = polys.poll();
+              Polygon currPoly = new Polygon(poly.xPoints3D(), poly.yPoints3D(), 3);
+              if (currPoly.contains(click)) {
+                item = currItem;
+              }
             }
           }
         }
@@ -338,6 +339,7 @@ public class Renderer {
    */
   public void pickupItem(GameWorld.Item item) {
     Room room = getCurrentRoom();
+    System.out.println(room);
     room.removeItem(item);
   }
 
@@ -576,7 +578,7 @@ public class Renderer {
    */
   public Room getCurrentRoom() {
     for (Room room : rooms) {
-      Point3D pos = room.getPosition();
+      Point3D pos = room.getFloor().getPosition();
       if (pos.getRealX() == 0 && pos.getRealZ() == 0) {
         return room;
       }
