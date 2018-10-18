@@ -8,33 +8,55 @@
     </player>
 		<rooms>
         	<room id="1">
-
             	<doors>
 					<door>Door</door>
 					<direction>N</direction>
 					<id>1</id>
-					<locked>N</locked>
+					<locked>false</locked>
 				</doors>
            	<locX>0</locX>
             <locY>0</locY>
             <walls>S</walls>
+            <walls>E</walls>
+            <walls>W</walls>
         	</room>
         	<room id="2">
-        		<items>
-                	<item>Key</item>
-                	<posX>0</posX>
-                	<posY>1</posY>
-            	</items>
             	<doors>
 					<door>Door</door>
 					<direction>N</direction>
 					<id>2</id>
-					<locked>N</locked>
+					<locked>false</locked>
+				</doors>
+				<doors>
+					<door>Door</door>
+					<direction>S</direction>
+					<id>3</id>
+				<locked>false</locked>
 				</doors>
             <locX>0</locX>
             <locY>-1</locY>
             <walls>N</walls>
+            <walls>E</walls>
             <walls>W</walls>
-        </room>
+            </room>
+            <room id="3">
+            	<doors>
+					<door>Door</door>
+					<direction>S</direction>
+					<id>4</id>
+					<locked>false</locked>
+				</doors>
+				<doors>
+					<door>Door</door>
+					<direction>E</direction>
+					<id>5</id>
+				<locked>false</locked>
+				</doors>
+            <locX>0</locX>
+            <locY>-2</locY>
+            <walls>N</walls>
+            <walls>E</walls>
+            <walls>W</walls>
+            </room>
       </rooms>
 </map>

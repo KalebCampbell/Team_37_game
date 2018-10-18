@@ -138,7 +138,7 @@ public class Player {
 		}else if(dir.equals("E")) {
 			setDirection("N");
 		}	
-		//Debug System.out.println("Current direction: "+getDirection());
+		System.out.println("Current direction: "+getDirection());
 	}
 	/**
 	 * Method for turning the player to the right.
@@ -154,7 +154,7 @@ public class Player {
 		}else if(dir.equals("W")) {
 			setDirection("N");
 		}	
-		//Debug System.out.println("Current direction: "+getDirection());
+		System.out.println("Current direction: "+getDirection());
 	}
 
 	/**
@@ -192,6 +192,10 @@ public class Player {
 			// DOOR CHECK
 			for(Door dc : currentRoom.getDoors()) {
 					if(dir.equals(dc.getDirection())) {
+						move(dir);
+						System.out.println("Move through: "+dir+" door to "+ getPlayerLocation().getX() +"," + getPlayerLocation().getY());
+			}
+				/*if(dir.equals(dc.getDirection())) {
 						// Check if locked
 						if(dc.isLocked()) {
 							System.out.println("Door is locked");
@@ -200,8 +204,8 @@ public class Player {
 							move(dir);
 							System.out.println("Move through: "+dir+" door to "+ getPlayerLocation().getX() +"," + getPlayerLocation().getY());
 						}
-
-					}
+						*/
+					
 			}
 			// FIND NEW ROOM
 			for(Room room : roomList) {	
