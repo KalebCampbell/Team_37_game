@@ -191,6 +191,13 @@ public class Renderer {
 			createRoom(room, new Point3D(roomX, 0, -roomZ), n, s, e, w, doors, items);
 		}
 		GameWorld.Player player = game.getPlayer();
+		String dir = player.getDirection();
+		GameWorld.Location loc = player.getPlayerLocation();
+		int x = loc.getX();
+		int z = -loc.getY();
+		for(Room room : this.rooms) {
+			room.translate(-x * WHOLE_ROOM, 0, -z * WHOLE_ROOM);
+		}
 	}
 
 	/**
