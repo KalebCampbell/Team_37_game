@@ -47,15 +47,18 @@ public class Room implements Comparable<Room> {
 	 *            delta z
 	 */
 	public void translate(float x, float y, float z) {
+		// translate walls
 		for (AbstractWall wall : walls) {
 			wall.translate(x, y, z);
 		}
+		// translate items
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				if (items[i][j] != null)
 					items[i][j].translate(x, y, z);
 			}
 		}
+		// translate floor and pos
 		floor.translate(x, y, z);
 		position.translate(x, y, z);
 	}
@@ -64,15 +67,18 @@ public class Room implements Comparable<Room> {
 	 * Rotates the Room 90 degrees to left.
 	 */
 	public void rotateLeft() {
+		// rotate walls left
 		for (AbstractWall wall : walls) {
 			wall.rotateLeft();
 		}
+		// rotate items left
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				if (items[i][j] != null)
 					items[i][j].rotateLeft();
 			}
 		}
+		// rotate floor and pos left
 		floor.rotateLeft();
 		position.rotateLeft();
 	}
@@ -81,15 +87,18 @@ public class Room implements Comparable<Room> {
 	 * Rotates the Room 90 degrees to right.
 	 */
 	public void rotateRight() {
+		// rotate walls right
 		for (AbstractWall wall : walls) {
 			wall.rotateRight();
 		}
+		// rotate items right
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				if (items[i][j] != null)
 					items[i][j].rotateRight();
 			}
 		}
+		// rotate floor and pos right
 		floor.rotateRight();
 		position.rotateRight();
 	}
@@ -105,6 +114,7 @@ public class Room implements Comparable<Room> {
 		AbstractItem[][] items = this.items;
 		for (int i = 0; i < items.length; i++) {
 			for (int j = 0; j < items.length; j++) {
+				//for each item, checks if it isn't null and adds it to queue
 				if (items[i][j] != null) {
 					if (items[i][j].getPosition().getRealZ() >= 0) {
 						orderedItems.add(items[i][j]);
@@ -130,6 +140,38 @@ public class Room implements Comparable<Room> {
 	}
 
 	/**
+	 * Removes an item from a Room, if it's present.
+	 * 
+	 * @param item
+	 *            to be removed
+	 */
+	public void removeItem(GameWorld.Item item) {
+		for (int i = 0; i < items.length; i++) {
+			for (int j = 0; j < items.length; j++) {
+				if (items[i][j] != null) {
+					if (items[i][j].getItem().equals(item))
+						items[i][j] = null;
+				}
+			}
+		}
+	}
+
+	/**
+	 * Adds an item to a Room.
+	 * 
+	 * @param item
+	 *            to be added
+	 */
+	public void addItem(AbstractItem item) {
+		for (int i = 0; i < items.length; i++) {
+			for (int j = 0; j < items.length; j++) {
+				if (items[i][j] == null)
+					items[i][j] = item;
+			}
+		}
+	}
+
+	/**
 	 * @return the floor
 	 */
 	public Floor getFloor() {
@@ -145,14 +187,16 @@ public class Room implements Comparable<Room> {
 
 	@Override
 	public int compareTo(Room other) {
+		// compares on z axis first
 		if (this.position.getRealZ() > other.getPosition().getRealZ())
 			return -1;
 		if (this.position.getRealZ() < other.getPosition().getRealZ())
 			return 1;
+		// then compares on x axis
 		if (Math.abs(this.position.getRealX()) > Math.abs(other.getPosition().getRealX()))
-			return -1;
-		if (Math.abs(this.position.getRealX()) < Math.abs(other.getPosition().getRealX()))
 			return 1;
+		if (Math.abs(this.position.getRealX()) < Math.abs(other.getPosition().getRealX()))
+			return -1;
 		return 0;
 	}
 }

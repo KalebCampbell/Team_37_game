@@ -31,6 +31,7 @@ public class Mesh {
 	 * Calculates the center position of this Mesh.
 	 */
 	private void calculatePosition() {
+		// sets all values to the opposite
 		float minX = Float.MAX_VALUE;
 		float maxX = Float.MIN_VALUE;
 		float minY = Float.MAX_VALUE;
@@ -41,6 +42,7 @@ public class Mesh {
 			float[] xPoints = poly.getxPoints();
 			float[] yPoints = poly.getyPoints();
 			float[] zPoints = poly.getzPoints();
+			// find min and max values for each axis
 			for (int i = 0; i < xPoints.length; i++) {
 				if (xPoints[i] > maxX)
 					maxX = xPoints[i];
@@ -56,6 +58,7 @@ public class Mesh {
 					minZ = zPoints[i];
 			}
 		}
+		// calculate center values
 		int midX = (int) ((minX + maxX) / 2);
 		int midY = (int) ((minY + maxY) / 2);
 		int midZ = (int) ((minZ + maxZ) / 2);
@@ -91,13 +94,13 @@ public class Mesh {
 			polygons[i].rotateLeft();
 		}
 		position.rotateLeft();
-		if(dir == Direction.FRONT)
+		if (dir == Direction.FRONT)
 			dir = Direction.SIDE;
-		if(dir == Direction.SIDE)
+		if (dir == Direction.SIDE)
 			dir = Direction.FRONT;
 		return this;
 	}
-	
+
 	/**
 	 * Rotates the Mesh 90 degrees to right.
 	 * 
@@ -108,9 +111,9 @@ public class Mesh {
 			polygons[i].rotateRight();
 		}
 		position.rotateRight();
-		if(dir == Direction.FRONT)
+		if (dir == Direction.FRONT)
 			dir = Direction.SIDE;
-		if(dir == Direction.SIDE)
+		if (dir == Direction.SIDE)
 			dir = Direction.FRONT;
 		return this;
 	}
@@ -140,6 +143,9 @@ public class Mesh {
 		return orderedPolygons;
 	}
 
+	/**
+	 * @return a copy of this Mesh
+	 */
 	public Mesh getCopy() {
 		Polygon3D[] copy = new Polygon3D[polygons.length];
 		for (int i = 0; i < polygons.length; i++) {
@@ -147,7 +153,7 @@ public class Mesh {
 		}
 		return new Mesh(copy);
 	}
-	
+
 	/**
 	 * @return direction
 	 */
@@ -156,8 +162,6 @@ public class Mesh {
 	}
 
 	/**
-	 * Returns the polygons that make up this Mesh.
-	 *
 	 * @return the polygons that make up this Mesh
 	 */
 	public Polygon3D[] getPolygons() {
@@ -165,8 +169,6 @@ public class Mesh {
 	}
 
 	/**
-	 * Returns the center position of this Mesh.
-	 * 
 	 * @return the center position
 	 */
 	public Point3D getPosition() {

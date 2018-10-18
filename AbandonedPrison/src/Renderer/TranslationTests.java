@@ -7,6 +7,12 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+/**
+ * Tests translating room, items, meshes.
+ * 
+ * @author Joel Harris
+ *
+ */
 public class TranslationTests {
 	@Test
 	public void translateRoomTest1() {
