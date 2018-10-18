@@ -30,7 +30,10 @@ public class ConvertMapEditor{
 		
 	}
 	public ConvertMapEditor(List<Room> rooms, File file){
-		
+		ConvertMapEditor(rooms, file);
+	}
+	
+		public void ConvertMapEditor(List<Room> rooms, File file) {
 		RoomsComponent roomMap = new RoomsComponent();
 		roomMap.setRooms(new ArrayList<RoomComponent>());
 		
@@ -55,7 +58,7 @@ public class ConvertMapEditor{
 					i++;
 				}
 			}
-			
+			System.out.println(room.getwalls());
 			for(int l = 0; l < room.getdoors().size(); l++) {
 				boolean lock=false;
 				if(room.key) {
@@ -118,6 +121,7 @@ public class ConvertMapEditor{
 			}
 			//iterate over the walls
 			for(int k = 0; k < room.getWalls().size(); k++) {
+				System.out.println(room.getWalls().get(k));
 				walls.add(room.getWalls().get(k));
 			}		
 			//iterate over the doors 

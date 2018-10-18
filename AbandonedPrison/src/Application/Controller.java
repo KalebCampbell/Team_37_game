@@ -49,7 +49,7 @@ public class Controller {
 
 		GameMapComponent gameComp = null;
 		try {
-			gameComp = LoadXml.unMarshal(new File("Map4.xml"));
+			gameComp = LoadXml.unMarshal(new File("testhello.xml"));
 		} catch (JAXBException e) {
 			System.out.println("Parsing failed");
 		}

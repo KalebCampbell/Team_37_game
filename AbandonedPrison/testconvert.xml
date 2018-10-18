@@ -2,7 +2,7 @@
 <map>
     <player>
         <id>0</id>
-        <location>4,3</location>
+        <location>0,0</location>
         <name>playerName</name>
         <roomid>0</roomid>
     </player>
@@ -12,14 +12,12 @@
             <locY>3</locY>
         </room>
         <room id="1">
-            <doors>
-                <direction>E</direction>
-                <door>Wooden</door>
-                <id>1</id>
-                <locked>true</locked>
-            </doors>
-            <locX>4</locX>
-            <locY>4</locY>
+            <locX>3</locX>
+            <locY>3</locY>
+        </room>
+        <room id="2">
+            <locX>2</locX>
+            <locY>3</locY>
         </room>
     </rooms>
 </map>
