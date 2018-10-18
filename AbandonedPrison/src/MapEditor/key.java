@@ -11,9 +11,13 @@ import java.awt.Graphics;
 public class key {
 	int x;
 	int y;
-	public key(int x, int y) {
+	int x1;
+	int y1;
+	public key(int x, int y,int x1,int y1) {
 		this.x=x;
 		this.y=y;
+		this.x1=x1;
+		this.y1=y1;
 	}
 	public String getName() {
 		return null;
@@ -40,6 +44,6 @@ public class key {
 	 */
 	public void draw(Graphics g) {
 		g.setColor(Color.GREEN);
-		g.drawLine(x+2, y+2, x+30, y+30);
+		g.drawLine(x+1+x1*15, y+1+y1*15, x+10+x1*15, y+10+y1*15);
 	}
 }

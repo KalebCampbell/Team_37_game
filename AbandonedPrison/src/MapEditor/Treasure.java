@@ -11,9 +11,13 @@ import java.awt.Graphics;
 public class Treasure {
 	int x;
 	int y;
-	public Treasure(int x, int y) {
+	int x1;
+	int y1;
+	public Treasure(int x, int y,int x1,int y1) {
 		this.x=x;
 		this.y=y;
+		this.x1=x1;
+		this.y1=y1;
 	}
 	
 	/**
@@ -21,6 +25,6 @@ public class Treasure {
 	 */
 	public void draw(Graphics g) {
 		g.setColor(Color.gray);
-		g.fillOval(x+30, y, 15, 15);
+		g.fillOval(x+1+x1*15, y+1+y1*15, 7, 7);
 	}
 }

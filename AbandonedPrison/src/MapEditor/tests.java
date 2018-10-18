@@ -19,8 +19,8 @@ public class tests {
 		room.downdoor();
 		room.leftwall();
 		room.topwall();
-		room.haveKey();
-		room.treasure11();
+		room.haveKey(1,1);
+		room.treasure11(2,1);
 		assertEquals(true,room.downDoor);
 		assertEquals(true,room.leftWall);
 		assertEquals(true,room.topWall);

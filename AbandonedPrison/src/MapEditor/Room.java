@@ -27,6 +27,9 @@ public class Room {
 	boolean magic1=false;
 	boolean treasure1=false;
 	boolean light=false;
+	Point p1;
+	Point p2;
+	Point p3;
 	
 	public Room(int x,int y,int width,int height) {
 		this.x=x;
@@ -107,14 +110,29 @@ public class Room {
 			downDoor=true;
 		}
 	}
-	public void haveKey() {
+	public Point haveKey(int x2,int y2) {
 		key=true;
+		p1=new Point(x2,y2);
+		return p1;
 	}
-	public void magic11() {
+	public Point magic11(int x2,int y2) {
 		magic1=true;
+		p2=new Point(x2,y2);
+		return p2;
 	}
-	public void treasure11() {
+	public Point treasure11(int x2,int y2) {
 		treasure1=true;
+		p3=new Point(x2,y2);
+		return p3;
+	}
+	public Point getkey() {
+		return p1;
+	}
+	public Point getM() {
+		return p2;
+	}
+	public Point getT() {
+		return p3;
 	}
 	
 	/**
@@ -172,17 +190,41 @@ public class Room {
 	public void draw(Graphics g) {
 		if(light) {
 			g.setColor(Color.white);
-			g.fillRect(x, y, width, height);
-			g.fillRect(x+width, y, width, height);
-			g.fillRect(x, y+height, width, height);
-			g.fillRect(x+width, y+height, width, height);
+			g.fillRect(x+width/2, y, width/2, height/2);
+			g.fillRect(x, y+height/2, width/2, height/2);
+			g.fillRect(x, y, width/2, height/2);
+			g.fillRect(x+width/2, y+width/2, width/2, height/2);
+			g.fillRect(x+width, y, width/2, height/2);
+			g.fillRect(x+width+width/2, y, width/2, height/2);
+			g.fillRect(x+width, y+height/2, width/2, height/2);
+			g.fillRect(x+width+width/2, y+height/2, width/2, height/2);
+			g.fillRect(x, y+height, width/2, height/2);
+			g.fillRect(x+width/2, y+height, width/2, height/2);
+			g.fillRect(x, y+height+height/2, width/2, height/2);
+			g.fillRect(x+width/2, y+height+height/2, width/2, height/2);
+			g.fillRect(x+width, y+height, width/2, height/2);
+			g.fillRect(x+width+width/2, y+height, width/2, height/2);
+			g.fillRect(x+width, y+height+height/2, width/2, height/2);
+			g.fillRect(x+width+width/2, y+height+height/2, width/2, height/2);
 		}
 		else {
 			g.setColor(Color.white);
-			g.drawRect(x, y, width, height);
-			g.drawRect(x+width, y, width, height);
-			g.drawRect(x, y+height, width, height);
-			g.drawRect(x+width, y+height, width, height);
+			g.drawRect(x+width/2, y, width/2, height/2);
+			g.drawRect(x, y+height/2, width/2, height/2);
+			g.drawRect(x, y, width/2, height/2);
+			g.drawRect(x+width/2, y+width/2, width/2, height/2);
+			g.drawRect(x+width, y, width/2, height/2);
+			g.drawRect(x+width+width/2, y, width/2, height/2);
+			g.drawRect(x+width, y+height/2, width/2, height/2);
+			g.drawRect(x+width+width/2, y+height/2, width/2, height/2);
+			g.drawRect(x, y+height, width/2, height/2);
+			g.drawRect(x+width/2, y+height, width/2, height/2);
+			g.drawRect(x, y+height+height/2, width/2, height/2);
+			g.drawRect(x+width/2, y+height+height/2, width/2, height/2);
+			g.drawRect(x+width, y+height, width/2, height/2);
+			g.drawRect(x+width+width/2, y+height, width/2, height/2);
+			g.drawRect(x+width, y+height+height/2, width/2, height/2);
+			g.drawRect(x+width+width/2, y+height+height/2, width/2, height/2);
 		}
 		
 	}
