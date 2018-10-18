@@ -74,13 +74,6 @@ public class Window {
 	 */
 	private Color background = new Color(58, 58, 58);
 
-	/**
-	 * Enum to represent direction facing.
-	 */
-	public enum Direction {
-		NORTH, EAST, SOUTH, WEST
-	}
-
 	// Components to be accessed by controller.
 	private JFileChooser fileChooser;
 	private DropPopUp dropPopUp;
@@ -96,16 +89,12 @@ public class Window {
 	private JButton down;
 	private JButton left;
 	private JButton right;
-	private ListPanel itemList;
 	private TexturedPanel inven;
-	private JMenuItem exit;
 	private JMenuItem save;
 	private JMenuItem load;
-	private JMenuItem newGame;
 	private ItemLabel selectedItem = null;
 	public boolean crouching = false;
 	public boolean standing = true;
-	protected Direction facing = Direction.NORTH;
 
 	/**
 	 * Constructor for a new Window.
@@ -178,8 +167,6 @@ public class Window {
 		// Menu items.
 		this.save = mainMenu.add("Save");
 		this.load = mainMenu.add("Load");
-		this.newGame = mainMenu.add("New game");
-		this.exit = mainMenu.add("Exit");
 		menubar.add(mainMenu);
 		menubar.add(help);
 
@@ -196,21 +183,9 @@ public class Window {
 		border.setTitleColor(Color.BLACK);
 		border.setTitleJustification(TitledBorder.CENTER);
 		inven.setBorder(border);
-		// Inventory slots.
-		 ArrayList<JLabel> slots = new ArrayList<JLabel>();
-		 this.dropPopUp = new DropPopUp();
-		 dropPopUp.setVisible(false);
-		 inven.add(dropPopUp);
-
-//		 for(int i = 0; i < 7; i++) {
-//			 slots.add(new JLabel());
-//		 }
-//
-//		 for(JLabel j : slots) {		Pickup
-//			 j.setIcon(blueprints);
-//		 inven.addItem(j);
-//		 }
-//		 System.out.println(inven.getItems().size());
+		this.dropPopUp = new DropPopUp();
+		dropPopUp.setVisible(false);
+		inven.add(dropPopUp);
 
 		frame.add(inven);
 
@@ -298,10 +273,6 @@ public class Window {
 
 	public TexturedPanel getInventory() {
 		return inven;
-	}
-
-	public ListPanel getListPanel() {
-		return itemList;
 	}
 
 	public JFileChooser getFileChooser() {

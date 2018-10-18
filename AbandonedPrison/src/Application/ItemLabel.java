@@ -9,6 +9,12 @@ import javax.swing.border.Border;
 
 import GameWorld.Item;
 
+/**
+ * Object to represent a slot in the inventory panel
+ * 
+ * @author royalliam
+ *
+ */
 public class ItemLabel {
 
 	public JLabel label;

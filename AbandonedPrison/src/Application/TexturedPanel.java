@@ -15,7 +15,8 @@ import javax.swing.border.Border;
 import GameWorld.Item;
 
 /**
- * Extends JPanel to make colored JPanels.
+ * Extends JPanel to make a modified JPanel with a background texture that also
+ * holds a list of 'items' as ItemLabels which hold an item and a JLabel
  *
  * @author liam
  *
@@ -39,7 +40,7 @@ public class TexturedPanel extends JPanel {
 		item.label.setVisible(true);
 	}
 
-	public void removeItem(Item i ) {
+	public void removeItem(Item i) {
 		items.remove(i);
 	}
 
@@ -48,8 +49,7 @@ public class TexturedPanel extends JPanel {
 	}
 
 	public void select(int i) {
-		System.out.println("yofusssk");
-		for(ItemLabel j : items) {
+		for (ItemLabel j : items) {
 			j.label.setBorder(null);
 		}
 
@@ -59,7 +59,7 @@ public class TexturedPanel extends JPanel {
 		return items.get(i);
 	}
 
-	public List<ItemLabel> getItems(){
+	public List<ItemLabel> getItems() {
 		return items;
 	}
 

@@ -3,6 +3,12 @@ package Application;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+/**
+ * Object for item click pop up menu
+ * 
+ * @author royalliam
+ *
+ */
 public class PopUp extends JPopupMenu {
 
 	private JMenuItem cancel;

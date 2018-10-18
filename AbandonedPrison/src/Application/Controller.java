@@ -16,11 +16,24 @@ import javax.swing.JLabel;
 import javax.swing.border.Border;
 import javax.xml.bind.JAXBException;
 
+import Application.Controller.ButtonDown;
+import Application.Controller.ButtonLeft;
+import Application.Controller.ButtonRight;
+import Application.Controller.ButtonUp;
+import Application.Controller.DoorPopUpListener;
+import Application.Controller.DropPopUpListener;
+import Application.Controller.Input;
+import Application.Controller.InvenClick;
+import Application.Controller.LoadAction;
+import Application.Controller.MouseInput;
+import Application.Controller.PopUpListener;
+import Application.Controller.SaveAction;
 import GameWorld.Item;
 import GameWorld.Game;
 import GameWorld.Inventory;
 import GameWorld.Player;
 import GameWorld.Room;
+import Persistence.ConvertMapEditor;
 import Persistence.GameMapComponent;
 import Persistence.LoadXml;
 
@@ -33,23 +46,24 @@ import Persistence.LoadXml;
  */
 public class Controller {
 
+	/**
+	 * Important objects and response variables to be passed between listeners
+	 */
 	private Window window; // view
 	private Game game; // model
 	private Player player;
 	private String response = null;
 	private String dropResponse = null;
 	private String doorResponse = null;
-	public Renderer.AbstractDoor door = null;
+	public Renderer.AbstractDoor door = null; // TODO Auto-generated method stub
 	public GameWorld.Item item = null;
 	public GameWorld.Item dropItem = null;
 
-
 	public Controller(Window window) {
-
 
 		GameMapComponent gameComp = null;
 		try {
-			gameComp = LoadXml.unMarshal(new File("testhello.xml"));
+			gameComp = LoadXml.unMarshal(new File("Map4.xml"));
 		} catch (JAXBException e) {
 			System.out.println("Parsing failed");
 		}
@@ -59,6 +73,8 @@ public class Controller {
 
 		this.window = window;
 		this.player = game.getPlayer();
+
+		// initialise all action and mouse listeners
 		window.getRenderer().setGame(game);
 		window.getCanvas().repaint();
 		window.getFrame().addKeyListener(new Input());
@@ -70,183 +86,200 @@ public class Controller {
 		window.getDown().addActionListener(new ButtonDown());
 		window.getLeft().addActionListener(new ButtonLeft());
 		window.getRight().addActionListener(new ButtonRight());
+		window.getDoorPopUp().getDrop().addActionListener(new DoorPopUpListener());
+		window.getDoorPopUp().getCancel().addActionListener(new DoorPopUpListener());
 		window.getDropPopUp().getCancel().addActionListener(new DropPopUpListener());
 		window.getDropPopUp().getDrop().addActionListener(new DropPopUpListener());
 		window.getPopUp().getCancel().addActionListener(new PopUpListener());
 		window.getPopUp().getPickup().addActionListener(new PopUpListener());
 		window.getFrame().requestFocus();
-
 	}
 
-	// main method for testing
+	// run game
 	public static void main(String[] args) {
 		new Controller(new Window(700, 760, "The Acid Adventure"));
 	}
-
-	// method used to set the text output
-	public void setText(String text) {
-		window.getText().setText(text);
-	}
-
 
 	/**
 	 * Method to add players current items to the inventory JPanel
 	 */
 	public void initialiseInventory() {
+		// clear panel
 		window.getInventory().removeAll();
-	//	window.getInventory().clear();
+		// add all items currently in player inventory into the inventory panel
 		for (GameWorld.Item i : player.getInventory().getInventory()) {
-			JLabel x = new JLabel();
-			x.setIcon(window.getIcon(i.getItemName()));
-			window.getInventory().add(x);
+			JLabel current = new JLabel();
+			current.setIcon(window.getIcon(i.getItemName()));
+			window.getInventory().add(current);
 		}
+		// repaint component
 		window.getInventory().repaint();
 	}
 
-
 	/**
-	 * Class for highlighting inventory items on click.
+	 * MouseListener for clicking an inventory item.
 	 */
 	public class InvenClick implements MouseListener {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
+			// click coords
 			int x = e.getX();
 			int y = e.getY();
-			System.out.println(x+" "+y);
-			//dehighlight every slot
 
-				if(x >= 14 && x <= 66 && y >= 27 && y <= 77) {
-					//null check
-					//highlight slot1
-					window.getInventory().select(0);			// TODO Auto-generated method stub
+			if (x >= 14 && x <= 66 && y >= 27 && y <= 77) {
+				if (window.getInventory().getItems().get(0) != null) {
+					window.getInventory().select(0);
 					window.setSelectedItem(window.getInventory().getItem(0));
 					window.getDropPopUp().show(window.getInventory(), e.getX(), e.getY());
 					dropItem = window.getSelectedItem().item;
 					window.getDropPopUp().setVisible(true);
-
 				}
-				if(x >= 14 && x <= 66 && y >= 91 && y <= 143) {
-					//highlight slot2
+			}
+			if (x >= 14 && x <= 66 && y >= 91 && y <= 143) {
+				if (window.getInventory().getItems().get(1) != null) {
 					window.getInventory().select(1);
 					window.setSelectedItem(window.getInventory().getItem(1));
+					window.getDropPopUp().show(window.getInventory(), e.getX(), e.getY());
+					dropItem = window.getSelectedItem().item;
+					window.getDropPopUp().setVisible(true);
 				}
-				if(x >= 14 && x <= 66 && y >= 156 && y <= 208) {
-					//highlight slot3l
+			}
+			if (x >= 14 && x <= 66 && y >= 156 && y <= 208) {
+				if (window.getInventory().getItems().get(2) != null) {
 					window.getInventory().select(2);
 					window.setSelectedItem(window.getInventory().getItem(2));
+					window.getDropPopUp().show(window.getInventory(), e.getX(), e.getY());
+					dropItem = window.getSelectedItem().item;
+					window.getDropPopUp().setVisible(true);
 				}
-				if(x >= 14 && x <= 66 && y >= 221 && y <= 274) {
-					//highlight slot4
+			}
+			if (x >= 14 && x <= 66 && y >= 221 && y <= 274) {
+				if (window.getInventory().getItems().get(3) != null) {
 					window.getInventory().select(3);
 					window.setSelectedItem(window.getInventory().getItem(3));
+					window.getDropPopUp().show(window.getInventory(), e.getX(), e.getY());
+					dropItem = window.getSelectedItem().item;
+					window.getDropPopUp().setVisible(true);
 				}
-				if(x >= 14 && x <= 66 && y >= 287 && y <= 340) {
-					//highlight slot5
+			}
+			if (x >= 14 && x <= 66 && y >= 287 && y <= 340) {
+				if (window.getInventory().getItems().get(4) != null) {
 					window.getInventory().select(4);
 					window.setSelectedItem(window.getInventory().getItem(4));
+					window.getDropPopUp().show(window.getInventory(), e.getX(), e.getY());
+					dropItem = window.getSelectedItem().item;
+					window.getDropPopUp().setVisible(true);
 				}
-				if(x >= 14 && x <= 66 && y >= 352 && y <= 405) {
-					//highlight slot6
+			}
+			if (x >= 14 && x <= 66 && y >= 352 && y <= 405) {
+				if (window.getInventory().getItems().get(5) != null) {
 					window.getInventory().select(5);
 					window.setSelectedItem(window.getInventory().getItem(5));
+					window.getDropPopUp().show(window.getInventory(), e.getX(), e.getY());
+					dropItem = window.getSelectedItem().item;
+					window.getDropPopUp().setVisible(true);
 				}
-				if(x >= 14 && x <= 66 && y >= 416 && y <= 470) {
-					//highlight slot7
-					window.getInventory().select(6);
+			}
+			if (x >= 14 && x <= 66 && y >= 416 && y <= 470) {
+				if (window.getInventory().getItems().get(6) != null) {
+					window.getInventory().select(6); // TODO Auto-generated method stub
 					window.setSelectedItem(window.getInventory().getItem(6));
+					window.getDropPopUp().show(window.getInventory(), e.getX(), e.getY());
+					dropItem = window.getSelectedItem().item;
+					window.getDropPopUp().setVisible(true);
 				}
+			}
 		}
 
-		@Override
 		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
 
 		}
 
-		@Override
 		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
 
 		}
 
-		@Override
 		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stplayer.getInventory().addItemToInventory(item);ub
-			// TODO Auto-generated method stub
 		}
 
-		@Override
 		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stubadd(new JMenuItem(""));
-
 
 		}
 
 	}
 
+	/**
+	 * ActionLister to respond to inventory drop menu response.
+	 */
 	public class DropPopUpListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
+			// get input
 			dropResponse = e.getActionCommand();
-			System.out.println(dropResponse);
-			if(dropResponse.equals("Cancel")) {
+
+			if (dropResponse.equals("Cancel")) {
 				window.getText().setText("");
 				return;
-			} else if(dropResponse.equals("Drop")) {
-				System.out.println("Cunty");
-				window.getText().setText("You dropped your "+dropItem.getItemName());
+			} else if (dropResponse.equals("Drop")) {
+				window.getText().setText("You dropped your " + dropItem.getItemName());
 				window.getDropPopUp().setVisible(false);
-				//drop the item			// TODO Auto-generated method stub
-				window.getRenderer().putDownItem(dropItem);
-				player.getInventory().removeItemFromInventory(dropItem);
-				window.getInventory().removeItem(dropItem);
-				initialiseInventory();
+				window.getRenderer().putDownItem(dropItem);// display dropped item in renderer
+				player.getInventory().removeItemFromInventory(dropItem);// remove from player inventory
+				window.getInventory().removeItem(dropItem);// remove from list of items in inventory panel
+				initialiseInventory();// refresh inventory display
 			}
 		}
 
 	}
 
+	/**
+	 * ActionListener to respond to item click menu response.
+	 */
 	public class PopUpListener implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
+			// get input
 			response = e.getActionCommand();
-			if(response.equals("Cancel")) {
+
+			if (response.equals("Cancel")) {
 				window.getText().setText("");
 				return;
-			} else if(response.equals("Pickup")) {
-				window.getText().setText("You picked up a "+item.getItemName());
-				window.getPopUp().setVisible(false);
-				window.getRenderer().pickupItem(item);
-				//render.removeItem(item);
-				//add item to players inventory and update the inventory slot.
-				player.getInventory().addItemToInventory(item);
-
-				window.getInventory().addItem(new ItemLabel(window.getIcon(item.getItemName()), item));
-				initialiseInventory();
-				window.getText().setText("You picked up an item");
+			} else if (response.equals("Pickup")) {
+				window.getText().setText("You picked up a " + item.getItemName());
+				window.getPopUp().setVisible(false);// hide menu
+				window.getRenderer().pickupItem(item);// remove item from renderer floor
+				player.getInventory().addItemToInventory(item);// add to player inventory
+				window.getInventory().addItem(new ItemLabel(window.getIcon(item.getItemName()), item));// add to
+																										// inventory
+																										// panel
+				initialiseInventory();// refresh panel display
 			}
 		}
 
 	}
 
+	/**
+	 * ActionListener to respond to door click menu response
+	 */
 	public class DoorPopUpListener implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
+			// get input
 			doorResponse = e.getActionCommand();
-			if(doorResponse.equals("Unlock")) {
-				//check inventory for key that matches door
-				for(Item i : player.getInventory().getInventory()) {
-					if(i.getItemId() == door.getDoor().getId()) {
+
+			if (doorResponse.equals("Unlock")) {
+				// check player holds the corresponding key
+				for (Item i : player.getInventory().getInventory()) {
+					if (i.getItemId() == door.getDoor().getId()) {
 						window.getRenderer().unlockDoor(door);
 						window.getText().setText("You unlocked the door");
 						return;
 					}
 				}
+				// do not have the key
 				window.getText().setText("You do not have a key to unlock this door :-(");
-
+				return;
 			} else {
 				window.getText().setText("");
 			}
@@ -261,66 +294,54 @@ public class Controller {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
+			// Receives item and door that was clicked on from the renderer.
 			Renderer.AbstractItem clickedItem = window.getRenderer().clickItem(e.getPoint());
 			Renderer.AbstractDoor clickedDoor = window.getRenderer().clickDoor(e.getPoint());
-			System.out.println("door is "+clickedDoor.getDoor().isLocked());
 
-		if(clickedItem != null) {
-			item = clickedItem.getItem();
-		}
-			//pop up menu if they choose yes
-			if(clickedItem == null) {
-				if(clickedDoor == null) {
+			// null checks
+			if (clickedItem != null)
+				item = clickedItem.getItem();
+			if (clickedDoor != null)
+				door = clickedDoor;
+
+			if (clickedItem == null) {// no item clicked thus check for door click
+				if (clickedDoor == null) {
 					window.getOutput().setText("You clicked... nothing");
-				}else {
-					door = clickedDoor;
-					if(door.getDoor().isLocked()) {
-						window.getDropPopUp().show(window.getCanvas(), e.getX(), e.getY());
+					return;
+				} else {
+					if (door.getDoor().isLocked()) {// if door is locked display pop up menu with unlock option
+						window.getDoorPopUp().show(window.getCanvas(), e.getX(), e.getY());
 						window.getDoorPopUp().setVisible(true);
 					}
 				}
-				window.getOutput().setText("You clicked... nothing");
 			} else {
-				window.getPopUp().show(window.getCanvas(),e.getX(),e.getY());
+				// display menu with the option to pickup the clicked item
+				window.getPopUp().show(window.getCanvas(), e.getX(), e.getY());
 				window.getPopUp().setVisible(true);
 			}
 		}
 
-		@Override
 		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
 
 		}
 
-		@Override
 		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
 
 		}
 
-		@Override
 		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
 
 		}
 
-		@Override
 		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
 
 		}
 
 	}
 
-	public class UseButton implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-
-			System.out.println("you used and item");
-		}
-
-	}
-
+	/**
+	 * ActionListener class for load button in top menu
+	 */
 	public class LoadAction implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
@@ -331,32 +352,44 @@ public class Controller {
 			// check if a file has been selected
 			if (result == JFileChooser.APPROVE_OPTION) {
 				LoadFile = load.getSelectedFile();
+				GameMapComponent loadGame = null;
+				try {
+					loadGame = LoadXml.unMarshal(LoadFile);
+				} catch (JAXBException e1) {
+					System.out.println("Parsing failed");
+				}
+				game = new Game(loadGame);
 				System.out.println("file" + LoadFile.getAbsolutePath());
 			}
 		}
 
 	}
 
+	/**
+	 * ActionListener class for save button in top menu
+	 */
 	public class SaveAction implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			JFileChooser save = new JFileChooser();
 			save.setDialogTitle("Save file");
 			int result = save.showSaveDialog(window.getFrame());
-			File SaveFile;
+			File SaveFile = null;
 			// check for a file
 			if (result == JFileChooser.APPROVE_OPTION) {
 				SaveFile = save.getSelectedFile();
 				System.out.println("Saved File: " + SaveFile.getAbsolutePath());
 			}
+			// save current game to a file
+			ConvertMapEditor editor = new ConvertMapEditor();
+			editor.ConvertGame(game, SaveFile);
+
 		}
 
 	}
 
 	/**
-	 * Inner class to process keyInput from the Window.
-	 *
-	 * @author liam
+	 * Key input listener implementing player movement
 	 */
 	public class Input implements KeyListener {
 
@@ -367,46 +400,51 @@ public class Controller {
 		public void keyPressed(KeyEvent e) {
 
 			if (e.getKeyChar() == 'w' || e.getKeyChar() == 'W') {
-				window.getRenderer().moveForward();
-				if(game.playerMove()) {
-					player.move(player.getDirection());
+				if (game.playerMove()) {
+					window.getRenderer().moveForward();
+					// player.move(player.getDirection());
 					updateCompass(player.getDirection());
 				}
-				System.out.println(player.getDirection());
 				window.getCanvas().repaint();
 			}
 
 			if (e.getKeyChar() == 's' || e.getKeyChar() == 'S') {
-				window.getRenderer().moveBackward();
-				//need to add player move backward here
-				updateCompass(player.getDirection());
+				if (game.playerMove()) {
+					window.getRenderer().moveBackward();
+					updateCompass(player.getDirection());
+				}
 				window.getCanvas().repaint();
 			}
 
 			if (e.getKeyChar() == 'a' || e.getKeyChar() == 'A') {
-				window.getRenderer().rotateLeft();
-				window.getCompass().setIcon(window.west);
-				player.turnLeft();
-				updateCompass(player.getDirection());
+				if (game.playerMove()) {
+					window.getRenderer().rotateLeft();
+					player.turnLeft();
+					updateCompass(player.getDirection());
+				}
 				window.getCanvas().repaint();
 			}
 
 			if (e.getKeyChar() == 'd' || e.getKeyChar() == 'D') {
-				window.getRenderer().rotateRight();
-				window.getCompass().setIcon(window.east);
-				player.turnRight();
-				updateCompass(player.getDirection());
+				if (game.playerMove()) {
+					window.getRenderer().rotateRight();
+					player.turnRight();
+					updateCompass(player.getDirection());
+				}
 				window.getCanvas().repaint();
 			}
 
+			// standing + crouching icon change on key click
 			if (e.getKeyChar() == 'c' || e.getKeyChar() == 'C') {
 				if (window.standing) {
 					window.standing = false;
 					window.crouching = true;
+					// waiting for behavior implemention
 					window.getStatus().setIcon(window.crouch);
 				} else {
 					window.standing = true;
 					window.crouching = false;
+					// waiting for behavior implemention
 					window.getStatus().setIcon(window.stand);
 				}
 			}
@@ -418,73 +456,89 @@ public class Controller {
 
 	}
 
-	//***********ADD COMPASS UPDATES FOR THESE MOVES********************
-	// Action listeners for movement buttons
+	/**
+	 * ActionListener for the up arrow JButton
+	 */
 	public class ButtonUp implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// move foward
 			window.getRenderer().moveForward();
+			updateCompass(player.getDirection());
 			window.getCanvas().repaint();
 			window.getFrame().requestFocus();
-			//window.getFrame().requestFocus(); after every move to set focus back to frame
 		}
 
 	}
 
+	/**
+	 * ActionListener for the down arrow JButton
+	 */
 	public class ButtonDown implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// move back
 			window.getRenderer().moveBackward();
+			updateCompass(player.getDirection());
 			window.getCanvas().repaint();
 			window.getFrame().requestFocus();
 		}
 
 	}
 
+	/**
+	 * ActionListener for the left arrow JButton
+	 */
 	public class ButtonLeft implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// move left
 			window.getRenderer().rotateLeft();
+			updateCompass(player.getDirection());
 			window.getCanvas().repaint();
 			window.getFrame().requestFocus();
 		}
 
 	}
 
+	/**
+	 * ActionListener for the right arrow JButton
+	 */
 	public class ButtonRight implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// move right
 			window.getRenderer().rotateRight();
+			updateCompass(player.getDirection());
 			window.getCanvas().repaint();
 			window.getFrame().requestFocus();
 		}
 
 	}
 
+	/**
+	 * Method for updating the compass icon based on the players current direction
+	 */
 	public void updateCompass(String dir) {
-		if(dir == "N") {
+		if (dir == "N") {
 			window.getCompass().setIcon(window.north);
 		}
-		if(dir == "S") {
+		if (dir == "S") {
 			window.getCompass().setIcon(window.south);
 		}
-		if(dir == "E") {
+		if (dir == "E") {
 			window.getCompass().setIcon(window.east);
 		}
-		if(dir == "W") {
+		if (dir == "W") {
 			window.getCompass().setIcon(window.west);
 		}
 	}
 
-	//some getters for testing
+	// getters and setters
 	public Player getPlayer() {
 		return player;
 	}

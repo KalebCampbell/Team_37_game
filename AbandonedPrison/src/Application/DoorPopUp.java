@@ -3,6 +3,12 @@ package Application;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+/**
+ * Object used for door click pop up menu
+ * 
+ * @author royalliam
+ *
+ */
 public class DoorPopUp extends JPopupMenu {
 
 	private JMenuItem unlock;

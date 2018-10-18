@@ -3,6 +3,12 @@ package Application;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+/**
+ * Item click pop up menu object
+ * 
+ * @author royalliam
+ *
+ */
 public class DropPopUp extends JPopupMenu {
 
 	private JMenuItem drop;
