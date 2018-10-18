@@ -128,6 +128,24 @@ public class Room implements Comparable<Room> {
 	public AbstractItem[][] getItems() {
 		return items;
 	}
+	
+	public void removeItem(GameWorld.Item item) {
+		for(int i = 0; i < items.length; i++) {
+			for(int j = 0; j < items.length; j++) {
+				if(items[i][j].getItem().equals(item))
+					items[i][j] = null;
+			}
+		}
+	}
+	
+	public void addItem(AbstractItem item) {
+		for(int i = 0; i < items.length; i++) {
+			for(int j = 0; j < items.length; j++) {
+				if(items[i][j] == null)
+					items[i][j] = item;
+			}
+		}
+	}
 
 	/**
 	 * @return the floor
@@ -150,9 +168,9 @@ public class Room implements Comparable<Room> {
 		if (this.position.getRealZ() < other.getPosition().getRealZ())
 			return 1;
 		if (Math.abs(this.position.getRealX()) > Math.abs(other.getPosition().getRealX()))
-			return -1;
-		if (Math.abs(this.position.getRealX()) < Math.abs(other.getPosition().getRealX()))
 			return 1;
+		if (Math.abs(this.position.getRealX()) < Math.abs(other.getPosition().getRealX()))
+			return -1;
 		return 0;
 	}
 }

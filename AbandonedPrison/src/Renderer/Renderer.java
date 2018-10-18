@@ -160,39 +160,49 @@ public class Renderer {
 			for (GameWorld.Item item : room.getItems()) {
 				int itemX = item.getItemLocation().getX();
 				int itemY = item.getItemLocation().getY();
-				if (item.getItemName().equals("Key")) {
-					items[itemX][itemY] = new Key(new Point3D(-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemX), -1,
-							-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemY)));
-				}
-				if (item.getItemName().equals("WoodenCrate")) {
-					items[itemX][itemY] = new WoodenCrate(
-							new Point3D(-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemX), 0,
-									-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemY)));
-				}
-				if (item.getItemName().equals("MetalCrate")) {
-					items[itemX][itemY] = new MetalCrate(
-							new Point3D(-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemX), 0,
-									-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemY)));
-				}
-				items[itemX][itemY].setItem(item);
+				items[itemX][itemY] = createItem(item);
 			}
 			createRoom(room, new Point3D(roomX, 0, -roomZ), n, s, e, w, doors, items);
 		}
+	}
+	
+	public AbstractItem createItem(GameWorld.Item item) {
+		int itemX = item.getItemLocation().getX();
+		int itemY = item.getItemLocation().getY();
+		AbstractItem currItem = null;
+		if (item.getItemName().equals("Key")) {
+			currItem = new Key(new Point3D(-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemX), -1,
+					-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemY)));
+		}
+		if (item.getItemName().equals("WoodenCrate")) {
+			currItem = new WoodenCrate(
+					new Point3D(-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemX), 0,
+							-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemY)));
+		}
+		if (item.getItemName().equals("MetalCrate")) {
+			currItem = new MetalCrate(
+					new Point3D(-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemX), 0,
+							-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemY)));
+		}
+		currItem.setItem(item);
+		return currItem;
 	}
 
 	public AbstractItem clickItem(Point click) {
 		AbstractItem item = null;
 		Room room = getCurrentRoom();
-		PriorityQueue<AbstractItem> items = room.orderItems();
-		while (!items.isEmpty()) {
-			AbstractItem currItem = items.poll();
-			if (currItem.getPosition().getRealZ() >= 0) {
-				PriorityQueue<Polygon3D> polys = currItem.getMesh().orderPolygons();
-				while (!polys.isEmpty()) {
-					Polygon3D poly = polys.poll();
-					Polygon currPoly = new Polygon(poly.xPoints3D(), poly.yPoints3D(), 3);
-					if (currPoly.contains(click)) {
-						item = currItem;
+		if (room != null) {
+			PriorityQueue<AbstractItem> items = room.orderItems();
+			while (!items.isEmpty()) {
+				AbstractItem currItem = items.poll();
+				if (currItem.getPosition().getRealZ() >= 0) {
+					PriorityQueue<Polygon3D> polys = currItem.getMesh().orderPolygons();
+					while (!polys.isEmpty()) {
+						Polygon3D poly = polys.poll();
+						Polygon currPoly = new Polygon(poly.xPoints3D(), poly.yPoints3D(), 3);
+						if (currPoly.contains(click)) {
+							item = currItem;
+						}
 					}
 				}
 			}
@@ -203,22 +213,39 @@ public class Renderer {
 	public AbstractDoor clickDoor(Point click) {
 		AbstractDoor door = null;
 		Room room = getCurrentRoom();
-		for (AbstractWall wall : room.getWalls()) {
-			if (wall instanceof AbstractDoor) {
-				AbstractDoor currDoor = (AbstractDoor) wall;
-				if (currDoor.getPosition().getRealZ() >= 0) {
-					PriorityQueue<Polygon3D> polys = currDoor.getMesh().orderPolygons();
-					while (!polys.isEmpty()) {
-						Polygon3D poly = polys.poll();
-						Polygon currPoly = new Polygon(poly.xPoints3D(), poly.yPoints3D(), 3);
-						if (currPoly.contains(click)) {
-							door = currDoor;
+		if (room != null) {
+			for (AbstractWall wall : room.getWalls()) {
+				if (wall instanceof AbstractDoor) {
+					AbstractDoor currDoor = (AbstractDoor) wall;
+					if (currDoor.getPosition().getRealZ() >= 0) {
+						PriorityQueue<Polygon3D> polys = currDoor.getMesh().orderPolygons();
+						while (!polys.isEmpty()) {
+							Polygon3D poly = polys.poll();
+							Polygon currPoly = new Polygon(poly.xPoints3D(), poly.yPoints3D(), 3);
+							if (currPoly.contains(click)) {
+								door = currDoor;
+							}
 						}
 					}
 				}
 			}
 		}
 		return door;
+	}
+	
+	public void pickupItem(GameWorld.Item item) {
+		Room room = getCurrentRoom();
+		room.removeItem(item);
+	}
+	
+	public void putDownItem(GameWorld.Item item) {
+		Room room = getCurrentRoom();
+		AbstractItem currItem = createItem(item);
+		room.addItem(currItem);
+	}
+	
+	public void unlockDoor(AbstractDoor door) {
+		door.openDoor();
 	}
 
 	/**
