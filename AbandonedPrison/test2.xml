@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<map>
+    <player>
+        <id>0</id>
+        <location>00</location>
+        <name>playerName</name>
+        <roomid>0</roomid>
+    </player>
+    <rooms>
+        <room id="0">
+            <locX>265</locX>
+            <locY>355</locY>
+        </room>
+        <room id="0">
+            <locX>265</locX>
+            <locY>420</locY>
+        </room>
+    </rooms>
+</map>

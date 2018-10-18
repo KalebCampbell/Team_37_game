@@ -140,6 +140,9 @@ public class Mesh {
 		return orderedPolygons;
 	}
 
+	/**
+	 * @return a copy of this Mesh
+	 */
 	public Mesh getCopy() {
 		Polygon3D[] copy = new Polygon3D[polygons.length];
 		for (int i = 0; i < polygons.length; i++) {
@@ -156,8 +159,6 @@ public class Mesh {
 	}
 
 	/**
-	 * Returns the polygons that make up this Mesh.
-	 *
 	 * @return the polygons that make up this Mesh
 	 */
 	public Polygon3D[] getPolygons() {
@@ -165,8 +166,6 @@ public class Mesh {
 	}
 
 	/**
-	 * Returns the center position of this Mesh.
-	 * 
 	 * @return the center position
 	 */
 	public Point3D getPosition() {

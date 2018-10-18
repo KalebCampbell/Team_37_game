@@ -20,7 +20,7 @@ import javax.swing.border.Border;
  */
 public class TexturedPanel extends JPanel {
 
-	private ArrayList<JLabel> items = new ArrayList<JLabel>();
+	private ArrayList<ItemLabel> items = new ArrayList<ItemLabel>();
 	private Image image = Toolkit.getDefaultToolkit().createImage("src/Application/inventory.png");
 
 	@Override
@@ -31,9 +31,10 @@ public class TexturedPanel extends JPanel {
 
 	}
 
-	public void addItem(JLabel item) {
-		this.add(item);
+	public void addItem(ItemLabel item) {
+		this.add(item.label);
 		items.add(item);
+		item.label.setVisible(true);
 	}
 
 	public void removeItem(int i) {
@@ -41,18 +42,21 @@ public class TexturedPanel extends JPanel {
 	}
 
 	public void select(int i) {
-		for(JLabel j : items) {
-			j.setBorder(null);
+		System.out.println("yofusssk");
+		for(ItemLabel j : items) {
+			j.label.setBorder(null);
 		}
 		Border border = BorderFactory.createLineBorder(Color.RED);
-		items.get(i).setBorder(border);;
+		System.out.println(items.get(i));
+		items.get(i).label.setBorder(border);
+		items.get(i).label.repaint();
 	}
 
-	public JLabel getItem(int i) {
+	public ItemLabel getItem(int i) {
 		return items.get(i);
 	}
 
-	public List<JLabel> getItems(){
+	public List<ItemLabel> getItems(){
 		return items;
 	}
 

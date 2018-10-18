@@ -21,10 +21,16 @@ abstract public class AbstractItem extends AbstractPiece implements Comparable<A
 		return 0;
 	}
 	
+	/**
+	 * @param value item to set
+	 */
 	public void setItem(GameWorld.Item value) {
 		this.value = value;
 	}
 
+	/**
+	 * @return item
+	 */
 	public GameWorld.Item getItem() {
 		return value;
 	}

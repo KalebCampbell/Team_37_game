@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 
 import org.junit.Test;
 
+import GameWorld.Location;
+
 public class RendererTests {
 	@Test
 	public void moveBackwardTest() {
@@ -40,7 +42,6 @@ public class RendererTests {
 		renderer.addRoom(room);
 		renderer.moveForward();
 		renderer.rotateLeft();
-		System.out.println(renderer.getRooms().get(0).getPosition().getRealX());
 		assertTrue(renderer.getRooms().get(0).getPosition().getRealX() == -Renderer.WHOLE_ROOM);
 	}
 
@@ -66,5 +67,11 @@ public class RendererTests {
 		renderer.addRoom(room2);
 		PriorityQueue<Room> rooms = renderer.orderRooms();
 		assertTrue(rooms.poll().equals(room1));
+	}
+
+	@Test
+	public void createRoomTest() {
+		Application.Controller controller = new Application.Controller(new Application.Window(700, 760, "Test"));
+		assertTrue(controller.getWindow().getRenderer().getRooms().get(0) != null);
 	}
 }
