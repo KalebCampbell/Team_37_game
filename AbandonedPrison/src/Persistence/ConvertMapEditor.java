@@ -26,6 +26,9 @@ public class ConvertMapEditor{
 	 * @author kalebcampbell
 	 * @param rooms	The list of Room objects from MapEditor
 	 */
+	public ConvertMapEditor() {
+		
+	}
 	public ConvertMapEditor(List<Room> rooms, File file){
 		
 		RoomsComponent roomMap = new RoomsComponent();
@@ -71,7 +74,7 @@ public class ConvertMapEditor{
 		PlayerComponent player = new PlayerComponent();
 		player.setId("0");
 		player.setName("playerName");
-		player.setLocation("0,0");
+		player.setLocation("4,3");
 		player.setRoomid("0");
 		
 		//sets the gameMap
@@ -133,14 +136,21 @@ public class ConvertMapEditor{
 			
 			
 		}
+		
 		//String id = (String)game.getPlayer().getPlayerId();
 		//Player player = new PlayerComponent(game.getPlayer().getPlayerId(), game.getPlayer().getRoomId(), game.getPlayer().getPlayerName(), game.getPlayer().getPlayerLocation());
 		//Player playerlol = new PlayerComponent(id, roomid, name, location)
-//		try {
-//			InitialiseMap.toXml(gameMap);
-//		} catch (JAXBException e) {
-//			e.printStackTrace();
-//		}
+		GameMapComponent gameMap = new GameMapComponent();
+		
+	
+		gameMap.setRooms(roomMap);
+		
+		
+		try {
+			InitialiseMap.toXml(gameMap);
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
