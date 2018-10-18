@@ -30,21 +30,40 @@ public class ConvertMapEditor{
 		
 		RoomsComponent roomMap = new RoomsComponent();
 		roomMap.setRooms(new ArrayList<RoomComponent>());
-		List<ItemComponent> items = new ArrayList<>();
-		List<DoorComponent> doors = new ArrayList<>();
+		
+		int i = 0;
+		int r = 0;
 		for(Room room :rooms) {
-			int i = 0;
+			
+			List<ItemComponent> items = new ArrayList<>();
+			List<DoorComponent> doors = new ArrayList<>();
 			
 			for(int k = 0; k < room.getitems().size(); k++) {
-				items.add(new ItemComponent(room.getX()/60, room.getY()/60, room.getitems().get(k), i));
+				if(room.getitems().get(k) == "Key") {
+					items.add(new ItemComponent(room.getkey().getX(), room.getkey().getY(), room.getitems().get(k), i));
+				i++;
+				}
+				else if(room.getitems().get(k) == "Magic"){
+					items.add(new ItemComponent(room.getM().getX(), room.getM().getY(), room.getitems().get(k), i));
+					i++;
+				}
+				else if(room.getitems().get(k) == "Treasure"){
+					items.add(new ItemComponent(room.getT().getX(), room.getT().getY(), room.getitems().get(k), i));
+					i++;
+				}
 			}
 			
-			for(int k = 0; k < room.getdoors().size(); k++) {
-				doors.add(new DoorComponent("Wooden", i, room.getwalls().get(k), true));
+			for(int l = 0; l < room.getdoors().size(); l++) {
+				boolean lock=false;
+				if(room.key) {
+					lock=true;
+				}
+				doors.add(new DoorComponent("Wooden", 1, room.getdoors().get(l), lock));
+				System.out.println(room.getdoors().get(l));
 			}
-			roomMap.Rooms().add(new RoomComponent(i, room.getX()/60, room.getY()/60, room.getwalls(), null,items, null));
+			roomMap.Rooms().add(new RoomComponent(r, room.getX()/60, room.getY()/60, room.getwalls(), doors,items, null));
 			
-			i ++;
+			r++;
 		}
 		
 		//SETS STUFF NOT RELEVANT FOR SAVE FROM MAPEDITOR
@@ -52,7 +71,7 @@ public class ConvertMapEditor{
 		PlayerComponent player = new PlayerComponent();
 		player.setId("0");
 		player.setName("playerName");
-		player.setLocation("00");
+		player.setLocation("0,0");
 		player.setRoomid("0");
 		
 		//sets the gameMap
@@ -114,7 +133,7 @@ public class ConvertMapEditor{
 			
 			
 		}
-		
+		//String id = (String)game.getPlayer().getPlayerId();
 		//Player player = new PlayerComponent(game.getPlayer().getPlayerId(), game.getPlayer().getRoomId(), game.getPlayer().getPlayerName(), game.getPlayer().getPlayerLocation());
 		//Player playerlol = new PlayerComponent(id, roomid, name, location)
 //		try {

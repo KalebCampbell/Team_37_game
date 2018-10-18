@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<map>
+    <player>
+        <id>0</id>
+        <location>0,0</location>
+        <name>playerName</name>
+        <roomid>0</roomid>
+    </player>
+    <rooms>
+        <room id="0">
+            <doors>
+                <direction>N</direction>
+                <door>Wooden</door>
+                <id>1</id>
+                <locked>true</locked>
+            </doors>
+            <doors>
+                <direction>S</direction>
+                <door>Wooden</door>
+                <id>1</id>
+                <locked>true</locked>
+            </doors>
+            <locX>4</locX>
+            <locY>3</locY>
+            <walls>W</walls>
+        </room>
+    </rooms>
+</map>

@@ -23,7 +23,7 @@ public class Room {
 	boolean rightDoor=false;
 	boolean topDoor=false;
 	boolean downDoor=false;
-	boolean key=false;
+	public boolean key=false;
 	boolean magic1=false;
 	boolean treasure1=false;
 	boolean light=false;

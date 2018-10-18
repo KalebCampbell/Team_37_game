@@ -2,18 +2,12 @@
 <map>
     <player>
         <id>0</id>
-        <location>00</location>
+        <location>0,0</location>
         <name>playerName</name>
         <roomid>0</roomid>
     </player>
     <rooms>
         <room id="0">
-            <items>
-                <id>0</id>
-                <item>Key</item>
-                <posX>4</posX>
-                <posY>3</posY>
-            </items>
             <locX>4</locX>
             <locY>3</locY>
         </room>

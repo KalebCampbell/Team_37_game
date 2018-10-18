@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<map>
+    <player>
+        <id>0</id>
+        <location>0,0</location>
+        <name>playerName</name>
+        <roomid>0</roomid>
+    </player>
+    <rooms>
+        <room id="0">
+            <locX>4</locX>
+            <locY>3</locY>
+        </room>
+        <room id="1">
+            <items>
+                <id>0</id>
+                <item>Magic</item>
+                <posX>2</posX>
+                <posY>1</posY>
+            </items>
+            <locX>4</locX>
+            <locY>2</locY>
+        </room>
+        <room id="2">
+            <items>
+                <id>0</id>
+                <item>Key</item>
+                <posX>1</posX>
+                <posY>1</posY>
+            </items>
+            <locX>3</locX>
+            <locY>2</locY>
+        </room>
+    </rooms>
+</map>
