@@ -10,17 +10,17 @@ import java.io.File;
  */
 public class WoodenCrate extends AbstractCrate {
 
-	/**
-	 * WoodenCrate constructor.
-	 * 
-	 * @param position
-	 *            the center position of this object
-	 */
-	public WoodenCrate(Point3D position) {
-		this.mesh = Renderer.loadMesh(new File("Models/crate.txt"));
-		this.mesh = mesh.translate(position.getX(), position.getY(), position.getZ());
-		this.position = position;
-		this.color = new Color(117, 70, 43);
-		setPolygonColors(color);
-	}
+  /**
+   * WoodenCrate constructor.
+   * 
+   * @param position
+   *          the center position of this object
+   */
+  public WoodenCrate(Point3D position) {
+    this.mesh = Renderer.loadMesh(new File("Models/crate.txt"));
+    this.mesh = mesh.translate(position.getX(), position.getY(), position.getZ());
+    this.position = position;
+    this.color = new Color(117, 70, 43);
+    setPolygonColors(color);
+  }
 }

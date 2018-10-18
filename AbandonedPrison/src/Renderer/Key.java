@@ -10,17 +10,17 @@ import java.io.File;
  */
 public class Key extends AbstractItem {
 
-	/**
-	 * Key constructor.
-	 * 
-	 * @param position
-	 *            the center position of this object
-	 */
-	public Key(Point3D position) {
-		this.mesh = Renderer.loadMesh(new File("Models/key.txt"));
-		this.mesh = mesh.translate(position.getRealX(), position.getRealY(), position.getRealZ());
-		this.position = position;
-		this.color = new Color(255, 255, 0);
-		setPolygonColors(color);
-	}
+  /**
+   * Key constructor.
+   * 
+   * @param position
+   *          the center position of this object
+   */
+  public Key(Point3D position) {
+    this.mesh = Renderer.loadMesh(new File("Models/key.txt"));
+    this.mesh = mesh.translate(position.getRealX(), position.getRealY(), position.getRealZ());
+    this.position = position;
+    this.color = new Color(255, 255, 0);
+    setPolygonColors(color);
+  }
 }

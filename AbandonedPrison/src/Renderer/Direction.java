@@ -6,5 +6,5 @@ package Renderer;
  * @author Joel Harris
  */
 public enum Direction {
-	SIDE, FRONT;
+  SIDE, FRONT;
 }

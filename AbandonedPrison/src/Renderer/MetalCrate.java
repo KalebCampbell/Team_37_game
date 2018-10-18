@@ -9,18 +9,18 @@ import java.io.File;
  * @author Joel Harris
  */
 public class MetalCrate extends AbstractCrate {
-	
-	/**
-	 * MetalCrate constructor.
-	 * 
-	 * @param position
-	 *            the center position of this object
-	 */
-	public MetalCrate(Point3D position) {
-		this.mesh = Renderer.loadMesh(new File("Models/crate.txt"));
-		this.mesh = mesh.translate(position.getX(), position.getY(), position.getZ());
-		this.position = position;
-		this.color = new Color(70, 70, 70);
-		setPolygonColors(color);
-	}
+
+  /**
+   * MetalCrate constructor.
+   * 
+   * @param position
+   *          the center position of this object
+   */
+  public MetalCrate(Point3D position) {
+    this.mesh = Renderer.loadMesh(new File("Models/crate.txt"));
+    this.mesh = mesh.translate(position.getX(), position.getY(), position.getZ());
+    this.position = position;
+    this.color = new Color(70, 70, 70);
+    setPolygonColors(color);
+  }
 }
