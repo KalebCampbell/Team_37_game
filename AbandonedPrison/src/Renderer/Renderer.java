@@ -88,8 +88,8 @@ public class Renderer {
 	 * @param items
 	 *            the 2d array of Items to be put on the floor
 	 */
-	public void createRoom(Point3D position, boolean northWall, boolean southWall, boolean eastWall, boolean westWall,
-			boolean northDoor, boolean southDoor, boolean eastDoor, boolean westDoor, AbstractItem[][] items) {
+	public void createRoom(GameWorld.Room room, Point3D position, boolean northWall, boolean southWall,
+			boolean eastWall, boolean westWall, ArrayList<GameWorld.Door> doors, AbstractItem[][] items) {
 		ArrayList<AbstractWall> walls = new ArrayList<AbstractWall>();
 		if (eastWall)
 			walls.add(new SideWall(
@@ -103,25 +103,32 @@ public class Renderer {
 		if (southWall)
 			walls.add(new FrontWall(
 					new Point3D(position.getRealX(), position.getRealY(), position.getRealZ() - HALF_ROOM)));
-		if (eastDoor) {
-			AbstractWall east = (new SideDoor(
-					new Point3D(position.getRealX() + HALF_ROOM, position.getRealY(), position.getRealZ())));
-			walls.add(east);
-		}
-		if (westDoor) {
-			AbstractWall west = (new SideDoor(
-					new Point3D(position.getRealX() - HALF_ROOM, position.getRealY(), position.getRealZ())));
-			walls.add(west);
-		}
-		if (northDoor) {
-			AbstractWall north = (new FrontDoor(
-					new Point3D(position.getRealX(), position.getRealY(), position.getRealZ() + HALF_ROOM)));
-			walls.add(north);
-		}
-		if (southDoor) {
-			AbstractWall south = (new FrontDoor(
-					new Point3D(position.getRealX(), position.getRealY(), position.getRealZ() - HALF_ROOM)));
-			walls.add(south);
+		for (GameWorld.Door door : room.getDoors()) {
+			String str = door.getDirection();
+			if (str.equals("N")) {
+				FrontDoor currDoor = new FrontDoor(
+						new Point3D(position.getRealX(), position.getRealY(), position.getRealZ() + HALF_ROOM));
+				currDoor.setDoor(door);
+				walls.add(currDoor);
+			}
+			if (str.equals("E")) {
+				SideDoor currDoor = new SideDoor(
+						new Point3D(position.getRealX() + HALF_ROOM, position.getRealY(), position.getRealZ()));
+				currDoor.setDoor(door);
+				walls.add(currDoor);
+			}
+			if (str.equals("S")) {
+				FrontDoor currDoor = new FrontDoor(
+						new Point3D(position.getRealX(), position.getRealY(), position.getRealZ() - HALF_ROOM));
+				currDoor.setDoor(door);
+				walls.add(currDoor);
+			}
+			if (str.equals("W")) {
+				SideDoor currDoor = new SideDoor(
+						new Point3D(position.getRealX() - HALF_ROOM, position.getRealY(), position.getRealZ()));
+				currDoor.setDoor(door);
+				walls.add(currDoor);
+			}
 		}
 		for (int i = 0; i < ITEMS_SIZE; i++) {
 			for (int j = 0; j < ITEMS_SIZE; j++) {
@@ -135,8 +142,8 @@ public class Renderer {
 	public void setGame(Game game) {
 		ArrayList<GameWorld.Room> rooms = (ArrayList<GameWorld.Room>) game.getRooms();
 		for (GameWorld.Room room : rooms) {
+			ArrayList<GameWorld.Door> doors = new ArrayList<GameWorld.Door>();
 			boolean n = false, e = false, s = false, w = false;
-			boolean nd = false, ed = false, sd = false, wd = false;
 			int roomX = room.getLocation().getX() * HALF_ROOM;
 			int roomZ = room.getLocation().getY() * HALF_ROOM;
 			for (String str : room.getWalls()) {
@@ -148,16 +155,6 @@ public class Renderer {
 					s = true;
 				if (str.equals("W"))
 					w = true;
-			}
-			for (String str : room.getDoors()) {
-				if (str.equals("N"))
-					nd = true;
-				if (str.equals("E"))
-					ed = true;
-				if (str.equals("S"))
-					sd = true;
-				if (str.equals("W"))
-					wd = true;
 			}
 			AbstractItem[][] items = new AbstractItem[4][4];
 			for (GameWorld.Item item : room.getItems()) {
@@ -179,7 +176,7 @@ public class Renderer {
 				}
 				items[itemX][itemY].setItem(item);
 			}
-			createRoom(new Point3D(roomX, 0, -roomZ), n, s, e, w, nd, sd, ed, wd, items);
+			createRoom(room, new Point3D(roomX, 0, -roomZ), n, s, e, w, doors, items);
 		}
 	}
 
@@ -201,6 +198,27 @@ public class Renderer {
 			}
 		}
 		return item;
+	}
+
+	public AbstractDoor clickDoor(Point click) {
+		AbstractDoor door = null;
+		Room room = getCurrentRoom();
+		for (AbstractWall wall : room.getWalls()) {
+			if (wall instanceof AbstractDoor) {
+				AbstractDoor currDoor = (AbstractDoor) wall;
+				if (currDoor.getPosition().getRealZ() >= 0) {
+					PriorityQueue<Polygon3D> polys = currDoor.getMesh().orderPolygons();
+					while (!polys.isEmpty()) {
+						Polygon3D poly = polys.poll();
+						Polygon currPoly = new Polygon(poly.xPoints3D(), poly.yPoints3D(), 3);
+						if (currPoly.contains(click)) {
+							door = currDoor;
+						}
+					}
+				}
+			}
+		}
+		return door;
 	}
 
 	/**
