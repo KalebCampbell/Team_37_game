@@ -95,7 +95,7 @@ public class ConvertMapEditor{
 	 * @author kalebcampbell
 	 * @param game
 	 */
-	public void ConvertGame(Game game) {
+	public void ConvertGame(Game game, File file) {
 
 		
 		//iterates through all the rooms and translates them all into roomComponents and then put into a roomsComponent.
