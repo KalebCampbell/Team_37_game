@@ -27,6 +27,9 @@ public class Room {
 	boolean magic1=false;
 	boolean treasure1=false;
 	boolean light=false;
+	Point p1;
+	Point p2;
+	Point p3;
 	
 	public Room(int x,int y,int width,int height) {
 		this.x=x;
@@ -109,15 +112,27 @@ public class Room {
 	}
 	public Point haveKey(int x2,int y2) {
 		key=true;
-		return new Point(x2,y2);
+		p1=new Point(x2,y2);
+		return p1;
 	}
 	public Point magic11(int x2,int y2) {
 		magic1=true;
-		return new Point(x2,y2);
+		p2=new Point(x2,y2);
+		return p2;
 	}
 	public Point treasure11(int x2,int y2) {
 		treasure1=true;
-		return new Point(x2,y2);
+		p3=new Point(x2,y2);
+		return p3;
+	}
+	public Point getkey() {
+		return p1;
+	}
+	public Point getM() {
+		return p2;
+	}
+	public Point getT() {
+		return p3;
 	}
 	
 	/**
