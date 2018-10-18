@@ -128,20 +128,32 @@ public class Room implements Comparable<Room> {
 	public AbstractItem[][] getItems() {
 		return items;
 	}
-	
+
+	/**
+	 * Removes an item from a Room, if it's present.
+	 * 
+	 * @param item
+	 *            to be removed
+	 */
 	public void removeItem(GameWorld.Item item) {
-		for(int i = 0; i < items.length; i++) {
-			for(int j = 0; j < items.length; j++) {
-				if(items[i][j].getItem().equals(item))
+		for (int i = 0; i < items.length; i++) {
+			for (int j = 0; j < items.length; j++) {
+				if (items[i][j].getItem().equals(item))
 					items[i][j] = null;
 			}
 		}
 	}
-	
+
+	/**
+	 * Adds an item to a Room.
+	 * 
+	 * @param item
+	 *            to be added
+	 */
 	public void addItem(AbstractItem item) {
-		for(int i = 0; i < items.length; i++) {
-			for(int j = 0; j < items.length; j++) {
-				if(items[i][j] == null)
+		for (int i = 0; i < items.length; i++) {
+			for (int j = 0; j < items.length; j++) {
+				if (items[i][j] == null)
 					items[i][j] = item;
 			}
 		}

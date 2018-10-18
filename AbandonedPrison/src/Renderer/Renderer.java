@@ -75,6 +75,8 @@ public class Renderer {
 	 * Creates a Room at the given point with 0 - 4 walls and a 2d array of Items on
 	 * the floor.
 	 *
+	 * @param room
+	 *            the GameWorld room associated with this room
 	 * @param position
 	 *            center of the room
 	 * @param northWall
@@ -85,6 +87,8 @@ public class Renderer {
 	 *            whether there is a east wall
 	 * @param westWall
 	 *            whether there is a west wall
+	 * @param doors
+	 *            the doors associated with this room
 	 * @param items
 	 *            the 2d array of Items to be put on the floor
 	 */
@@ -139,6 +143,12 @@ public class Renderer {
 		rooms.add(new Room(position, walls, items, new Floor(position)));
 	}
 
+	/**
+	 * Used to load a map from a game object.
+	 * 
+	 * @param game
+	 *            the game to be loaded
+	 */
 	public void setGame(Game game) {
 		ArrayList<GameWorld.Room> rooms = (ArrayList<GameWorld.Room>) game.getRooms();
 		for (GameWorld.Room room : rooms) {
@@ -165,7 +175,14 @@ public class Renderer {
 			createRoom(room, new Point3D(roomX, 0, -roomZ), n, s, e, w, doors, items);
 		}
 	}
-	
+
+	/**
+	 * Creates and returns an item associated with a GameWorld.Item.
+	 * 
+	 * @param item
+	 *            item to be made
+	 * @return created item
+	 */
 	public AbstractItem createItem(GameWorld.Item item) {
 		int itemX = item.getItemLocation().getX();
 		int itemY = item.getItemLocation().getY();
@@ -175,19 +192,24 @@ public class Renderer {
 					-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemY)));
 		}
 		if (item.getItemName().equals("WoodenCrate")) {
-			currItem = new WoodenCrate(
-					new Point3D(-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemX), 0,
-							-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemY)));
+			currItem = new WoodenCrate(new Point3D(-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemX), 0,
+					-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemY)));
 		}
 		if (item.getItemName().equals("MetalCrate")) {
-			currItem = new MetalCrate(
-					new Point3D(-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemX), 0,
-							-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemY)));
+			currItem = new MetalCrate(new Point3D(-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemX), 0,
+					-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemY)));
 		}
 		currItem.setItem(item);
 		return currItem;
 	}
 
+	/**
+	 * Returns the item at the given Point on the screen - if there is one.
+	 * 
+	 * @param click
+	 *            the coords to be checked
+	 * @return the item at the clicks coords on the screen
+	 */
 	public AbstractItem clickItem(Point click) {
 		AbstractItem item = null;
 		Room room = getCurrentRoom();
@@ -210,6 +232,13 @@ public class Renderer {
 		return item;
 	}
 
+	/**
+	 * Returns the door at the given Point on the screen - if there is one.
+	 * 
+	 * @param click
+	 *            the coords to be checked
+	 * @return the door at the clicks coords on the screen
+	 */
 	public AbstractDoor clickDoor(Point click) {
 		AbstractDoor door = null;
 		Room room = getCurrentRoom();
@@ -232,18 +261,18 @@ public class Renderer {
 		}
 		return door;
 	}
-	
+
 	public void pickupItem(GameWorld.Item item) {
 		Room room = getCurrentRoom();
 		room.removeItem(item);
 	}
-	
+
 	public void putDownItem(GameWorld.Item item) {
 		Room room = getCurrentRoom();
 		AbstractItem currItem = createItem(item);
 		room.addItem(currItem);
 	}
-	
+
 	public void unlockDoor(AbstractDoor door) {
 		door.openDoor();
 	}
@@ -349,6 +378,9 @@ public class Renderer {
 	/**
 	 * Is called every time the drawing canvas is drawn. This will print the
 	 * polygons on the screen.
+	 * 
+	 * @param g
+	 *            graphics object to be drawn on
 	 */
 	public void render(Graphics g) {
 		PriorityQueue<Room> orderedRooms = orderRooms();
@@ -433,6 +465,11 @@ public class Renderer {
 		}
 	}
 
+	/**
+	 * Gets the room at the coords (0, 0).
+	 * 
+	 * @return the current origin room
+	 */
 	public Room getCurrentRoom() {
 		for (Room room : rooms) {
 			Point3D pos = room.getPosition();

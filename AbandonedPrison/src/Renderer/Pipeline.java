@@ -32,13 +32,14 @@ public class Pipeline {
 	}
 
 	/**
-	 * Calculates the color for a polygon to be drawn in based on the incident lighting.
+	 * Calculates the color for a polygon to be drawn in based on the incident
+	 * lighting.
 	 *
 	 * @param poly
 	 *            to be shaded
 	 * @param lightDirection
 	 *            direction of incident light source
-	 * @return the color of this polygon
+	 * @return the color of this polygon in relation to light sources
 	 */
 	public static Color getShading(Polygon3D poly, float[] lightDirection) {
 		float[] incidentLight = lightDirection;
