@@ -10,11 +10,11 @@ public class DoorComponent {
 	
 
 	int id; 
-	List<String> direction;
+	String direction;
 	boolean locked;
 	
 	
-	public DoorComponent(int id, List<String> direction, boolean locked) {
+	public DoorComponent(int id, String direction, boolean locked) {
 		this.id = id;
 		this.direction = direction;
 		this.locked = locked;
@@ -30,11 +30,11 @@ public class DoorComponent {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public List<String> getDoors() {
+	public String getDoor() {
 		return direction;
 	}
 	@XmlAttribute
-	public void setDoors(List<String> doors) {
+	public void setDoor(String doors) {
 		this.direction = doors;
 	}
 	public boolean isLocked() {

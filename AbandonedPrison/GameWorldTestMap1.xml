@@ -18,12 +18,16 @@
             <locY>0</locY>
             <walls>S</walls>
             <walls>W</walls>
-            <walls>E</walls>
             <doors>
     				<id>1</id>
     				<direction>N</direction>
     				<locked>true</locked>
             </doors>
+             <doors>
+    				<id>2</id>
+    				<direction>E</direction>
+    				<locked>true</locked>
+            </doors>   
         </room>
     </rooms>
 </map>

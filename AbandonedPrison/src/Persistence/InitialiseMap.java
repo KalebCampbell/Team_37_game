@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class InitialiseMap {
 	
-/*	//Creates the original player object
+	//Creates the original player object
 	static PlayerComponent player = new PlayerComponent();
 	static {
 		player.setId("0");
@@ -34,19 +34,19 @@ public class InitialiseMap {
 				walls1.add("E");
 				walls1.add("W");
 		//list of doors
-		
+		List<DoorComponent> doors1 = new ArrayList<>();
 		//list of items
 				List<ItemComponent> items1 = new ArrayList<>();
 				items1.add(new ItemComponent(0, 0, "Key", 0));
 				items1.add(new ItemComponent(1, 1, "Fuse", 0));
 				items1.add(new ItemComponent(2, 2, "Key", 1));
-		RoomComponent room1  = new RoomComponent(1, 1, 1, walls1, doors1, items1);
+		RoomComponent room1  = new RoomComponent(1, 1, 1, walls1, doors1, items1, null);
 		//Room 2.
 		List<String> walls2 = new ArrayList<>();
 			walls2.add("S");
 		List<ItemComponent> items2 = new ArrayList<>();
 			items2.add(new ItemComponent(0, 0, null, 0));
-		RoomComponent room2  = new RoomComponent(2, 2, 1, walls2, doors1, items2);
+		RoomComponent room2  = new RoomComponent(2, 2, 1, walls2, doors1, items2, null);
 		//Room 3.
 		List<String> walls3 = new ArrayList<>();
 			walls3.add("S");
@@ -54,7 +54,7 @@ public class InitialiseMap {
 			walls3.add("N");
 		List<ItemComponent> items3= new ArrayList<>();
 			items3.add(new ItemComponent(0, 0, null, 0));
-		RoomComponent room3  = new RoomComponent(3, 0, 2, walls3, doors1, items3);
+		RoomComponent room3  = new RoomComponent(3, 0, 2, walls3, doors1, items3, null);
 		
 		//Room 4.
 		List<String> walls4 = new ArrayList<>();
@@ -62,7 +62,7 @@ public class InitialiseMap {
 			walls4.add("E");
 		List<ItemComponent> items4= new ArrayList<>();
 			items4.add(new ItemComponent(0, 0, null, 0));
-		RoomComponent room4  = new RoomComponent(4, 2, 2, walls4, doors1, items4);
+		RoomComponent room4  = new RoomComponent(4, 2, 2, walls4, doors1, items4, null);
 		//Room 5.
 		List<String> walls5 = new ArrayList<>();
 			walls5.add("S");
@@ -71,7 +71,7 @@ public class InitialiseMap {
 			doors2.add("E");
 		List<ItemComponent> items5= new ArrayList<>();
 			items5.add(new ItemComponent(1, 1, "Key", 0));
-		RoomComponent room5  = new RoomComponent(5, 2, 3, walls5, doors2, items5);
+		RoomComponent room5  = new RoomComponent(5, 2, 3, walls5, doors1, items5, null);
 		//Room 5.
 				List<String> walls6 = new ArrayList<>();
 					walls6.add("N");
@@ -80,7 +80,7 @@ public class InitialiseMap {
 				List<ItemComponent> items6= new ArrayList<>();
 					items6.add(new ItemComponent(1, 1, null, 0));
 	
-				RoomComponent room6  = new RoomComponent(6, 2, 3, walls6, doors1, items6);
+				RoomComponent room6  = new RoomComponent(6, 2, 3, walls6, doors1, items6, null);
 				
 		
 		
@@ -113,9 +113,9 @@ public class InitialiseMap {
 		inventory.add(null);
 		inventory.add(null);
 		inventory.add(null);
-		gameMap.setInventory(inventory);*/
+		gameMap.setInventory(inventory);
 		
-	//}
+	}
 	
 	/**
 	 * @param args
@@ -125,7 +125,7 @@ public class InitialiseMap {
 	 * This method calls the toXml method.
 	 */
 	public static void main(String[] args) throws JAXBException{
-		//toXml(gameMap);
+		toXml(gameMap);
 		
 		
 		//This calls the LoadXml class to start unmarshalling. 
