@@ -1,104 +1,151 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <map>
     <player>
-        <id>5</id>
+        <id>99</id>
         <location>0,0</location>
-        <name>PlayerOne</name>
+        <name>Player1</name>
         <roomid>1</roomid>
     </player>
-    <rooms>
-        <room id="1">
-            <items>
-                <posX>0</posX>
-                <posY>0</posY>
-            </items>
-            <locX>-1</locX>
-            <locY>-2</locY>
+		<rooms>
+        	<room id="1">
+            	<items>
+                	<item>Key</item>
+                	<posX>0</posX>
+                	<posY>1</posY>
+            	</items>
+            	<doors>
+					<door>Door</door>
+					<direction>N</direction>
+					<id>1</id>
+					<locked>N</locked>
+				</doors>
+           	<locX>0</locX>
+            <locY>0</locY>
+            <walls>S</walls>
+        	</room>
+        	<room id="2">
+            	<doors>
+					<door>Door</door>
+					<direction>N</direction>
+					<id>2</id>
+					<locked>N</locked>
+				</doors>
+			 	<doors>
+					<door>Door</door>
+					<direction>E</direction>
+					<id>3</id>
+					<locked>N</locked>
+				</doors>
+            <locX>0</locX>
+            <locY>-1</locY>
             <walls>N</walls>
             <walls>W</walls>
-            <doors>E</doors>
-            <doors>S</doors>
-        </room>
-        <room id="2">
-            <items>
-                <posX>0</posX>
-                <posY>0</posY>
-            </items>
-            <locX>0</locX>
-            <locY>-2</locY>
-            <walls>S</walls>
-            <walls>N</walls>
-            <doors>E</doors>
-            <doors>W</doors>
         </room>
         <room id="3">
-            <items>
-                <posX>0</posX>
-                <posY>0</posY>
-            </items>
+            <doors>
+				<door>Door</door>
+				<direction>E</direction>
+				<id>4</id>
+				<locked>N</locked>
+			</doors>
+			 <doors>
+				<door>Door</door>
+				<direction>S</direction>
+				<id>5</id>
+				<locked>N</locked>
+			</doors>
             <locX>1</locX>
-            <locY>-2</locY>
+            <locY>-1</locY>
             <walls>N</walls>
-            <walls>S</walls>
-            <doors>W</doors>
-            <doors>E</doors>
         </room>
         <room id="4">
-            <items>
-                <posX>0</posX>
-                <posY>0</posY>
-            </items>
+            <doors>
+				<door>Door</door>
+				<direction>S</direction>
+				<id>6</id>
+				<locked>N</locked>
+			</doors>
+			 <doors>
+				<door>Door</door>
+				<direction>E</direction>
+				<id>7</id>
+				<locked>N</locked>
+			</doors>
             <locX>2</locX>
-            <locY>-2</locY>
-            <walls>N</walls>
-            <walls>E</walls>
-            <walls>S</walls>
-            <doors>W</doors>
-        </room>
-         <room id="5">
-            <items>
-                <posX>0</posX>
-                <posY>0</posY>
-            </items>
-            <locX>1</locX>
             <locY>-1</locY>
-            <walls>E</walls>
+            <walls>N</walls>
+        </room>
+        <room id="5">
+            <doors>
+				<door>Door</door>
+				<direction>S</direction>
+				<id>6</id>
+				<locked>N</locked>
+			</doors>
+			 <doors>
+				<door>Door</door>
+				<direction>W</direction>
+				<id>7</id>
+				<locked>N</locked>
+			</doors>
+            <locX>2</locX>
+            <locY>0</locY>
+            <walls>S</walls>
             <walls>W</walls>
-            <doors>N</doors>
-            <doors>S</doors>
         </room>
         <room id="6">
-            <items>
-                <posX>0</posX>
-                <posY>0</posY>
-            </items>
-            <locX>0</locX>
-            <locY>-1</locY>
-            <walls>N</walls>
-            <walls>W</walls>
-            <doors>E</doors>
-            <doors>S</doors>
-        </room>  
-        <room id="15">
-            <items>
-                <item>Key</item>
-                	<posX>1</posX>
-                	<posY>1</posY>
-                	<id>1</id>
-            	</items>
-            <containers>
-            	<container>WoodenBox</container>
-            	<posX>2</posX>
-            	<posY>2</posY>
-            	<id>1</id>
-            	<locked>Y</locked>
-            </containers>
-            <locX>1</locX>
-            <locY>-1</locY>
-            <walls>S</walls>
-            <walls>W</walls>
+            <doors>
+				<door>Door</door>
+				<direction>N</direction>
+				<id>8</id>
+				<locked>N</locked>
+			</doors>
+			 <doors>
+				<door>Door</door>
+				<direction>W</direction>
+				<id>9</id>
+				<locked>N</locked>
+			</doors>
+			<doors>
+				<door>Door</door>
+				<direction>S</direction>
+				<id>10</id>
+				<locked>N</locked>
+			</doors>
+            <locX>3</locX>
+            <locY>0</locY>
             <walls>E</walls>
-            <doors>N</doors>
+        </room>
+        <room id="7">
+            <doors>
+				<door>Door</door>
+				<direction>E</direction>
+				<id>12</id>
+				<locked>Y</locked>
+			</doors>
+			 <doors>
+				<door>Door</door>
+				<direction>S</direction>
+				<id>13</id>
+				<locked>N</locked>
+			</doors>
+            <locX>3</locX>
+            <locY>-1</locY>
+            <walls>W</walls>
+            <walls>N</walls>
+        </room>
+        <room id="8">
+            <doors>
+				<door>Door</door>
+				<direction>E</direction>
+				<id>12</id>
+				<locked>N</locked>
+			</doors>
+            <locX>4</locX>
+            <locY>-1</locY>
+            <walls>E</walls>
+            <walls>N</walls>
+            <walls>S</walls>
         </room>
     </rooms>
 </map>
