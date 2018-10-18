@@ -38,7 +38,8 @@ public class Controller {
 	private Player player;
 	private String response = null;
 	private String dropResponse = null;
-	public GameWorld.Door door = null;
+	private String doorResponse = null;
+	public Renderer.AbstractDoor door = null;
 	public GameWorld.Item item = null;
 	public GameWorld.Item dropItem = null;
 
@@ -87,24 +88,6 @@ public class Controller {
 		window.getText().setText(text);
 	}
 
-	/**
-	 * Listener for drop button
-	 */
-	public class DropListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(window.getSelectedItem()!=null) {
-				for(JLabel i : window.getInventory().getItems()) {
-
-					System.out.println(i.getIcon());
-				}
-			}
-
-		}
-
-	}
-
 
 	/**
 	 * Method to add players current items to the inventory JPanel
@@ -136,7 +119,7 @@ public class Controller {
 				if(x >= 14 && x <= 66 && y >= 27 && y <= 77) {
 					//null check
 					//highlight slot1
-					window.getInventory().select(0);
+					window.getInventory().select(0);			// TODO Auto-generated method stub
 					window.setSelectedItem(window.getInventory().getItem(0));
 					window.getDropPopUp().show(window.getInventory(), e.getX(), e.getY());
 					dropItem = window.getSelectedItem().item;
@@ -190,7 +173,7 @@ public class Controller {
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			// TODO Auto-generated method stplayer.getInventory().addItemToInventory(item);ub
-
+			// TODO Auto-generated method stub
 		}
 
 		@Override
@@ -205,18 +188,16 @@ public class Controller {
 	public class DropPopUpListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("CBK");
 			dropResponse = e.getActionCommand();
 			System.out.println(dropResponse);
 			if(dropResponse.equals("Cancel")) {
-				System.out.println("yofek");
 				window.getText().setText("");
 				return;
 			} else if(dropResponse.equals("Drop")) {
 				System.out.println("Cunty");
 				window.getText().setText("You dropped your "+dropItem.getItemName());
 				window.getDropPopUp().setVisible(false);
-				//drop the item
+				//drop the item			// TODO Auto-generated method stub
 				window.getRenderer().putDownItem(dropItem);
 				player.getInventory().removeItemFromInventory(dropItem);
 				window.getInventory().removeItem(dropItem);
@@ -231,10 +212,10 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			response = e.getActionCommand();
-			if(response == "Cancel") {
+			if(response.equals("Cancel")) {
 				window.getText().setText("");
 				return;
-			} else if(response == "Pickup") {
+			} else if(response.equals("Pickup")) {
 				window.getText().setText("You picked up a "+item.getItemName());
 				window.getPopUp().setVisible(false);
 				window.getRenderer().pickupItem(item);
@@ -250,6 +231,29 @@ public class Controller {
 
 	}
 
+	public class DoorPopUpListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			doorResponse = e.getActionCommand();
+			if(doorResponse.equals("Unlock")) {
+				//check inventory for key that matches door
+				for(Item i : player.getInventory().getInventory()) {
+					if(i.getItemId() == door.getDoor().getId()) {
+						window.getRenderer().unlockDoor(door);
+						window.getText().setText("You unlocked the door");
+						return;
+					}
+				}
+				window.getText().setText("You do not have a key to unlock this door :-(");
+
+			} else {
+				window.getText().setText("");
+			}
+		}
+
+	}
+
 	/**
 	 * Mouse listener class to provide co-ordinates of mouse clicks on canvas
 	 */
@@ -260,15 +264,18 @@ public class Controller {
 			Renderer.AbstractItem clickedItem = window.getRenderer().clickItem(e.getPoint());
 			Renderer.AbstractDoor clickedDoor = window.getRenderer().clickDoor(e.getPoint());
 
+		if(clickedItem != null) {
 			item = clickedItem.getItem();
+		}
 			//pop up menu if they choose yes
 			if(clickedItem == null) {
 				if(clickedDoor == null) {
 					window.getOutput().setText("You clicked... nothing");
 				}else {
-					door = clickedDoor.getDoor();
-					if(door.isLocked()) {
-
+					door = clickedDoor;
+					if(door.getDoor().isLocked()) {
+						window.getDropPopUp().show(window.getCanvas(), e.getX(), e.getY());
+						window.getDoorPopUp().setVisible(true);
 					}
 				}
 				window.getOutput().setText("You clicked... nothing");

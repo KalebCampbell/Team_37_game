@@ -84,6 +84,7 @@ public class Window {
 	// Components to be accessed by controller.
 	private JFileChooser fileChooser;
 	private DropPopUp dropPopUp;
+	private DoorPopUp doorPopUp;
 	private PopUp popup;
 	private JFrame frame;
 	private Renderer renderer;
@@ -160,7 +161,9 @@ public class Window {
 		status.setIcon(stand);
 		this.popup = new PopUp();
 		popup.setVisible(false);
+		this.doorPopUp = new DoorPopUp();
 
+		canvas.add(doorPopUp);
 		canvas.add(popup);
 		canvas.add(compass);
 		canvas.add(status);
@@ -216,11 +219,17 @@ public class Window {
 		move.setBackground(background);
 		move.setLayout(new GridLayout(2, 3));
 		move.setBounds(10, 610, width / 3, 100);
+		JButton space1 = new JButton();
+		space1.setVisible(false);
 		up = new JButton(upA);
+		JButton space2 = new JButton();
+		space2.setVisible(false);
 		left = new JButton(leftA);
 		down = new JButton(downA);
 		right = new JButton(rightA);
+		move.add(space1);
 		move.add(up);
+		move.add(space2);
 		move.add(left);
 		move.add(down);
 		move.add(right);
@@ -343,4 +352,7 @@ public class Window {
 		return dropPopUp;
 	}
 
+	public DoorPopUp getDoorPopUp() {
+		return doorPopUp;
+	}
 }
