@@ -30,10 +30,10 @@ public class ConvertMapEditor{
 		
 	}
 	public ConvertMapEditor(List<Room> rooms, File file){
-		ConvertMapEditor(rooms, file);
+		ConvertIt(rooms, file);
 	}
 	
-		public void ConvertMapEditor(List<Room> rooms, File file) {
+		public void ConvertIt(List<Room> rooms, File file) {
 		RoomsComponent roomMap = new RoomsComponent();
 		roomMap.setRooms(new ArrayList<RoomComponent>());
 		
@@ -131,12 +131,12 @@ public class ConvertMapEditor{
 				doors.add(new DoorComponent(currentRoom.getType(), currentRoom.getId(), currentRoom.getDirection(), currentRoom.isLocked()));
 			}
 			//iiterate over containers 
-			for(int k = 0; k < room.getContainer().size(); k++) {
-				Container currentContainer = room.getContainer().get(k);
-				containers.add(new ContainerComponent(currentContainer.getcontainerName(), currentContainer.getContainerLocation().getX(), currentContainer.getContainerLocation().getY(), currentContainer.getId(), "locked"));
-			}
+//			for(int k = 0; k < room.getContainer().size(); k++) {
+//				Container currentContainer = room.getContainer().get(k);
+//				containers.add(new ContainerComponent(currentContainer.getcontainerName(), currentContainer.getContainerLocation().getX(), currentContainer.getContainerLocation().getY(), currentContainer.getId(), "locked"));
+//			}
 
-			roomMap.Rooms().add(new RoomComponent(room.getRoomID(), room.getLocation().getX(), room.getLocation().getY(), walls, doors, items, containers));
+			roomMap.Rooms().add(new RoomComponent(room.getRoomID(), room.getLocation().getX(), room.getLocation().getY(), walls, doors, items, null));
 			
 			
 		}

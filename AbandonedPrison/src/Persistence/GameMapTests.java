@@ -10,6 +10,7 @@ import GameWorld.Location;
 
 public class GameMapTests {
 
+
 	@Test
 	public void testGetCoord() {
 		PlayerComponent player = new PlayerComponent();

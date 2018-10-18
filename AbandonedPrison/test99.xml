@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<map>
+    <player>
+        <id>0</id>
+        <location>0,0</location>
+        <name>playerName</name>
+        <roomid>0</roomid>
+    </player>
+    <rooms>
+        <room id="0">
+            <locX>4</locX>
+            <locY>3</locY>
+        </room>
+        <room id="1">
+            <locX>4</locX>
+            <locY>2</locY>
+        </room>
+        <room id="2">
+            <locX>3</locX>
+            <locY>2</locY>
+        </room>
+        <room id="3">
+            <locX>2</locX>
+            <locY>2</locY>
+        </room>
+        <room id="4">
+            <locX>1</locX>
+            <locY>2</locY>
+        </room>
+        <room id="5">
+            <locX>1</locX>
+            <locY>3</locY>
+        </room>
+        <room id="6">
+            <locX>1</locX>
+            <locY>4</locY>
+        </room>
+        <room id="7">
+            <locX>1</locX>
+            <locY>5</locY>
+        </room>
+        <room id="8">
+            <locX>1</locX>
+            <locY>6</locY>
+        </room>
+        <room id="9">
+            <locX>2</locX>
+            <locY>6</locY>
+        </room>
+        <room id="10">
+            <locX>3</locX>
+            <locY>6</locY>
+        </room>
+        <room id="11">
+            <locX>4</locX>
+            <locY>6</locY>
+        </room>
+        <room id="12">
+            <locX>5</locX>
+            <locY>6</locY>
+        </room>
+        <room id="13">
+            <locX>6</locX>
+            <locY>6</locY>
+        </room>
+        <room id="14">
+            <locX>7</locX>
+            <locY>6</locY>
+        </room>
+        <room id="15">
+            <locX>8</locX>
+            <locY>6</locY>
+        </room>
+        <room id="16">
+            <locX>9</locX>
+            <locY>6</locY>
+        </room>
+    </rooms>
+</map>
