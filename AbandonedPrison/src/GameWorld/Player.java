@@ -196,13 +196,13 @@ public class Player {
 						if(dc.isLocked()) {
 							System.out.println("Door is locked");
 							return false;
+						}else if(!dc.isLocked()){
+							move(dir);
+							System.out.println("Move through: "+dir+" door to "+ getPlayerLocation().getX() +"," + getPlayerLocation().getY());
 						}
-						move(dir);
-						System.out.println("Move through: "+dir+" door to "+ getPlayerLocation().getX() +"," + getPlayerLocation().getY());
+
 					}
 			}
-
-			
 			// FIND NEW ROOM
 			for(Room room : roomList) {	
 				if(getPlayerLocation().getX() == room.getLocation().getX() &&

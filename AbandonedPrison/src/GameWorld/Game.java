@@ -54,12 +54,10 @@ public class Game {
 	// CONTAINER FUNCTIONS //
 
 	public boolean openContainer(Container container) {
-		container.open();
 		return container.open();
 	}
 	
-	public boolean unlockContainer(Container container) {
-		container.unlock();
+	public boolean unlockContainer(Container container, Item item) {
 		return container.unlock();
 		
 	}
@@ -99,6 +97,10 @@ public class Game {
 			return room.addItemToGrid(item, dir);			
 	}
 	
+	/**
+	 * Gets all the items in the map;
+	 * @return
+	 */
 	public List<Item> getAllitems(){
 		return allitems;
 	}
