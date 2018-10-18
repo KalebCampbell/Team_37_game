@@ -27,14 +27,14 @@ public class GameWorldMovementTests {
 	// Turn right
 	@Test
 	public void movementTestTurnRight1() {
-		Game game = loadHelper("GameWorldTestMap.xml");
+		Game game = loadHelper("simpleMap.xml");
 		game.playerTurnRight();
 		assert(game.getPlayer().getDirection().equals("E"));
 	}
 	// Turn left
 	@Test
 	public void movementTestTurnLeft1() {
-		Game game = loadHelper("GameWorldTestMap.xml");
+		Game game = loadHelper("simpleMap.xml");
 		game.playerTurnLeft();
 		assert(game.getPlayer().getDirection().equals("W"));
 	} 
@@ -42,7 +42,7 @@ public class GameWorldMovementTests {
 	// Turn around
 	@Test
 	public void movementTestTurnLeft2() {
-		Game game = loadHelper("GameWorldTestMap.xml");
+		Game game = loadHelper("simpleMap.xml");
 		game.playerTurnLeft();
 		game.playerTurnLeft();
 		game.playerTurnLeft();
@@ -51,7 +51,7 @@ public class GameWorldMovementTests {
 	} 
 	@Test
 	public void movementTestTurnRight2() {
-		Game game = loadHelper("GameWorldTestMap.xml");
+		Game game = loadHelper("simpleMap.xml");
 		game.playerTurnRight();
 		game.playerTurnRight();
 		game.playerTurnRight();
@@ -59,13 +59,12 @@ public class GameWorldMovementTests {
 		assert(game.getPlayer().getDirection().equals("N"));
 	}
 	
-
 	/**
 	 * Basic test to ensure that the player moves one room .
 	 */
 	@Test
 	public void movementTest1() {
-		Game game = loadHelper("GameWorldTestMap.xml");
+		Game game = loadHelper("simpleMap.xml");
 		
 		game.getPlayer().setDirection("N");
 		game.playerMove();
@@ -79,7 +78,7 @@ public class GameWorldMovementTests {
 	 */
 	@Test
 	public void movementTest2() {
-		Game game = loadHelper("GameWorldTestMap.xml");
+		Game game = loadHelper("simpleMap.xml");
 		
 		game.playerMove(); // North 1 room
 		game.playerMove(); // North 1 room
@@ -93,7 +92,7 @@ public class GameWorldMovementTests {
 	 */
 	@Test
 	public void movementTestFail1() {
-		Game game = loadHelper("GameWorldTestMap.xml");
+		Game game = loadHelper("simpleMap.xml");
 		
 		game.playerTurnLeft();
 		// Facing wall.
@@ -105,7 +104,7 @@ public class GameWorldMovementTests {
 	 */
 	@Test
 	public void movementTestFail2() {
-		Game game = loadHelper("GameWorldTestMap.xml");
+		Game game = loadHelper("simpleMap.xml");
 		
 		game.playerTurnLeft(); // N->W
 		game.playerTurnLeft(); // W->S 
@@ -118,7 +117,7 @@ public class GameWorldMovementTests {
 	 */
 	@Test
 	public void movementTestFail3() {
-		Game game = loadHelper("GameWorldTestMap.xml");
+		Game game = loadHelper("simpleMap.xml");
 		
 		game.playerMove();
 		game.playerTurnLeft(); // N->W
@@ -130,7 +129,7 @@ public class GameWorldMovementTests {
 	 */ 
 	@Test
 	public void movementTestNavigate1() {
-		Game game = loadHelper("GameWorldTestMap.xml");
+		Game game = loadHelper("simpleMap.xml");
 		
 		game.playerMove(); // -> N
 		game.playerMove(); // -> N
@@ -147,7 +146,7 @@ public class GameWorldMovementTests {
 	 */ 
 	@Test
 	public void movementTestNavigate2() {
-		Game game = loadHelper("GameWorldTestMap.xml");
+		Game game = loadHelper("simpleMap.xml");
 		
 		game.playerMove(); // -> N
 		game.playerMove(); // -> N
