@@ -168,7 +168,7 @@ public class Renderer {
 
   /**
    * Used to load a map from a game object.
-   * 
+   *
    * @param game
    *          the game to be loaded
    */
@@ -218,7 +218,7 @@ public class Renderer {
 
   /**
    * Creates and returns an item associated with a GameWorld.Item and translates to position.
-   * 
+   *
    * @param item
    *          item to be made
    * @return created item
@@ -246,7 +246,7 @@ public class Renderer {
 
   /**
    * Creates and returns an item associated with a GameWorld.Item without translating.
-   * 
+   *
    * @param item
    *          item to be made
    * @return created item
@@ -269,7 +269,7 @@ public class Renderer {
 
   /**
    * Returns the item at the given Point on the screen - if there is one.
-   * 
+   *
    * @param click
    *          the coords to be checked
    * @return the item at the clicks coords on the screen
@@ -300,7 +300,7 @@ public class Renderer {
 
   /**
    * Returns the door at the given Point on the screen - if there is one.
-   * 
+   *
    * @param click
    *          the coords to be checked
    * @return the door at the clicks coords on the screen
@@ -332,7 +332,7 @@ public class Renderer {
 
   /**
    * Removes item from current Room.
-   * 
+   *
    * @param item
    *          to be removed
    */
@@ -343,7 +343,7 @@ public class Renderer {
 
   /**
    * Adds item to Room in free space.
-   * 
+   *
    * @param item
    *          to be added.
    */
@@ -355,11 +355,11 @@ public class Renderer {
 
   /**
    * Unlocks door.
-   * 
+   *
    * @param door
    *          to be unlocked
    */
-  public void unlockDoor(AbstractDoor door, Game game) {
+  public void unlockDoor(AbstractDoor door) {
     door.openDoor();
   }
 
@@ -468,7 +468,7 @@ public class Renderer {
 
   /**
    * Is called every time the drawing canvas is drawn. This will print the polygons on the screen.
-   * 
+   *
    * @param g
    *          graphics object to be drawn on
    */
@@ -571,7 +571,7 @@ public class Renderer {
 
   /**
    * Gets the room at the coords (0, 0).
-   * 
+   *
    * @return the current origin room
    */
   public Room getCurrentRoom() {
