@@ -452,9 +452,11 @@ public class GUI {
 				// add key to the current room
 				key key1=new key(x1,y1,mousePX,mousePY);
 				for(Room room:rooms) {
-					if(room.key==false) {
-						room.haveKey();
-						keys.add(key1);
+					if(room.contains(new Point(x1,y1))) {
+						if(room.key==false) {
+							room.haveKey();
+							keys.add(key1);
+						}
 					}
 				}
 				
@@ -472,9 +474,11 @@ public class GUI {
 				// add key to the current room
 				magic m=new magic(x1,y1,mousePX,mousePY);
 				for(Room room:rooms) {
-					if(room.magic1==false) {
-						room.magic11();
-						magics.add(m);
+					if(room.contains(new Point(x1,y1))) {
+						if(room.magic1==false) {
+							room.magic11();
+							magics.add(m);
+						}
 					}
 				}
 				
@@ -492,9 +496,11 @@ public class GUI {
 				// add key to the current room
 				Treasure t=new Treasure(x1,y1,mousePX,mousePY);
 				for(Room room:rooms) {
-					if(room.treasure1==false) {
-						room.treasure11();
-						treasures.add(t);
+					if(room.contains(new Point(x1,y1))) {
+						if(room.treasure1==false) {
+							room.treasure11();
+							treasures.add(t);
+						}
 					}
 				}
 				
