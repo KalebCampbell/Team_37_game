@@ -61,7 +61,7 @@ public class GameWorldMovementTests {
 	
 
 	/**
-	 * Basic test to ensure that the player moves one room down.
+	 * Basic test to ensure that the player moves one room .
 	 */
 	@Test
 	public void movementTest1() {
@@ -75,7 +75,7 @@ public class GameWorldMovementTests {
 		
 	}
 	/*
-	 * Navigates 3 rooms.
+	 * Navigates 2 rooms.
 	 */
 	@Test
 	public void movementTest2() {
@@ -83,10 +83,8 @@ public class GameWorldMovementTests {
 		
 		game.playerMove(); // North 1 room
 		game.playerMove(); // North 1 room
-		game.playerTurnRight(); // turn N->E
-		game.playerMove(); // East 1 room
 		
-		assertEquals(game.getPlayer().getPlayerLocation().getX(),1);
+		assertEquals(game.getPlayer().getPlayerLocation().getX(),0);
 		assertEquals(game.getPlayer().getPlayerLocation().getY(),-2);
 		
 	}
