@@ -10,9 +10,9 @@ import org.junit.Test;
 public class ComparisonTests {
 	@Test
 	public void roomComparisonTest1() {
-		Room room1 = new Room(new Point3D(0, 0, 10), new ArrayList<Wall>(), new Item[4][4],
+		Room room1 = new Room(new Point3D(0, 0, 10), new ArrayList<AbstractWall>(), new AbstractItem[4][4],
 				new Floor(new Point3D(0, 0, 0)));
-		Room room2 = new Room(new Point3D(0, 0, 0), new ArrayList<Wall>(), new Item[4][4],
+		Room room2 = new Room(new Point3D(0, 0, 0), new ArrayList<AbstractWall>(), new AbstractItem[4][4],
 				new Floor(new Point3D(0, 0, 0)));
 		PriorityQueue<Room> rooms = new PriorityQueue<Room>();
 		rooms.add(room1);
@@ -22,9 +22,9 @@ public class ComparisonTests {
 
 	@Test
 	public void roomComparisonTest2() {
-		Room room1 = new Room(new Point3D(0, 0, 0), new ArrayList<Wall>(), new Item[4][4],
+		Room room1 = new Room(new Point3D(0, 0, 0), new ArrayList<AbstractWall>(), new AbstractItem[4][4],
 				new Floor(new Point3D(0, 0, 0)));
-		Room room2 = new Room(new Point3D(0, 0, 10), new ArrayList<Wall>(), new Item[4][4],
+		Room room2 = new Room(new Point3D(0, 0, 10), new ArrayList<AbstractWall>(), new AbstractItem[4][4],
 				new Floor(new Point3D(0, 0, 0)));
 		PriorityQueue<Room> rooms = new PriorityQueue<Room>();
 		rooms.add(room1);
@@ -34,9 +34,9 @@ public class ComparisonTests {
 
 	@Test
 	public void roomComparisonTest3() {
-		Room room1 = new Room(new Point3D(0, 0, 0), new ArrayList<Wall>(), new Item[4][4],
+		Room room1 = new Room(new Point3D(0, 0, 0), new ArrayList<AbstractWall>(), new AbstractItem[4][4],
 				new Floor(new Point3D(0, 0, 0)));
-		Room room2 = new Room(new Point3D(10, 0, 0), new ArrayList<Wall>(), new Item[4][4],
+		Room room2 = new Room(new Point3D(10, 0, 0), new ArrayList<AbstractWall>(), new AbstractItem[4][4],
 				new Floor(new Point3D(0, 0, 0)));
 		PriorityQueue<Room> rooms = new PriorityQueue<Room>();
 		rooms.add(room1);
@@ -46,9 +46,9 @@ public class ComparisonTests {
 
 	@Test
 	public void roomComparisonTest4() {
-		Room room1 = new Room(new Point3D(10, 0, 0), new ArrayList<Wall>(), new Item[4][4],
+		Room room1 = new Room(new Point3D(10, 0, 0), new ArrayList<AbstractWall>(), new AbstractItem[4][4],
 				new Floor(new Point3D(0, 0, 0)));
-		Room room2 = new Room(new Point3D(0, 0, 0), new ArrayList<Wall>(), new Item[4][4],
+		Room room2 = new Room(new Point3D(0, 0, 0), new ArrayList<AbstractWall>(), new AbstractItem[4][4],
 				new Floor(new Point3D(0, 0, 0)));
 		PriorityQueue<Room> rooms = new PriorityQueue<Room>();
 		rooms.add(room1);
@@ -100,7 +100,7 @@ public class ComparisonTests {
 	public void itemComparionTest1() {
 		Key key1 = new Key(new Point3D(0, 0, 10));
 		Key key2 = new Key(new Point3D(0, 0, 0));
-		PriorityQueue<Item> items = new PriorityQueue<Item>();
+		PriorityQueue<AbstractItem> items = new PriorityQueue<AbstractItem>();
 		items.add(key1);
 		items.add(key2);
 		assertTrue(items.poll().equals(key1));
@@ -110,7 +110,7 @@ public class ComparisonTests {
 	public void itemComparionTest2() {
 		Key key1 = new Key(new Point3D(0, 0, 0));
 		Key key2 = new Key(new Point3D(0, 0, 10));
-		PriorityQueue<Item> items = new PriorityQueue<Item>();
+		PriorityQueue<AbstractItem> items = new PriorityQueue<AbstractItem>();
 		items.add(key1);
 		items.add(key2);
 		assertTrue(items.poll().equals(key2));
@@ -120,7 +120,7 @@ public class ComparisonTests {
 	public void itemComparionTest3() {
 		Key key1 = new Key(new Point3D(10, 0, 0));
 		Key key2 = new Key(new Point3D(0, 0, 0));
-		PriorityQueue<Item> items = new PriorityQueue<Item>();
+		PriorityQueue<AbstractItem> items = new PriorityQueue<AbstractItem>();
 		items.add(key1);
 		items.add(key2);
 		assertTrue(items.poll().equals(key1));
@@ -130,7 +130,7 @@ public class ComparisonTests {
 	public void itemComparionTest4() {
 		Key key1 = new Key(new Point3D(0, 0, 0));
 		Key key2 = new Key(new Point3D(10, 0, 0));
-		PriorityQueue<Item> items = new PriorityQueue<Item>();
+		PriorityQueue<AbstractItem> items = new PriorityQueue<AbstractItem>();
 		items.add(key1);
 		items.add(key2);
 		assertTrue(items.poll().equals(key2));

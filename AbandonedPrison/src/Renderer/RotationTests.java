@@ -10,7 +10,7 @@ import org.junit.Test;
 public class RotationTests {
 	@Test
 	public void rotateRoomTest1() {
-		Room room = new Room(new Point3D(10, 0, 0), new ArrayList<Wall>(), new Item[4][4],
+		Room room = new Room(new Point3D(10, 0, 0), new ArrayList<AbstractWall>(), new AbstractItem[4][4],
 				new Floor(new Point3D(0, 0, 0)));
 		room.rotateLeft();
 		assertTrue(room.getPosition().getRealX() == 0);
@@ -20,7 +20,7 @@ public class RotationTests {
 
 	@Test
 	public void rotateRoomTest2() {
-		Room room = new Room(new Point3D(10, 0, 0), new ArrayList<Wall>(), new Item[4][4],
+		Room room = new Room(new Point3D(10, 0, 0), new ArrayList<AbstractWall>(), new AbstractItem[4][4],
 				new Floor(new Point3D(0, 0, 0)));
 		room.rotateRight();
 		assertTrue(room.getPosition().getRealX() == 0);

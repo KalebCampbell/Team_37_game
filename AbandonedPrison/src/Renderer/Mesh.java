@@ -13,6 +13,7 @@ public class Mesh {
 
 	private Polygon3D[] polygons;
 	private Point3D position;
+	private Direction dir;
 
 	/**
 	 * Mesh constructor.
@@ -22,6 +23,7 @@ public class Mesh {
 	 */
 	public Mesh(Polygon3D[] polygons) {
 		this.polygons = polygons;
+		dir = Direction.FRONT;
 		calculatePosition();
 	}
 
@@ -89,6 +91,27 @@ public class Mesh {
 			polygons[i].rotateLeft();
 		}
 		position.rotateLeft();
+		if(dir == Direction.FRONT)
+			dir = Direction.SIDE;
+		if(dir == Direction.SIDE)
+			dir = Direction.FRONT;
+		return this;
+	}
+	
+	/**
+	 * Rotates the Mesh 90 degrees to right.
+	 * 
+	 * @return the updated Mesh
+	 */
+	public Mesh rotateRight() {
+		for (int i = 0; i < polygons.length; i++) {
+			polygons[i].rotateRight();
+		}
+		position.rotateRight();
+		if(dir == Direction.FRONT)
+			dir = Direction.SIDE;
+		if(dir == Direction.SIDE)
+			dir = Direction.FRONT;
 		return this;
 	}
 
@@ -101,19 +124,6 @@ public class Mesh {
 			polygons[i] = new YAxisPolygon3D(polygons[i].getxPoints(), polygons[i].getyPoints(),
 					polygons[i].getzPoints(), 3);
 		}
-	}
-
-	/**
-	 * Rotates the Mesh 90 degrees to right.
-	 * 
-	 * @return the updated Mesh
-	 */
-	public Mesh rotateRight() {
-		for (int i = 0; i < polygons.length; i++) {
-			polygons[i].rotateRight();
-		}
-		position.rotateRight();
-		return this;
 	}
 
 	/**
@@ -136,6 +146,13 @@ public class Mesh {
 			copy[i] = polygons[i].clone();
 		}
 		return new Mesh(copy);
+	}
+	
+	/**
+	 * @return direction
+	 */
+	public Direction getDirection() {
+		return dir;
 	}
 
 	/**

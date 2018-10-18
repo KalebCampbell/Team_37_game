@@ -8,7 +8,7 @@ import java.io.File;
  *
  * @author Joel Harris
  */
-public class Key extends Item {
+public class Key extends AbstractItem {
 
 	/**
 	 * Key constructor.

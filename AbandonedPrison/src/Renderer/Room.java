@@ -11,8 +11,8 @@ import java.util.PriorityQueue;
  */
 public class Room implements Comparable<Room> {
 
-	private ArrayList<Wall> walls = new ArrayList<Wall>();
-	private Item[][] items = new Item[4][4];
+	private ArrayList<AbstractWall> walls = new ArrayList<AbstractWall>();
+	private AbstractItem[][] items = new AbstractItem[4][4];
 	private Floor floor;
 	private Point3D position;
 
@@ -28,7 +28,7 @@ public class Room implements Comparable<Room> {
 	 * @param floor
 	 *            floor
 	 */
-	public Room(Point3D position, ArrayList<Wall> walls, Item[][] items, Floor floor) {
+	public Room(Point3D position, ArrayList<AbstractWall> walls, AbstractItem[][] items, Floor floor) {
 		this.position = new Point3D(0, 0, 0);
 		this.walls = walls;
 		this.items = items;
@@ -47,7 +47,7 @@ public class Room implements Comparable<Room> {
 	 *            delta z
 	 */
 	public void translate(float x, float y, float z) {
-		for (Wall wall : walls) {
+		for (AbstractWall wall : walls) {
 			wall.translate(x, y, z);
 		}
 		for (int i = 0; i < 4; i++) {
@@ -64,7 +64,7 @@ public class Room implements Comparable<Room> {
 	 * Rotates the Room 90 degrees to left.
 	 */
 	public void rotateLeft() {
-		for (Wall wall : walls) {
+		for (AbstractWall wall : walls) {
 			wall.rotateLeft();
 		}
 		for (int i = 0; i < 4; i++) {
@@ -81,7 +81,7 @@ public class Room implements Comparable<Room> {
 	 * Rotates the Room 90 degrees to right.
 	 */
 	public void rotateRight() {
-		for (Wall wall : walls) {
+		for (AbstractWall wall : walls) {
 			wall.rotateRight();
 		}
 		for (int i = 0; i < 4; i++) {
@@ -100,9 +100,9 @@ public class Room implements Comparable<Room> {
 	 * 
 	 * @return PriorityQueue of Items
 	 */
-	public PriorityQueue<Item> orderItems() {
-		PriorityQueue<Item> orderedItems = new PriorityQueue<Item>();
-		Item[][] items = this.items;
+	public PriorityQueue<AbstractItem> orderItems() {
+		PriorityQueue<AbstractItem> orderedItems = new PriorityQueue<AbstractItem>();
+		AbstractItem[][] items = this.items;
 		for (int i = 0; i < items.length; i++) {
 			for (int j = 0; j < items.length; j++) {
 				if (items[i][j] != null) {
@@ -118,14 +118,14 @@ public class Room implements Comparable<Room> {
 	/**
 	 * @return the walls
 	 */
-	public ArrayList<Wall> getWalls() {
+	public ArrayList<AbstractWall> getWalls() {
 		return walls;
 	}
 
 	/**
 	 * @return the items
 	 */
-	public Item[][] getItems() {
+	public AbstractItem[][] getItems() {
 		return items;
 	}
 
@@ -150,9 +150,9 @@ public class Room implements Comparable<Room> {
 		if (this.position.getRealZ() < other.getPosition().getRealZ())
 			return 1;
 		if (Math.abs(this.position.getRealX()) > Math.abs(other.getPosition().getRealX()))
-			return 1;
-		if (Math.abs(this.position.getRealX()) < Math.abs(other.getPosition().getRealX()))
 			return -1;
+		if (Math.abs(this.position.getRealX()) < Math.abs(other.getPosition().getRealX()))
+			return 1;
 		return 0;
 	}
 }
