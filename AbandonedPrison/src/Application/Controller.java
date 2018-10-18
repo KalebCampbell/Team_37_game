@@ -418,20 +418,17 @@ public class Controller {
 			}
 
 			if (e.getKeyChar() == 'a' || e.getKeyChar() == 'A') {
-				if (game.playerMove()) {
+
 					window.getRenderer().rotateLeft();
 					player.turnLeft();
 					updateCompass(player.getDirection());
-				}
 				window.getCanvas().repaint();
 			}
 
 			if (e.getKeyChar() == 'd' || e.getKeyChar() == 'D') {
-				if (game.playerMove()) {
 					window.getRenderer().rotateRight();
 					player.turnRight();
 					updateCompass(player.getDirection());
-				}
 				window.getCanvas().repaint();
 			}
 
