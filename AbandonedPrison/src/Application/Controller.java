@@ -63,7 +63,7 @@ public class Controller {
 
 		GameMapComponent gameComp = null;
 		try {
-			gameComp = LoadXml.unMarshal(new File("Map4.xml"));
+			gameComp = LoadXml.unMarshal(new File("Final.xml"));
 		} catch (JAXBException e) {
 			System.out.println("Parsing failed");
 		}
@@ -249,6 +249,7 @@ public class Controller {
 				window.getText().setText("You picked up a " + item.getItemName());
 				window.getPopUp().setVisible(false);// hide menu
 				window.getRenderer().pickupItem(item);// remove item from renderer floor
+				window.getCanvas().repaint();
 				player.getInventory().addItemToInventory(item);// add to player inventory
 				window.getInventory().addItem(new ItemLabel(window.getIcon(item.getItemName()), item));// add to
 																										// inventory
