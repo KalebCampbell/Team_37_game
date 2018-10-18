@@ -6,6 +6,10 @@
         <name>Player1</name>
         <roomid>1</roomid>
     </player>
+
+		<id>3</id>
+		<direction>N</direction>
+		<locked>Yes</locked>
     <rooms>
         <room id="1">
             <items>
@@ -17,20 +21,9 @@
 				<door>Door</door>
 				<direction>N</direction>
 				<id>2</id>
-				<locked>N</locked>
+				<locked>Y</locked>
 			</doors>
-			<doors>
-				<door>Door</door>
-				<direction>E</direction>
-				<id>2</id>
-				<locked>N</locked>
-			</doors>
-			<doors>
-				<door>Door</door>
-				<direction>W</direction>
-				<id>2</id>
-				<locked>N</locked>
-			</doors>
+
             <containers>
             	<container>WoodenBox</container>
             	<posX>2</posX>
@@ -41,6 +34,8 @@
             <locX>0</locX>
             <locY>0</locY>
             <walls>S</walls>
+            <walls>W</walls>
+            <walls>E</walls>
         </room>
     </rooms>
 </map>
