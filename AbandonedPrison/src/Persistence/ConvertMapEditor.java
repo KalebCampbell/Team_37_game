@@ -61,7 +61,7 @@ public class ConvertMapEditor{
 				if(room.key) {
 					lock=true;
 				}
-				doors.add(new DoorComponent("Wooden", 1, room.getdoors().get(l), true));
+				doors.add(new DoorComponent("Wooden", 1, room.getdoors().get(l), lock));
 				System.out.println(room.getdoors().get(l));
 			}
 			roomMap.Rooms().add(new RoomComponent(r, room.getX()/60, room.getY()/60, room.getwalls(), doors,items, null));
@@ -74,7 +74,7 @@ public class ConvertMapEditor{
 		PlayerComponent player = new PlayerComponent();
 		player.setId("0");
 		player.setName("playerName");
-		player.setLocation("4,3");
+		player.setLocation("0,0");
 		player.setRoomid("0");
 		
 		//sets the gameMap
@@ -137,13 +137,22 @@ public class ConvertMapEditor{
 			
 		}
 		
-		//String id = (String)game.getPlayer().getPlayerId();
-		//Player player = new PlayerComponent(game.getPlayer().getPlayerId(), game.getPlayer().getRoomId(), game.getPlayer().getPlayerName(), game.getPlayer().getPlayerLocation());
-		//Player playerlol = new PlayerComponent(id, roomid, name, location)
-		GameMapComponent gameMap = new GameMapComponent();
+		//Converts Player to PLayerComponent
+		String playerPos = game.getPlayer().getPlayerLocation().getX() + "," + game.getPlayer().getPlayerLocation().getY();
+		String playerId = String.valueOf(game.getPlayer().getPlayerId());
+		String currentRoomId = String.valueOf(game.getPlayer().getRoomId());
+		PlayerComponent player = new PlayerComponent(playerId, currentRoomId, game.getPlayer().getPlayerName(),playerPos );
 		
-	
+		//Converts Inventory to a list of items
+		ArrayList<String> inventory = new ArrayList<String>();
+		for(int i = 0; i < game.getAllitems().size(); i++) {
+			inventory.add(game.getAllitems().get(i).getItemName());
+		}
+		
+		GameMapComponent gameMap = new GameMapComponent();
 		gameMap.setRooms(roomMap);
+		gameMap.setPlayer(player);
+		gameMap.setInventory(inventory);
 		
 		
 		try {
