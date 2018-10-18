@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Persistence.ConvertMapEditor;
-import Persistence.DoorComponent;
 import Persistence.GameMapComponent;
 import Persistence.ItemComponent;
 import Persistence.LoadXml;
@@ -602,20 +601,20 @@ public class GUI {
 					for(RoomComponent r:roomsC) {
 						Room r1=new Room(r.getLocX()*w*2,r.getLocY()*h*2,w-2,h-2);
 						rooms.add(r1);
-						for(DoorComponent s: r.getDoors()) {
-							if(s.getDirection().equals("N")) {
+						for(String s: r.getDoors()) {
+							if(s.equals("N")) {
 								doors.add(new Door(r.getLocX()*w*2,r.getLocY()*2*h,w*2,h/5));
 								r1.topdoor();
 							}
-							if(s.getDirection().equals("S")) {
+							if(s.equals("S")) {
 								doors.add(new Door(r.getLocX()*2*w,r.getLocY()*2*h+(w*2),w*2,h/5));
 								r1.downdoor();
 							}
-							if(s.getDirection().equals("W")) {
+							if(s.equals("W")) {
 								doors.add(new Door(r.getLocX()*2*w,r.getLocY()*2*h,w/5,h*2));
 								r1.leftdoor();
 							}
-							if(s.getDirection().equals("E")) {
+							if(s.equals("E")) {
 								doors.add(new Door(r.getLocX()*2*w+(w*2),r.getLocY()*2*h,w/5,h*2));
 								r1.rightdoor();
 							}
@@ -678,7 +677,7 @@ public class GUI {
 				JFileChooser save1 = new JFileChooser();
 				save1.setDialogTitle("Save file");
 				int result = save1.showSaveDialog(frame);
-				File SaveFile = null;
+				File SaveFile;
 				// check for a file
 				if (result == JFileChooser.APPROVE_OPTION) {
 					SaveFile = save1.getSelectedFile();
