@@ -186,7 +186,7 @@ public class Renderer {
 			for (GameWorld.Item item : room.getItems()) {
 				int itemX = item.getItemLocation().getX();
 				int itemY = item.getItemLocation().getY();
-				items[itemX][itemY] = createItem(item);
+				items[itemX][itemY] = createItemFromGame(item);
 			}
 			createRoom(room, new Point3D(roomX, 0, -roomZ), n, s, e, w, doors, items);
 		}
@@ -194,13 +194,14 @@ public class Renderer {
 	}
 
 	/**
-	 * Creates and returns an item associated with a GameWorld.Item.
+	 * Creates and returns an item associated with a GameWorld.Item and translates
+	 * to position.
 	 * 
 	 * @param item
 	 *            item to be made
 	 * @return created item
 	 */
-	public AbstractItem createItem(GameWorld.Item item) {
+	public AbstractItem createItemFromGame(GameWorld.Item item) {
 		int itemX = item.getItemLocation().getX();
 		int itemY = item.getItemLocation().getY();
 		AbstractItem currItem = null;
@@ -216,6 +217,30 @@ public class Renderer {
 		if (item.getItemName().equals("MetalCrate")) {
 			currItem = new MetalCrate(new Point3D(-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemX), 0,
 					-(WHOLE_BLOCK + HALF_BLOCK) + (WHOLE_BLOCK * itemY)));
+		}
+		currItem.setItem(item);
+		return currItem;
+	}
+
+	/**
+	 * Creates and returns an item associated with a GameWorld.Item without
+	 * translating.
+	 * 
+	 * @param item
+	 *            item to be made
+	 * @return created item
+	 */
+	public AbstractItem createItem(GameWorld.Item item) {
+		AbstractItem currItem = null;
+		// translates the item without translating at all
+		if (item.getItemName().equals("Key")) {
+			currItem = new Key(new Point3D(0, -1, 0));
+		}
+		if (item.getItemName().equals("WoodenCrate")) {
+			currItem = new WoodenCrate(new Point3D(0, 0, 0));
+		}
+		if (item.getItemName().equals("MetalCrate")) {
+			currItem = new MetalCrate(new Point3D(0, 0, 0));
 		}
 		currItem.setItem(item);
 		return currItem;
@@ -285,17 +310,35 @@ public class Renderer {
 		return door;
 	}
 
+	/**
+	 * Removes item from current Room.
+	 * 
+	 * @param item
+	 *            to be removed
+	 */
 	public void pickupItem(GameWorld.Item item) {
 		Room room = getCurrentRoom();
 		room.removeItem(item);
 	}
 
+	/**
+	 * Adds item to Room in free space.
+	 * 
+	 * @param item
+	 *            to be added.
+	 */
 	public void putDownItem(GameWorld.Item item) {
 		Room room = getCurrentRoom();
 		AbstractItem currItem = createItem(item);
 		room.addItem(currItem);
 	}
 
+	/**
+	 * Unlocks door.
+	 * 
+	 * @param door
+	 *            to be unlocked
+	 */
 	public void unlockDoor(AbstractDoor door) {
 		door.openDoor();
 	}

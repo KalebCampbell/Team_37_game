@@ -165,8 +165,12 @@ public class Room implements Comparable<Room> {
 	public void addItem(AbstractItem item) {
 		for (int i = 0; i < items.length; i++) {
 			for (int j = 0; j < items.length; j++) {
-				if (items[i][j] == null)
+				if (items[i][j] == null) {
+					item.translate(-(Renderer.WHOLE_BLOCK + Renderer.HALF_BLOCK) + (Renderer.WHOLE_BLOCK * i), 4,
+					-(Renderer.WHOLE_BLOCK + Renderer.HALF_BLOCK) + (Renderer.WHOLE_BLOCK * i));
 					items[i][j] = item;
+					return;
+				}
 			}
 		}
 	}
