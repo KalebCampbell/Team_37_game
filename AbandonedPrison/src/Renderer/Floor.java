@@ -8,7 +8,7 @@ import java.io.File;
  *
  * @author Joel Harris
  */
-public class Floor extends Piece {
+public class Floor extends AbstractPiece {
 
 	/**
 	 * Floor constructor.

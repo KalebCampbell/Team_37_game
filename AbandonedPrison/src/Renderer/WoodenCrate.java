@@ -8,7 +8,7 @@ import java.io.File;
  * 
  * @author Joel Harris
  */
-public class WoodenCrate extends Crate {
+public class WoodenCrate extends AbstractCrate {
 
 	/**
 	 * WoodenCrate constructor.
