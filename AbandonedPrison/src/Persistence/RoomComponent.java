@@ -20,12 +20,12 @@ public class RoomComponent {
 	private int locX;
 	private int locY;
 	List<String> walls = new ArrayList<>();
-	List<String> doors = new ArrayList<>();
+	List<DoorComponent> doors = new ArrayList<>();
 	List<ItemComponent> items = new ArrayList<>();
 	List<ContainerComponent> containers = new ArrayList<>();
 
 	public RoomComponent(int id, int locX, int locY, List<String> walls,
-			List<String> doors, List<ItemComponent> items, List<ContainerComponent> containers) {
+			List<DoorComponent> doors, List<ItemComponent> items, List<ContainerComponent> containers) {
 		this.id = id;
 		this.locX = locX;
 		this.locY = locY;
@@ -79,13 +79,13 @@ public class RoomComponent {
 		this.walls = walls;
 	}
 	
-	public List<String> getDoors() {
+	public List<DoorComponent> getDoors() {
 		return doors;
 	}
 	
 	//@XmlElement is needed for all setter emthods to be able to be marshalled. 
 		@XmlElement
-	public void setDoors(List<String> doors) {
+	public void setDoors(List<DoorComponent> doors) {
 		this.doors = doors;
 	}
 	

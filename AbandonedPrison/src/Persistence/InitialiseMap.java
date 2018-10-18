@@ -12,8 +12,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class InitialiseMap {
-	/*
-	//Creates the original player object
+	
+/*	//Creates the original player object
 	static PlayerComponent player = new PlayerComponent();
 	static {
 		player.setId("0");
@@ -34,7 +34,7 @@ public class InitialiseMap {
 				walls1.add("E");
 				walls1.add("W");
 		//list of doors
-		List<String> doors1 = new ArrayList<>();
+		
 		//list of items
 				List<ItemComponent> items1 = new ArrayList<>();
 				items1.add(new ItemComponent(0, 0, "Key", 0));
@@ -113,10 +113,10 @@ public class InitialiseMap {
 		inventory.add(null);
 		inventory.add(null);
 		inventory.add(null);
-		gameMap.setInventory(inventory);
+		gameMap.setInventory(inventory);*/
 		
-	}
-	*/
+	//}
+	
 	/**
 	 * @param args
 	 * @throws JAXBException
@@ -125,7 +125,7 @@ public class InitialiseMap {
 	 * This method calls the toXml method.
 	 */
 	public static void main(String[] args) throws JAXBException{
-		toXml(gameMap);
+		//toXml(gameMap);
 		
 		
 		//This calls the LoadXml class to start unmarshalling. 

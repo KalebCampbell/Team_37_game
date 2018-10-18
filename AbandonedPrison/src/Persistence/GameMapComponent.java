@@ -71,7 +71,7 @@ public class GameMapComponent {
 		this.player = player;
 	}
 	/**
-	 * Sets the containers to contnainers.
+	 * Sets the containers to containers.
 	 * @return 
 	 */
 	@XmlElement

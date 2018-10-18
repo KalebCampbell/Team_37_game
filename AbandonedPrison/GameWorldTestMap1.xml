@@ -19,7 +19,11 @@
             <walls>S</walls>
             <walls>W</walls>
             <walls>E</walls>
-            <doors>N</doors>
+            <doors>
+    				<id>1</id>
+    				<direction>N</direction>
+    				<locked>true</locked>
+            </doors>
         </room>
     </rooms>
 </map>
