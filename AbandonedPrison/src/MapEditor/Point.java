@@ -6,17 +6,17 @@
 package MapEditor;
 
 public class Point {
-	double x=0;
-	double y=0;
-	public Point(double mouseX, double mouseY) {
+	int x=0;
+	int y=0;
+	public Point(int mouseX, int mouseY) {
 		// TODO Auto-generated constructor stub
 		x=mouseX;
 		y=mouseY;
 	}
-	public double getX() {
+	public int getX() {
 		return x;
 	}
-	public double getY() {
+	public int getY() {
 		return y;
 	}
 }

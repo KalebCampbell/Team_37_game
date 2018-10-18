@@ -78,8 +78,8 @@ public class GUI {
 	public ArrayList<key> keys=new ArrayList<key>();//keys list
 	public ArrayList<magic> magics=new ArrayList<magic>();//magic list
 	public ArrayList<Treasure> treasures=new ArrayList<Treasure>();//treasure list
-	public double mouseX=0;
-	public double mouseY=0;
+	public int mouseX=0;
+	public int mouseY=0;
 	public int mousePX;
 	public int mousePY;
 	public int w=30;
