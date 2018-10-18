@@ -22,10 +22,10 @@ public class WoodenBox extends Container{
 		}
 	}
 	
-	public boolean unlock(Item item) {
-		if(this.isLocked) {
+	public boolean unlock(Container c,Item item) {
+		if(c.isLocked) {
 			System.out.println("A wooden Clunk the chest is locked");
-			if(item.getItemId() == this.getId()) {
+			if(item.getItemId() == c.getId()) {
 				this.isLocked = false;
 				System.out.println("The key fits! The Wooden chest is open!");
 			}else if(item.getItemId() != this.getId()) {
