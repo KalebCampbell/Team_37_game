@@ -10,8 +10,6 @@ import Persistence.DoorComponent;
 import Persistence.GameMapComponent;
 import Persistence.ItemComponent;
 
-
-
 /** 
  * 
  * - The gameworld is responsibile for objects in the game
@@ -30,7 +28,7 @@ public class Game {
 	List<Container> allContainers = new ArrayList<Container>();
 	// Stores everythinhg about the player including inventory.
 	Player player;
-	boolean demonstration = true;
+	boolean demonstration = false;
 	
 	/**
 	 * 	Constructor for Game class.
@@ -114,9 +112,9 @@ public class Game {
 	}
 	
 	/**
-	 * Method to find a room based on an id
-	 * @param roomId
-	 * @return room object or null if no room
+	 * Method to find a room based on an id.
+	 * @param roomId.
+	 * @return room object or null if no room.
 	 */
 	public Room findRoom(int roomId) {
 		for(Room r : roomList) {
@@ -128,15 +126,15 @@ public class Game {
 	}
 	//PLAYER FUNCTIONS
 	/**
-	 * Turn player left
-	 * @param direction
+	 * Turn player left.
+	 * @param direction.
 	 */
 	public void playerTurnLeft() {
 		player.turnLeft();
 	}
 	/**
-	 * Turn player Right
-	 * @param direction
+	 * Turn player Right.
+	 * @param direction.
 	 */
 	public void playerTurnRight() {
 		player.turnRight();
@@ -144,23 +142,23 @@ public class Game {
 	
 	/**
 	 *  Call for player to move.
-	 *  Checks player direction against player movement
-	 * @return true/false
+	 *  Checks player direction against player movement.
+	 * @return true/false.
 	 */
 	public boolean playerMove() {
 		return player.playerMove(roomList);
 	}
 	
 	/**
-	 * Call for player to move backwards
-	 * Check player direction against player movement
-	 * @return true/false
+	 * Call for player to move backwards.
+	 * Check player direction against player movement.
+	 * @return true/false.
 	 */
 	
 	
 	/**
-	 * Get player
-	 * @return player
+	 * Get player.
+	 * @return player object
 	 */
 	public Player getPlayer() {
 		return player;
@@ -170,12 +168,12 @@ public class Game {
 	// INITIALISATION FUNCTIONS //
 	/**
 	 * Initialises the Map, building all the rooms.
-	 * Created rooms, from a parsed XML file
-	 * @param roomComponents
+	 * Created rooms, from a parsed XML file.
+	 * @param roomComponents setup
 	 */
 	private void initialiseMap(GameMapComponent setup) {
 		
-		// iterate over all rooms
+		// iterate over all rooms.
 		// create items
 		RoomsComponent rc = setup.getRooms();	
 		for(RoomComponent roomC : rc.Rooms()) {
@@ -191,10 +189,10 @@ public class Game {
 	}
 	
 	/**
-	 * Private method only called within game object
-	 * Creates items based on input string
-	 * @param list arraylist of string items
-	 * @return List of abstractItems
+	 * Private method only called within game object.
+	 * Creates items based on input string.
+	 * @param list arraylist of string items.
+	 * @return List of abstractItems.
 	 */
 	private List<Item> initialiseItems(List<ItemComponent> list) {
 		Item item = null;
@@ -243,7 +241,6 @@ public class Game {
 			System.out.println("ID: "+id);
 			System.out.println("CurrentRoomID: "+roomId);
 			System.out.println("Location: "+location.getX()+","+location.getY());
-
 		}
 		// Create player
 		return new Player(id,name,roomId,location);

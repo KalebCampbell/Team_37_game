@@ -2,8 +2,6 @@ package GameWorld;
 
 import java.util.List;
 
-import Persistence.DoorComponent;
-
 /**
  * Player class
  * Handles the creation,Movement, Inventory of a player.
@@ -215,7 +213,11 @@ public class Player {
 			}
 		return false;
 	}
-
+	/**
+	 * 
+	 * @param dir direction
+	 * @return String of opposite direction
+	 */
 	private String getOpposite(String dir) {
 		switch (dir) {
 			case "N": return "S";
