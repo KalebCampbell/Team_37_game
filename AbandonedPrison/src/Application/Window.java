@@ -83,7 +83,6 @@ public class Window {
 
 	// Components to be accessed by controller.
 	private JFileChooser fileChooser;
-	private PopUp popup;
 	private JFrame frame;
 	private Renderer renderer;
 	private JComponent canvas;
@@ -92,17 +91,13 @@ public class Window {
 	private JTextArea output;
 	private JButton drop;
 	private JButton use;
-	private JButton up;
-	private JButton down;
-	private JButton left;
-	private JButton right;
 	private ListPanel itemList;
 	private TexturedPanel inven;
 	private JMenuItem exit;
 	private JMenuItem save;
 	private JMenuItem load;
 	private JMenuItem newGame;
-	private ItemLabel selectedItem = null;
+	private JLabel selectedItem = null;
 	public boolean crouching = false;
 	public boolean standing = true;
 	protected Direction facing = Direction.NORTH;
@@ -139,6 +134,7 @@ public class Window {
 
 		// -------COMPONENTS--------
 
+		// --File chooser testing.--
 
 		// --Rendering canvas.--
 		this.renderer = new Renderer();
@@ -160,10 +156,13 @@ public class Window {
 		status.setVisible(true);
 		status.setBounds(10, 530, 60, 60);
 		status.setIcon(stand);
-		this.popup = new PopUp();
-		popup.setVisible(false);
+		this.itemList = new ListPanel();
+		itemList.setBounds(250, 250, 100, 100);
+		itemList.setVisible(false);
+		itemList.addItem("Key");
+		itemList.addItem("Box");
 
-		canvas.add(popup);
+		canvas.add(itemList);
 		canvas.add(compass);
 		canvas.add(status);
 
@@ -198,15 +197,15 @@ public class Window {
 		// Inventory slots.
 		 ArrayList<JLabel> slots = new ArrayList<JLabel>();
 
-//		 for(int i = 0; i < 7; i++) {
-//			 slots.add(new JLabel());
-//		 }
-//
-//		 for(JLabel j : slots) {
-//			 j.setIcon(blueprints);
-//		 inven.addItem(j);
-//		 }
-//		 System.out.println(inven.getItems().size());
+		 for(int i = 0; i < 7; i++) {
+			 slots.add(new JLabel());
+		 }
+
+		 for(JLabel j : slots) {
+			 j.setIcon(blueprints);
+		 inven.addItem(j);
+		 }
+		 System.out.println(inven.getItems().size());
 
 		frame.add(inven);
 
@@ -216,11 +215,11 @@ public class Window {
 		move.setLayout(new GridLayout(2, 3));
 		move.setBounds(10, 610, width / 3, 100);
 		drop = new JButton("Drop");
-		up = new JButton(upA);
+		JButton up = new JButton(upA);
 		use = new JButton("Use");
-		left = new JButton(leftA);
-		down = new JButton(downA);
-		right = new JButton(rightA);
+		JButton left = new JButton(leftA);
+		JButton down = new JButton(downA);
+		JButton right = new JButton(rightA);
 		move.add(drop);
 		move.add(up);
 		move.add(use);
@@ -251,17 +250,13 @@ public class Window {
 	}
 
 	public ImageIcon getIcon(String icon) {
-		if (icon.equals("Key")) {
+		if (icon == "Key")
 			return key;
-		}
-		if (icon.equals("Blueprints")) {
+		if (icon == "Blueprints")
 			return blueprints;
-		}
-		if (icon.equals("Fuse")) {
+		if (icon == "Fuse")
 			return fuse;
-		}
 
-		System.out.println("here");
 		return null;
 	}
 
@@ -322,31 +317,11 @@ public class Window {
 		return output;
 	}
 
-	public ItemLabel getSelectedItem() {
+	public JLabel getSelectedItem() {
 		return selectedItem;
 	}
 
-	public void setSelectedItem(ItemLabel item) {
+	public void setSelectedItem(JLabel item) {
 		selectedItem = item;
-	}
-
-	public PopUp getPopUp() {
-		return popup;
-	}
-
-	public JButton getUp() {
-		return up;
-	}
-
-	public JButton getDown() {
-		return down;
-	}
-
-	public JButton getLeft() {
-		return left;
-	}
-
-	public JButton getRight() {
-		return right;
 	}
 }

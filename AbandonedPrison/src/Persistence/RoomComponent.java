@@ -32,8 +32,8 @@ public class RoomComponent {
 		this.walls = walls;
 		this.doors = doors;
 		this.items = items;
-		this.containers = containers;
-	}
+		this.containers = containers; 
+	} 
 	
 	//To be marshalled the objects all need an empty constructor. 
 	public RoomComponent() {	

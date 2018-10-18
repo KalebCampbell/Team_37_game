@@ -188,7 +188,7 @@ public class Polygon3D implements Comparable<Polygon3D> {
 				+ xPoints3D[1] + " y2: " + yPoints3D[1] + " z2: " + zPoints[1] + "\nx3: " + xPoints3D[2] + " y3: "
 				+ yPoints3D[2] + " z3: " + zPoints[2]);
 	}
-
+	
 	@Override
 	public int compareTo(Polygon3D other) {
 		if (this.position.getRealZ() > other.getPosition().getRealZ())

@@ -41,4 +41,15 @@ public class RenderingTests {
 		assertTrue(shaded.getGreen() == 255);
 		assertTrue(shaded.getBlue() == 255);
 	}
+	
+	@Test
+	public void halfLightingTest() {
+		Polygon3D poly = new Polygon3D(new float[] { 0, -1, 2 }, new float[] { 0, 1, 1 }, new float[] { 1, 1, 1 }, 3);
+		poly.setColor(new Color(127, 127, 127));
+		float[] light = new float[]{0, 0, -0.5f};
+		Color shaded = Pipeline.getShading(poly, light);
+		assertTrue(shaded.getRed() == 127);
+		assertTrue(shaded.getGreen() == 127);
+		assertTrue(shaded.getBlue() == 127);
+	}
 }

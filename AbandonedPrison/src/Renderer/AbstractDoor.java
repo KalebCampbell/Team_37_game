@@ -6,15 +6,11 @@ import java.io.File;
 /**
  * Represents a Door in 3D space.
  *
- * @author Joel Harris
+ * @author Harris Joel
  */
 abstract public class AbstractDoor extends AbstractWall {
 
-	protected GameWorld.Door door;
-	
-	/**
-	 * Changes model to open door model.
-	 */
+	String door;
 	public void openDoor() {
 		Point3D pos = this.mesh.getPosition();
 		Direction dir = this.mesh.getDirection();
@@ -24,17 +20,11 @@ abstract public class AbstractDoor extends AbstractWall {
 		mesh.translate(pos.getRealX(), 0, pos.getRealZ());
 	}
 
-	/**
-	 * @param door to be set
-	 */
-	public void setDoor(GameWorld.Door door) {
+	public void setDoor(String door) {
 		this.door = door;
 	}
 
-	/**
-	 * @return door
-	 */
-	public GameWorld.Door getDoor() {
+	public String getDoor() {
 		return this.door;
 	}
 }

@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Persistence.ConvertMapEditor;
-import Persistence.DoorComponent;
 import Persistence.GameMapComponent;
 import Persistence.ItemComponent;
 import Persistence.LoadXml;
@@ -102,8 +101,8 @@ public class GUI {
 	
 	private static final Dimension DRAWING_SIZE = new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT);
 	private static final Dimension CONTROLS_SIZE = new Dimension(150, 600);
-	int x1=240;
-	int y1=240;
+	int x1=265;
+	int y1=290;
 	
 	/**
 	 * GUI constructor.
@@ -185,13 +184,12 @@ public class GUI {
 		rightroom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				if(rightRoomCanBuild) {
-					x1=x1+(w*2);
-					if(x1>CANVAS_WIDTH-(w*2)) {
+					x1=x1+(w*2)+5;
+					if(x1>CANVAS_WIDTH-((w*2)+5)) {
 						System.out.println("no empty space");
-						x1=x1-(w*2);
 					}
 					else {
-						Room room1=new Room(x1,y1,w-2,h-2);
+						Room room1=new Room(x1,y1,w,h);
 						for(Room room2:rooms) {
 							if(room2.x==x1&&room2.y==y1) {
 								System.out.println("There is already a room in the right side");
@@ -204,7 +202,7 @@ public class GUI {
 							downRoomCanBuild=true;
 						}
 						else {
-							x1=x1-(w*2);
+							x1=x1-((w*2)+5);
 						}
 						
 					}
@@ -218,13 +216,12 @@ public class GUI {
 		leftroom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				if(leftRoomCanBuild) {
-					x1=x1-(w*2);
+					x1=x1-((w*2)+5);
 					if(x1<0) {
 						System.out.print("no empty space");
-						x1=x1+(w*2);
 					}
 					else {
-						Room room1=new Room(x1,y1,w-2,h-2);
+						Room room1=new Room(x1,y1,w,h);
 						for(Room room2:rooms) {
 							if(room2.x==x1&&room2.y==y1) {
 								System.out.println("There is already a room in the left side");
@@ -237,7 +234,7 @@ public class GUI {
 							downRoomCanBuild=true;
 						}
 						else {
-							x1=x1+(w*2);
+							x1=x1+((w*2)+5);
 						}
 					}
 				}
@@ -249,13 +246,12 @@ public class GUI {
 		toproom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				if(topRoomCanBuild) {
-					y1=y1-(w*2);
+					y1=y1-((w*2)+5);
 					if(y1<0) {
 						System.out.print("no empty space");
-						y1=y1+(w*2);
 					}
 					else {
-						Room room1=new Room(x1,y1,w-2,h-2);
+						Room room1=new Room(x1,y1,w,h);
 						for(Room room2:rooms) {
 							if(room2.x==x1&&room2.y==y1) {
 								System.out.println("There is already a room in the top side");
@@ -268,7 +264,7 @@ public class GUI {
 							leftRoomCanBuild=true;
 						}
 						else {
-							y1=y1+(w*2);
+							y1=y1+((w*2)+5);
 						}
 					}
 				}
@@ -281,13 +277,12 @@ public class GUI {
 		downroom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				if(downRoomCanBuild) {
-					y1=y1+(w*2);
+					y1=y1+((w*2)+5);
 					if(y1<0) {
 						System.out.print("no empty space");
-						y1=y1-(w*2);
 					}
 					else {
-						Room room1=new Room(x1,y1,w-2,h-2);
+						Room room1=new Room(x1,y1,w,h);
 						for(Room room2:rooms) {
 							if(room2.x==x1&&room2.y==y1) {
 								System.out.println("There is already a room in the down side");
@@ -300,7 +295,7 @@ public class GUI {
 							leftRoomCanBuild=true;
 						}	
 						else {
-							y1=y1-(w*2);
+							y1=y1-((w*2)+5);
 						}
 					}
 				}
@@ -606,20 +601,20 @@ public class GUI {
 					for(RoomComponent r:roomsC) {
 						Room r1=new Room(r.getLocX()*w*2,r.getLocY()*h*2,w-2,h-2);
 						rooms.add(r1);
-						for(DoorComponent s: r.getDoors()) {
-							if(s.getDirection().equals("N")) {
+						for(String s: r.getDoors()) {
+							if(s.equals("N")) {
 								doors.add(new Door(r.getLocX()*w*2,r.getLocY()*2*h,w*2,h/5));
 								r1.topdoor();
 							}
-							if(s.getDirection().equals("S")) {
+							if(s.equals("S")) {
 								doors.add(new Door(r.getLocX()*2*w,r.getLocY()*2*h+(w*2),w*2,h/5));
 								r1.downdoor();
 							}
-							if(s.getDirection().equals("W")) {
+							if(s.equals("W")) {
 								doors.add(new Door(r.getLocX()*2*w,r.getLocY()*2*h,w/5,h*2));
 								r1.leftdoor();
 							}
-							if(s.getDirection().equals("E")) {
+							if(s.equals("E")) {
 								doors.add(new Door(r.getLocX()*2*w+(w*2),r.getLocY()*2*h,w/5,h*2));
 								r1.rightdoor();
 							}
@@ -676,19 +671,9 @@ public class GUI {
 		//save button for saving;
 		JButton save = new JButton("Save");
 		save.addActionListener(new ActionListener() {
-			
 			public void actionPerformed(ActionEvent ev) {
 				// set up the file chooser
-				JFileChooser save1 = new JFileChooser();
-				save1.setDialogTitle("Save file");
-				int result = save1.showSaveDialog(frame);
-				File SaveFile = null;
-				// check for a file
-				if (result == JFileChooser.APPROVE_OPTION) {
-					SaveFile = save1.getSelectedFile();
-					System.out.println("Saved File: " + SaveFile.getAbsolutePath());
-				}
-				new ConvertMapEditor(rooms, SaveFile);
+				new ConvertMapEditor(rooms);
 			}
 		});
 		JPanel savepanel = new JPanel(new BorderLayout());

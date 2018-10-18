@@ -9,7 +9,6 @@ import java.io.File;
  * @author Joel Harris
  */
 public class MetalCrate extends AbstractCrate {
-	
 	/**
 	 * MetalCrate constructor.
 	 * 
