@@ -671,9 +671,19 @@ public class GUI {
 		//save button for saving;
 		JButton save = new JButton("Save");
 		save.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent ev) {
 				// set up the file chooser
-				new ConvertMapEditor(rooms);
+				JFileChooser save1 = new JFileChooser();
+				save1.setDialogTitle("Save file");
+				int result = save1.showSaveDialog(frame);
+				File SaveFile;
+				// check for a file
+				if (result == JFileChooser.APPROVE_OPTION) {
+					SaveFile = save1.getSelectedFile();
+					System.out.println("Saved File: " + SaveFile.getAbsolutePath());
+				}
+				new ConvertMapEditor(rooms, SaveFile);
 			}
 		});
 		JPanel savepanel = new JPanel(new BorderLayout());
