@@ -80,6 +80,8 @@ public class GUI {
 	public ArrayList<Treasure> treasures=new ArrayList<Treasure>();//treasure list
 	public double mouseX=0;
 	public double mouseY=0;
+	public int mousePX;
+	public int mousePY;
 	public int w=30;
 	public int h=30;
 
@@ -442,8 +444,13 @@ public class GUI {
 		key=new JButton("key");
 		key.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
+				if(mouseX!=0&&mouseY!=0) {
+					mousePX=(int)((mouseX-x1)/15);
+					mousePY=(int)((mouseY-y1)/15);
+				}
+				
 				// add key to the current room
-				key key1=new key(x1,y1);
+				key key1=new key(x1,y1,mousePX,mousePY);
 				for(Room room:rooms) {
 					if(room.key==false) {
 						room.haveKey();
@@ -458,8 +465,12 @@ public class GUI {
 		magic=new JButton("magic");
 		magic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
+				if(mouseX!=0&&mouseY!=0) {
+					mousePX=(int)((mouseX-x1)/15);
+					mousePY=(int)((mouseY-y1)/15);
+				}
 				// add key to the current room
-				magic m=new magic(x1,y1);
+				magic m=new magic(x1,y1,mousePX,mousePY);
 				for(Room room:rooms) {
 					if(room.magic1==false) {
 						room.magic11();
@@ -474,8 +485,12 @@ public class GUI {
 		treasure=new JButton("treasure");
 		treasure.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
+				if(mouseX!=0&&mouseY!=0) {
+					mousePX=(int)((mouseX-x1)/15);
+					mousePY=(int)((mouseY-y1)/15);
+				}
 				// add key to the current room
-				Treasure t=new Treasure(x1,y1);
+				Treasure t=new Treasure(x1,y1,mousePX,mousePY);
 				for(Room room:rooms) {
 					if(room.treasure1==false) {
 						room.treasure11();
@@ -648,15 +663,15 @@ public class GUI {
 							for(ItemComponent i:itemC ) {
 								if( i.getItem().equals("Key")) {
 									r1.haveKey();
-									keys.add(new key(r.getLocX()*2*w,r.getLocY()*2*h));
+									keys.add(new key(r.getLocX()*2*w,r.getLocY()*2*h,r.getLocX(),r.getLocY()));
 								}
 								if( i.getItem().equals("Treasure")) {
 									r1.treasure11();
-									treasures.add(new Treasure(r.getLocX()*2*w,r.getLocY()*2*h));
+									treasures.add(new Treasure(r.getLocX()*2*w,r.getLocY()*2*h,r.getLocX(),r.getLocY()));
 								}
 								if( i.getItem().equals("Magic")) {
 									r1.magic11();
-									magics.add(new magic(r.getLocX()*2*w,r.getLocY()*w*h));
+									magics.add(new magic(r.getLocX()*2*w,r.getLocY()*w*h,r.getLocX(),r.getLocY()));
 								}
 							}
 						}
