@@ -30,18 +30,24 @@ public class ConvertMapEditor{
 		
 		RoomsComponent roomMap = new RoomsComponent();
 		roomMap.setRooms(new ArrayList<RoomComponent>());
-		List<ItemComponent> items= new ArrayList<>();
+		List<ItemComponent> items = new ArrayList<>();
+		List<DoorComponent> doors = new ArrayList<>();
 		for(Room room :rooms) {
 			int i = 0;
 			
 			for(int k = 0; k < room.getitems().size(); k++) {
-				items.add(new ItemComponent(room.getX(), room.getY(), room.getitems().get(k), i));
-				
+				items.add(new ItemComponent(room.getX()/60, room.getY()/60, room.getitems().get(k), i));
 			}
-			//roomMap.Rooms().add(new RoomComponent(i, room.getX(), room.getY(), room.getwalls(),room.getdoors(), items, null ));
+			
+			for(int k = 0; k < room.getdoors().size(); k++) {
+				doors.add(new DoorComponent("Wooden", i, room.getwalls().get(k), true));
+			}
+			roomMap.Rooms().add(new RoomComponent(i, room.getX()/60, room.getY()/60, room.getwalls(), null,items, null));
+			
 			i ++;
 		}
-	
+		
+		//SETS STUFF NOT RELEVANT FOR SAVE FROM MAPEDITOR
 		ArrayList<String> inventory = new ArrayList<String>();
 		PlayerComponent player = new PlayerComponent();
 		player.setId("0");
